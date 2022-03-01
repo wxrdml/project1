@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 函数提升,结合js基础.js函数作用域一起看 -->
+    <script>
+        var a=10;
+        function test(){
+            //var a;//变量提升
+            //a=7;//全局2
+            //var a=5;//局部
+            console.log('function内a:'+a);//在函数内，后面赋值 覆盖前面赋值//此时a=10
+            //var a=5;//此时a的输出是undefined,
+            //变量提升：解析引擎将函数体内的val全部放在前面，但是不赋值，所以呈现undefined，此外还有个函数提升
+            a=5;//-----------------q2
+        }
+        test();
+        console.log('函数体外的a:'+a);
+        //全局   如果仅仅在函数体内定义不在函数体外定义a，就一直就not define
+        //此时a=5
+        //此外，在全局范围内name属性所属变量为window，完整为window.name==空字符串
+    </script>
+
+    <!-- 词法作用域:指的是函数在 定义 他们的作用于里运行,而非 调用/执行 -->
+    <script>
+        var value=1;//global
+        function foo(){//定义
+            console.log(value);
+        }
+        function bar(){
+            var value='wxr';//jubu
+            foo();//调用
+        }
+        bar();//output:1
+    </script>
+
+    <script>
+        function outer(){
+            var a=1;
+            return function(){
+                return b=a+1;
+            }
+        }
+        var val=outer();
+        console.log(val);
+        console.log(val());
+    </script>
+</body>
+</html>

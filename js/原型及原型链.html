@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 1.对象定义new object（）
+        var a=new Object();
+        a.name='wxr';
+        a.age=11;
+        a.eat=function(){
+            console.log(this.name);
+        }
+        a.eat();
+        // 2.对象定义 直接量
+        var a={
+            name:'wxr',
+            age:19,
+            eat:function(){
+                console.log(this.age);
+            }
+        }
+        a.eat();
+        // 3.对象定义 new classname（）
+        //第一es6
+        class person{
+            name='lisi';
+            constructor(name){
+                var r= new Object();
+                this.name=name;
+                // r.name=name;//lisi
+                console.log("mmmmmmmm");
+            }//构造函数
+            eat(){
+                console.log(this.name);//wxr
+                console.log(name);//空，未传值
+            }
+        }
+        var p=new person('wxr');//调用构造方法
+        console.log(p);//person {name: 'wxr'}
+        p.eat();//调用person类的函数eat
+
+        //4.第二，使用函数模拟类,类名大写,通常认为是类或者构造函数
+        function Person(name,age){
+            this.name=name;
+            this.age=age;
+            this.eat=function(){
+                console.log(this.name);//wxr
+                console.log(this.age);
+            }
+            
+        }
+        var p1=new Person('wxr',13);//调用构造方法
+        console.log(p1);//person {name: 'wxr' , age:13}
+        p1.eat();//调用person类的函数eat
+
+
+
+
+
+        // ------------------以上复习,以下原型prototype,用于继承-----------------------------
+
+        // 5.Object.create()定义对象,用现有对象o1,来提供创建新对象o2的__proto__(prototype)
+        var o1={
+            name:'wxr',
+            age:18,
+        }
+        var o2=Object.create(o1);
+        console.log(o2);//o1的属性==此处的实例化对象o2的prototype（__proto__）里的属性
+        // 以下的两行是等同的，__proto__本身是个属性和对象，里面有name和age属性
+        console.log(o2.name,o2.age);//表面
+        // console.log(o2.prototype.name,o2.prototype.age);//不可识别属性name和age
+        // console.log(o2.__proto__.name,o2.__proto__.age);//底层使用--proto--查找,但是不要直接写
+        console.log(o2.__proto__==o1);//true
+        // __proto__是什么用？适用于做原型链的查找
+        // js中，变量前面加了__，是个私有属性，不可以修改，存在的意义是用于做原型链查找,不要直接写
+        console.log(o1==o2);//false,只是继承，而非一个堆栈
+
+
+
+        // es6的继承
+        class Animal{
+            name;
+            constructor(name){
+                this.name=name;
+            }
+            shout(){
+                console.log(`${this.name}叫了`);
+            }
+        }
+        var ani=new Animal('cow');//此处const的常量,不能是被声明定义过的
+        ani.shout();
+        class Cat extends Animal{
+            //子类继承父类animal
+        }
+        var catt=new Cat();
+        console.log(catt);//Cat类
+
+        //在es6之前,使用prototype完成继承
+        function Animals(name){//new Animals,严格来说此时的Animals是构造函数当作类，模拟类
+            this.name=name;
+        }
+        Animals.prototype.shout=function(age){
+            //prototype本身是对象,在此对象下面添加属性和方法，但一般只定义方法，在构造函数里定义属性
+            this.age=age;
+            console.log(`有${this.age}岁大的${this.name}向我们走来.`);
+        }
+        var an=new Animals('cat');
+        an.shout(11);
+        //an是Animals的对象，但是他可以调用shout（）方法，此处是继承
+        // 这种方法,将属性放在构造函数里,方法放在prototype原型里
+
+
+        // q1：那么如果将属性放在原型里prototype,会有什么问题-----可以打印
+        Animals.prototype.age=6;//属性放在原型里
+        // console.log(an.age);//此处是11
+        var ann=new Animals('dog');
+        console.log(ann.age);//此处是6
+        console.log(an.age);//11
+        ann.shout(6);
+
+
+
+
+        function Perrson(name){
+            this.name=name;
+        }
+        Perrson.prototype.age=23;  //prototype本身是一个对象，也是构造函数下的一个属性
+        Perrson.prototype.brother={
+            name:"王芯蕊",
+        };
+        var p1=new Perrson('姓名是李四');
+        var p2=new Perrson("姓名是王五");
+
+        // p1.age=44;
+        // console.log(p1);
+        // console.log(p1.age);//44
+        // console.log(p2.age);//23,此处合理
+
+        // p1.brother.name='wangwu';
+        // console.log(p2.brother.name)//wangwu 此处不合理;修改了原型中的name属性
+        // why此处的name是在prototype里修改，而不是生成一个新的自有属性呢？
+        // 因为原型有默认查找过程，当在原型prototype中定义 引用类型 属性时，（引用数据类型的数据存放在堆栈里）如果修改了一个实例对象的属性值时，那么会影响其他实例对象，所以不在原型中定义属性，要在构造函数中定义属性
+        // p1 p2访问同一个堆内存空间
+        // 涉及到原型链及原型的查找过程
+
+        // p1.age=44;
+        // name是自由属性（在构造函数里的属性），prototype是person的原型，prototype里的属性是age brother
+        // 修改了age属性，结果是Perrson {name: '姓名是李四', age: 44} Perrson {name: '姓名是王五'}
+        // 此时的p1.age是自有属性，所以返回44，但是原型里的age仍然是23，只是自由属性优先级高，把原型里的属性屏蔽了，ok？
+        // 没修改age属性，结果是Perrson {name: '姓名是李四'} Perrson {name: '姓名是王五'}
+        console.log(p1,p2);//23,此处合理
+        console.log(p1.age);
+        // -------------------------------------------------------------------------------------------------------
+        // 查找属性
+        // 23当访问p1·age属性时，先看p1对象中是否有自有属性，如果没有，查找prototype里的age，
+        // 如果没有，继续查找直到查找到object.prototype，如果还没有，就返回undefined
+
+        console.log(p1.brother.name);
+        console.log(p1);
+
+        // 正确修改以及调用方式
+        p1.brother={name:'wangwu'};//p1对象在类中生成了brother自有属性，并灭有修改原型中的属性，而p2对象则没有生成
+        // 对象.属性=XXX   此语句意义生成一个自有属性
+        console.log(p1);
+        console.log(p2.brother.name);//此处与p1无关，
+
+        // 将属性放在构造函数里,方法放在prototype原型里
+        // q2：那么将方法放在构造函数里，会出现什么问题呢
+        // 在js中，function也是也是一种引用数据类型，如果将方法放在构造函数里
+        // 那么每次=new ssalc构造函数时 都会伴随生成一个函数对象，当有多个对象实例化后，意味着创建了多个具有同样功能的函数对象，造成内存浪费
+        // 因此不要将方法放在内构造函数内，而要放在原型里prototype
+        function ssalc(name){
+            this.name=name;
+            // this.sleep=function(){//new一次，执行一次
+            //     console.log(this.name+' is sleeping...');
+            // }
+        }
+        // var s1=new ssalc('cat');
+        // s1.sleep();
+        ssalc.prototype.eat=function(){//页面加载时，只执行一次
+            console.log(this.name+" is eating...");
+        }
+        var s2 =new ssalc("dog");
+        s2.eat();
+
+
+        // 所有 对象 都有__proto__（隐士原型）属性，属性值是一个普通的对象object   p1.__proto__ 获取对象p1的原型
+        // 所有 函数 都有一个prototype（原型）属性，属性值是一个普通对象object     Person.prototype.方法
+        // 所有 对象 的__proto__属性都指向创建他的 构造函数 的prototype
+        console.log(s2.__proto__==ssalc.prototype);//true
+        //所以修改对象的属性值是，不要使用s2.__proto__.name=，而要用ssalc.prototype.name=XX
+
+
+    </script>
+</body>
+</html>

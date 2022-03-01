@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 1、es6 extends继承 -->
+    <script>
+        // 1、es6中的extends继承,es6之前的继承是基于prototype
+        //  class Animal{
+        //     name;
+        //     constructor(name){
+        //         this.name=name;
+        //     }
+        //     shout(){
+        //         console.log(`${this.name}叫了`);
+        //     }
+        // }
+        // // const ani=new Animal('cow');//此处const的常量,不能是被声明定义过的
+        // // ani.shout();
+        // class Cat extends Animal{
+        //     //子类继承父类animal
+        // }
+        // Cat.prototype.Catchmouse=function(){
+        //     console.log(this.name+' is catching mouse...');
+        // }
+        // var catt=new Cat('dog');
+        // console.log(catt);//Cat类
+
+    </script>
+    <!-- es6之前 ：2、构造函数继承， 3、原型链继承 4、object.create()继承-->
+    <!-- prototype被设计用来做继承的，本身也是一个对象，在对象下定义属性和方法，
+        但一般只定义方法，在构造函数里定义属性 -->
+    <script>
+        // ------------------before es6继承组合方式：子类的构造函数里写 父类的call方法继承-----------------------
+        function Animals(name,age){
+            //new Animals,严格来说此时的Animals是构造函数当作类，模拟类
+            this.name=name;
+            console.log(name);//v1 v2 c1
+            // this.age=age;
+            //本来指向animals对象v1 v2，但是此举改变this指针使其指向CAT的对象c1，用call
+        }
+        // new出来的两个对象，this指针分别指向v1 v2
+        var v1=new Animals('v1');
+        var v2=new Animals('v2');
+        Animals.prototype.shout=function(){//函数本身是一种引用数据类型
+                console.log(this.name+' is shouting....');
+        }
+        Animals.prototype.eat=function(){
+            console.log(`${this.name}正在吃东西`);
+        }
+
+        function CAT(name){
+            console.log(this);//CAT {}，指向CAT的对象c1
+            // console.log(this.name);//undefined
+
+            // 在子类的构造函数中使用call方法，来 继承 父类 的 属性
+            Animals.call(this,name);//父类的函数名.call（对象，参数。。）
+        }
+        var c1 = new CAT('c1');
+//----------------------------------------------------------------------------------------------------------------------------------
+
+
+
+        // 第一，CAT.prototype=Animals.prototype;//可以让CAT的原型继承Animals的原型，但是不能这么写
+        // 因为这样做的话，使得CAT和Animals的原型都指向同一对象，会相互影响
+
+        // 第二， CAT.prototype=new Animals('jicheng');
+        // var an=new Animals('jicheng');
+        // CAT.prototype=an;简化写成以上
+        // CAT原型里有 new animals的对象的属性和方法，但是原型里想要光继承方法，而非属性，因此new animals（不写属性值），浪费空间
+        
+        // 第三，用object.create() ,那么如何改建object.create(),用现有对象创建新对象的隐士原型————proto————
+        
+        /*回忆
+        var o1={
+            name:'wxr',
+            age:18,
+        }
+        var o2=Object.create(o1);
+        console.log(o1==o2.__proto__);//true
+        console.log(o2==o1);//false
+        */
+        CAT.prototype=Object.create(Animals.prototype);//继承原型里的方法shout()和eat()
+        CAT.prototype.constructor=CAT;
+        // console.log(CAT.prototype==Animals.prototype);//false
+        // console.log(CAT.prototype.__proto__==Animals.prototype);//ture
+
+        CAT.prototype.Catchmouse=function(){
+            console.log(this.name+' is catching mouse...');
+        }
+        var pt=new CAT('pt');
+        console.log(pt.__proto__);
+
+        /*
+        class a
+        class b extends a
+        b.prototype==object.create(a.prototype)
+        class c extends b
+        c.prototype==object.create(b.prototype)
+        var tp=new c();
+        console.log(tp.name);      
+        1、tp的自由属性 ---> tp.__proto__ == class c的原型中找（c.prototype) == b的自有属性 ----> 2、tp.__proto__.__proto__== b.__proto__ == a
+        b.prototype.isPrototypeOf(c)
+        c（object）的原型链中，有没有b的原型（b.prototype）（prototypeobject）
+        */
+        
+
+        // new哪个构造函数，构造函数里的this就指向new的对象
+        // var an=new CAT();
+        // console.log(an);//CAT {}
+
+
+        // var an=new CAT('miniso');
+        // // an.name='miniso';//对象·属性==添加属性以及属性值//CAT {name: 'miniso'}
+        // console.log(an);
+        // // an.Catchmouse();
+        // an.shout();//不能执行
+
+        // 因此类似js继承机制
+        // var s1=new Animals('xxx');
+        // s1.Catchmouse();
+        // 也可以调用，因为CAT和Animals指向prototype原型的同一个对象
+        // 但是不可以这么写，子类不可以影响父类，子类可以继承父类
+
+    //first
+        var ww=new CAT('miniso');
+        console.log(ww.constructor);//ƒ Animals(name),ww的构造函数是animals
+        ww.shout();
+        ww.Catchmouse();
+        console.log(ww.name);
+        console.log(ww);
+    //second
+        // 默认是：CAT.prototype.constructor=CAT;构造器默认在原型下的属性
+        // 现在：CAT.prototype=new animals();
+        // 因此，ww对象的构造器是animals
+        // CAT.prototype.constructor=CAT;//需要修改构造器使其从animals变为CAT
+        console.log(ww.constructor);//ƒ Animals(name),ww的构造函数是animals
+        var aa=new Animals('mmii');
+        aa.shout();
+        aa.eat()
+        // aa.Catchmouse();
+//         miniso is shouting....子类可以调用父类
+//         miniso is catching mouse...
+//         mmii is shouting....
+//         错误：父类不能调用子类
+
+
+
+// -------------------------------------------------------------------------------------
+        function WWorld(name){
+            console.log(this);
+            this.name=name;//将指针改为指向cc
+            console.log(this);
+        }
+        function CChina(name){
+            WWorld.call(this,name);
+        }
+        var cc=new CChina('Chinese');
+        console.log(cc);
+        var ww=new WWorld('world');//这是new一个新对象
+
+        function test(grade){
+            console.log(this);//window
+        }
+        test(8);//这是调用test方法
+    </script>
+    <!-- instanceof -->
+    <script>
+        var arr=[2,3,4];//new Array
+        console.log(arr instanceof Array); //true
+        // instanceof ：arr对象是不是Array构造函数的实例化对象
+        console.log(arr instanceof Object); //true
+        console.log(arr instanceof String); //false
+    </script>
+    <!-- constructor 构造器 构造函数 -->
+    <script>
+        var arr=new Array(1,2,3)
+        console.log(arr.constructor);//打印出构造器 ：f Array() { [native code] }
+
+        function Personn(){
+
+        }
+        var pp1=new Personn();
+        console.log(pp1.constructor);//打印出构造器 ：ƒ Personn(){}
+
+    </script>
+
+
+</body>
+</html>

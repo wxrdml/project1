@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">按钮</button>
+    <!-- 都改变this指针的指向，需求： -->
+    <!-- call -->
+    <script>
+        //该函数在标准调用方式
+        function test(grade){
+            console.log(this);
+            console.log(grade);
+            //this指针指向window对象，call里面0参，找对象是window
+            //obj，call里面有参，找对象是obj
+            //call(对象，arg1，arg2，...,argn)改变this指针的指向
+        }
+        test(8);
+        //该函数底层的调用方式test.call()
+        //形参：(对象，arg1，arg2，...,argn)(一个对象和n个参数)
+        var obj={
+            name:"wxr",
+            age:22,
+            mayor:"computer"
+        }
+        test.call(obj,9);
+        //call方法作用：改变this指针的指向第一个对象,其他n个参数要单独打印，this不管
+        //函数.方法，函数是一种值，是引用数据类型，是对象，所以是对象.方法
+    </script>
+
+    <!-- apply -->
+    <script>
+        test.apply(obj,[10]);
+        //call和apply区别：apply(对象，数组)只有一个对象，一个数组参数，其他相同
+    </script>
+
+    <!-- bind -->
+    <script>
+        test.bind(obj,6);
+        // 调用
+        // var fn=test.bind(obj,6);
+        // fn();
+        //绑定，三者区别：bind只修改，但并不调用函数test，不打印；
+    </script>
+
+    <!-- 应用场景：两秒后输出按钮 -->
+    <script>
+        var btn=document.getElementById('btn');//找到按钮
+
+        // 第一，
+        // btn.onclick=function(){
+        //     //将按钮添加点击事件
+        //     var fn=function() {
+        //         // console.log(btn);//anniu
+        //         // console.log(this);//window
+        //         console.log(this)
+        //     };
+        //     //什么时候调用，什么时候bind，只修改this指针，而不调用，
+        //     // 但是settimeout函数将在2s后调用修改this指针后的函数fn
+        //     setTimeout(fn.bind(btn), 2000);
+        //     //fn就是这个函数,需要着重注意
+        // }
+
+        //第二
+        btn.onclick=function(){
+            setTimeout(function(){
+                console.log(this);
+            }.bind(btn), 1000);
+        };
+        
+        // 求数组的最小值的方式（min（1，2，3，4）方法求最小值）
+        var arr=[1,2,3,4,'0'];//字符串转化为数组
+        var min=Math.min.apply(null,arr);//null占位
+        // var mmin=Math.min(arr);
+        // console.log(mmin);//
+        console.log(min);
+
+        var test=Math.min;
+        console.log(test(6,7,8,9));
+        //test=math.min是个函数,再考虑要不要加括号，可以试试带入法
+        
+
+
+
+
+
+    </script>
+</body>
+</html>
