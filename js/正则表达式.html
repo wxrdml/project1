@@ -63,7 +63,7 @@
         // c*,c+,c? 连续                 
         // * 表示以c开头的个数大于等于0次    c{0, }
         // + c的个数大于等于1次        c{1, }
-        // ？c的个数0、1次             c{0,1}
+        // ？表示以c开头的个数是0、1次             c{0,1}
         reg=/g*/;
         str='ggll';
         re(reg,str);//0次匹配空字符串
@@ -71,7 +71,7 @@
         str='klkollllllll';
         re(reg,str);//'l'
         reg=/v?/;
-        str='vvvv';
+        str='lvvvv';
         re(reg,str);//只返回'v'或者空字符串
 
     </script>
@@ -182,7 +182,7 @@
         
         //why
         var reg=/4\D/;//not number
-        var str='4saunanc';
+        var str='44saunanc';
         re(reg,str);//'4s'
 
 
@@ -267,8 +267,8 @@
     <!-- 匹配元字符  加转义字符 -->
     <script>
         //返回 以ca开头的个数大于等于1的字符
-        var reg=/ca*/;
-        var str='ca*innniao';
+        var reg=/n*/;
+        var str='nnnca*innniao';
         re(reg,str);//'n'
 
         var reg =/n\*/;  //匹配n 和 *
@@ -396,6 +396,7 @@
         var reg=/(https?\:\/\/)(\w+)?\W(\w+)?\W(\w+)?\W(\w+)/;
         var reggg=/(https?\:\/\/)([\w|\.]+)?\W(\d+)?/;
         // ['http://www.baidu.com', 'http://', 'www.baidu.com'
+
         // var reggg=/(https?\:\/\/)((\w|\.)+)/;
         // ['http://www.baidu.com', 'http://', 'www.baidu.com', 'm'
         var regg=/(http:\/\/|https:\/\/)(www.baidu.com)\W(8080)/;
