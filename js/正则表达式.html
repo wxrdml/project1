@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 正则表达式作用：对字符串进行匹配查找
+        var v=/pattern/ or var v=new RegExp('parttern')=regular expression -->
+    <script>
+        // var v=/test/;
+        var v= new RegExp('test');
+        var str='teststring';
+        re(v,str);
+        // var result=v.exec(str)
+        // exec=execute,正则表达式变量v匹配字符串str，匹配到了将其(匹配字符串)返回，找不到返回null
+        // console.log(result);
+
+        function re(v,str){
+            var result=v.exec(str);//exec()方法，返回的是对象，伪数组，不是真正的数组
+            console.log(typeof result,result);
+        }
+        
+
+        var a='test';
+        // var aa=/a/;
+        var aaa=new RegExp(a);//此处a可做string 可做变量
+        re(aaa,str);
+
+        
+        // 如果指向一个字符串匹配另一个字符串，除了用正则表达式，还可以用indexof，但是正则表达式功能强大的多
+        var a ='teststring';
+        console.log(a.indexOf('test')); 
+        //indexof 若果找到 返回test子串首位在变量a的位置，如果找不到返回-1
+
+
+        //c{n,}量词
+        var reg=/c{1}/
+        var string='9ddnd0c'
+        re(reg,string);//返回'c'
+
+        regg=/c{2}/;
+        sstring='456ceccrt';
+        re(regg,sstring);//返回'cc'
+
+
+        //c{m,n}:匹配连续的[m,n]个c，，，eg:c{3,4},,需要匹配连续的3或者4个c,但是会尽量的多匹配
+        reg=/c{2,5}/;
+        str='456ceccrt';
+        re(reg,str);//'cc'
+
+
+        //c{n,}连续大于等于n个字符串
+        reg=/c{2,}/;
+        regg=/c{7,}/;
+        str='cccccc3333';
+        re(reg,str);//'cccccc'
+        re(regg,str);//null
+
+
+        // c*,c+,c? 连续                 
+        // * 表示以c开头的个数大于等于0次    c{0, }
+        // + c的个数大于等于1次        c{1, }
+        // ？c的个数0、1次             c{0,1}
+        reg=/g*/;
+        str='ggll';
+        re(reg,str);//0次匹配空字符串
+        reg=/l+/;
+        str='klkollllllll';
+        re(reg,str);//'l'
+        reg=/v?/;
+        str='vvvv';
+        re(reg,str);//只返回'v'或者空字符串
+
+    </script>
+    <!-- 贪婪贪心+*:正则默认最多、非贪婪非贪心：liangci hou加? 最少-->
+    <script>
+        // 正则表达式尽量多的匹配，后加?，表示尽量少的匹配
+        //量词后，//前，加?，尽量少的匹配
+        reg=/f*?/;//  *是大于等于0；因此返回空字符串
+        str='ggffffffffffll';
+        re(reg,str);
+        reg=/l{1,}?/;
+        str='kkoll';
+        re(reg,str);
+
+    </script>
+    <!-- ^开头 结尾$ -->
+    <script>
+        reg=/^asd/;//asd开头
+        str='asdmaimimo';
+        re(reg,str);
+        reg=/^asd$/;//asd开头 asd结尾
+        str='asdasd';
+        strr='asd';
+        re(reg,str);//null
+        re(reg,strr);//asd
+    </script>
+    <!-- .   会匹配除了换行符/n 的任 一 字符   与量词叠加,以量词为主-->
+    <script>
+        reg=/./;
+        str='asdmaimimo';
+        re(reg,str);//'a'
+
+//why
+        reg=/.a+/;//会匹配除了换行符/n 的任一字符,,,大于等于1个字符
+        regg=/a+/;
+        str='cccaasdd';
+        re(reg,str);//'caa'
+        re(regg,str);//'aa'
+
+        reg=/.{2,5}/;//会匹配除了换行符\n 的任一字符,,,2,3,4,5
+        str='ccai\nniao';//遇到换行符
+        re(reg,str);//'ccai'
+
+    </script>
+    <!-- b|c -->
+    <script>
+        reg=/^b|c.+/;//优先级：
+        str='cainiao';
+        re(reg,str);//cainiao
+        regg=/^(b|c)(.+)/;//0:返回值，1：第一个括号2：第二个括号。。。一个小括号代表返回数组的一个元素
+        re(regg,str);
+        // 括号：括号内的正则是一个子表达式，括号外的正则是一个表达式，几个表达式会保存起来，可以用作后面的反向引用
+
+    </script>
+    <!-- 字符集合[abc]:或者a或者b或者c a|b|c  与反字符集合-->
+    <script>
+        var reg=/^[abc]/;//以[]开头
+        var str='bbc.blumoon.com';
+        re(reg,str);//b
+        var reg=/^[a-zA-Z\$][a-zA-Z0-9_]+/;
+        //以字母（加杠—表示范围）或者$(要加反斜杠：转义字符)开头，后面是一个或者多个数字 字母和下划线_
+        var str='$bbc.blumoon.com';
+        re(reg,str);
+
+        var reg=/[^abc]/;//反字符集合，不能是a b c开头的任何一个,返回一个字符
+        var str='bbc.blumoon.com';
+        var sttr='nainmc';
+        re(reg,str);//'.'
+        re(reg,sttr);//'n'
+        
+    </script>
+
+    <!-- 边界与非边界\b \B 返回边界字符 -->
+    <script>
+        var reg=/c\b/;//right border
+        var str='saunanc';
+        re(reg,str);//'c'
+        var  sttr='维生素c';
+        re(reg,sttr);//'c' 中文：维生素
+        var sstr='abc ftb';
+        re(reg,sstr);//'c'右边界是空格也要返回字符c，空格也属于边界
+
+        var reg=/c\B/;//not right border
+        var str='saunanc';
+        re(reg,str);//null
+        var  sttr='维生nikck素';
+        re(reg,sttr);//'c'
+
+    </script>
+    <!-- 数字与非数字 \d(可以匹配一个数字) \D（不用匹配数字） 返回数字、null、开头字母-->
+    <script>
+        // var reg=/\d/;// number
+        // var str='22saunanc44';
+        // re(reg,str);//2
+
+        // var reg=/4\d/;// number
+        // var str='233saunanc44';
+        // re(reg,str);//44
+        // var  sttr='维生nikck素';
+        // re(reg,sttr);//null
+
+        var reg=/\D/;//not number
+        var str='3saunanc';
+        re(reg,str);//‘s’返回不是数字的字符
+
+        var  sttr='维生nikck素';
+        re(reg,sttr);//'维'
+        
+        //why
+        var reg=/4\D/;//not number
+        var str='4saunanc';
+        re(reg,str);//'4s'
+
+
+    </script>
+    <!-- 空白\s \S非空白 -->
+    <!-- \s:\n换行 \f换页 \r 回车 \t制表 \v垂直制表  还有空格-->
+    <script>
+        var reg=/\s.+/;
+        var str='this is string.';
+        re(reg,str);// is string.
+        var regg=/\S+/;
+        re(regg,str);//'this'
+    </script>
+    <!-- 单词字符 word -->
+    <script>
+        // \w==[a-zA-Z0-9_]  //小写字母，大写字母 数字 下划线
+        var reg=/\w/;
+        var str='中this is string.';
+        re(reg,str);// 't'返回一个字符，不包括中文
+
+        //\W==非单词字符
+        var reg=/\W+/;
+        var str='中this is string.';
+        re(reg,str);//中
+    </script>
+
+    <!-- 反向引用 -->
+    <script>
+        //   /(正则表达式)\1/    // \1代表引用第一个\w,,\1代表引用第二个\w
+        var reg=/\w\w/;//一个/w是一个字符
+        var str='this is string.';
+        re(reg,str);//th
+        
+        var reg=/(\w)(\w)/;//一个/w是一个字符
+        var str='this is string.';
+        re(reg,str);//'th', 't', 'h'   
+        // 0:完整正则表达式结果   1：第一个正则表达式结果   2：第二个正则表达式结果
+
+        var reg=/(\w)(\w)\1\2/;//一个/w是一个字符'thth'
+        var str='ththis is string.';
+        re(reg,str);//'thth', 't', 'h'
+
+        var reg=/(\w)(\w)\2\1/;
+        var str='woow';
+        re(reg,str);//'woow', 'w', 'o'
+
+    </script>
+    <!-- 括号记录结果，，不希望记录结果那么用/(?:正则表达式)/ -->
+    <script>
+        var reg=/(?:\w)(\w)/;
+        var str='woow';
+        re(reg,str);//'wo', 'o'
+    </script>
+
+    <!-- 正向预查？=   反向预查？！-->
+    <script>
+        // 表达式后面必须跟着？=啥
+        var reg=/cainiao(?=8)/;// cainiao后面必须有8，但是输出不包括8
+        var str='cainiao8';
+        var sttr='cainiao9';
+        re(reg,str);//cainiao
+        re(reg,sttr);//null
+
+        var reg=/cainiao8/;
+        var str='cainiao8';
+        re(reg,str);//与上面的区别：输出：cainiao8
+
+
+        // 表达式后面不能跟着？！啥
+        var reg=/cainiao(?!8)/;// cainiao后面必须不能有8
+        var str='cainiao8';
+        var sttr='cainiao9';
+        re(reg,str);//null  有8
+        re(reg,sttr);//cainiao  没8 输出cainiao
+
+        var reg=/cainiao/;
+        var str='cainiao8';
+        re(reg,str);//cainiao 字符串str可以含有8，但是不输出8
+
+    </script>
+
+    <!-- 匹配元字符  加转义字符 -->
+    <script>
+        //返回 以ca开头的个数大于等于1的字符
+        var reg=/ca*/;
+        var str='ca*innniao';
+        re(reg,str);//'n'
+
+        var reg =/n\*/;  //匹配n 和 *
+        var str='cainiaon*';
+        re(reg,str);
+        // /c*/匹配的是大于等于0个的c
+        // /c\*/
+        // /c+/匹配的是大于等于1个c
+        // /c\+/
+        // /c?/匹配的是0\1个c
+        // /./匹配的是除了换行符以外的一个字符
+        // /\./
+
+    </script>
+
+
+
+    <!-- 正则表达式的修饰符,/在正则表达式/gim /g(全局gobal匹配完整字符串) /i(ingore忽略大小写) /m(多行匹配，每一行都有^行首 行尾$) -->
+    <script>
+        var reg=/^b/;
+        var str='rrn\nbbs';
+        re(reg,str);//null,,一个字符串无论是否换行，只有一个开始和一个结尾^$,用了m就不同了
+
+//index=4?  why
+        var reg=/^b/m;
+        var str='rrn\nbbs';
+        re(reg,str);//'b', index: 4
+
+        // exec()  
+        // index:reg匹配到的字符串str首字母的位置索引
+        // input：输入string
+        // groups:?
+        // 深入研究exec()方法
+        function execReg(reg,str){
+            var result=reg.exec(str);
+            //当成对象.属性
+            document.write('index:'+result.index+'<br/>'+'input:'+result.input+'<br/>');
+            for(var i=0;i<result.length;i++){//数组循环出来
+                document.write('result['+i+']:'+result[i]+'<br/>');
+            }
+            console.log(result);
+        }
+        var reg=/(\w)(\w)(\w)(.+)/;
+        var str='Hjjwj\nhsd';//huanhang bushuchu
+        execReg(reg,str);//['Hjjwj', 'H', 'j', 'j', 'wj']
+
+    </script>
+    <!-- test()  返回true false -->
+    <script>
+        //reg 是否匹配 str
+        var reg=/b/;
+        var str='bbs.blue moon,com';
+        console.log(  reg.test(str) );//true
+        // 正则表达式.test(字符串)
+    </script>
+
+    <!-- string 中与正则表达式相关的方法-->
+    <script>
+        // match()
+        var reg=/bbs/;
+        var str='bbs.blue moon,com';
+        console.log(str.match(reg));
+        //reg 是否与 str相匹配，并返回匹配的字符reg
+        // 字符串.match(正则表达式)
+        // 与exec()方法差别不是很大，一个是正则下的方法，另一个是字符串下的方法
+
+
+
+        //replace替换原字符串，产生一个新的字符串，但是不会更改原字符串
+        var reg=/bbs/;
+        var str='bbs.blue moon,com';
+        newstr=str.replace(reg,'wxr');//用'wxr'取代str字符串中reg的位置，并且返回一个新字符串
+        console.log('新的字符串:'+newstr+'原字符串:'+str);
+
+        var reg=/b/g;
+        var str='bbs.blue moon,com';//所有的b都要替换wxr
+        newstr=str.replace(reg,'wxr');//用'wxr'取代str字符串中reg的位置，并且返回一个新字符串
+        console.log('新的字符串:'+newstr+'原字符串:'+str);
+
+        var reg=/\w+/g;   // \w是匹配大小写字母数字 下划线  + 是匹配一个到多个  g是str扫描全部字符串进行匹配
+        var str='bbs.blue moon.com';
+        newstr=str.replace(reg,'wxr');//用'wxr'取代str字符串中reg的位置，并且返回一个新字符串
+        console.log('新的字符串:'+newstr+'原字符串:'+str);
+
+        var reg=/(\w+).(\w+).(\w+)/;//此处的 . 代表任一字符
+        var str='bbs.bluemoon.com';
+        console.log(re(reg,str));
+        newstr=str.replace(reg,'$1.$1.$1');
+        //用'wxr'取代str字符串中reg的位置，并且返回一个新字符串
+        // $1代表一个小括号（第一个括号代表$1 第二个括号是$2  第三个括号是$3）
+        console.log('新的字符串:'+newstr+'原字符串:'+str);
+        // 想输出$符号，console.log($$ $$);  //$ $
+
+
+        // search()
+        reg=/aa/;
+        var str='bbs.bluemoon.com';
+        var pos=str.search(reg);
+        console.log(pos);//搜索reg在str中的位置，返回索引，若无，返回-1
+//二者区别，indexof只支持字符串，search支持字符串和正则表达式
+        // indexOf()
+        reg='b';
+        var str='bbs.bluemoon.com';
+        var pos=str.search(reg);
+        console.log(pos);
+
+        // split()
+        reg=/b/;
+        var str='bbs.bluemoon.com';
+        var pos=str.split(reg);
+        console.log(pos);//['', '', 's.', 'luemoon.com']去掉分割的字符，剩下的部分形成新数组，不改变元字符串
+        console.log(str);
+
+        reg=/\W/;//非单词字符
+        var str='http://www.baidu.com';
+        var pos=str.split(reg);
+        console.log(pos.length);
+        console.log(pos);//['http', '', '', 'www', 'baidu', 'com']
+        // 这里的冒号不也是非字符嘛，为什么没有他的位置
+        // 连着三个非单词字符 :// 间隔处分割
+        // 给定一个网站，获取内容：
+        // 协议：http://   或者   https://
+        // 域名：www.baidu.com   或者  一级域名    或者  二级域名  或者  不带域名
+        // 端口号：8080    可能不带端口号，也可能端口号不一定是8080
+        var reg=/(https?\:\/\/)(\w+)?\W(\w+)?\W(\w+)?\W(\w+)/;
+        var reggg=/(https?\:\/\/)([\w|\.]+)?\W(\d+)?/;
+        // ['http://www.baidu.com', 'http://', 'www.baidu.com'
+        // var reggg=/(https?\:\/\/)((\w|\.)+)/;
+        // ['http://www.baidu.com', 'http://', 'www.baidu.com', 'm'
+        var regg=/(http:\/\/|https:\/\/)(www.baidu.com)\W(8080)/;
+        // ? 0/1个字符
+        var str='http://www.baidu.com:8080/'
+        var result=reggg.exec(str);
+        console.log(result);
+        for(var i=0;i<result.length;i++){
+            console.log(result[i]);
+        }
+        
+
+        console.log(regg.exec(str));
+        // [\w\.]  中括号代表或者：一个字符 或者  一个点
+
+
+    </script>
+</body>
+</html>

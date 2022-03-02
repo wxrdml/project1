@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>call apply bind </title>
+</head>
+<body>
+    <!-- 作用：改变this指向 -->
+    <script>
+        // call()
+        Function.prototype.mycall=function(context){//把mycall函数放在原型里，fun就可以调用mycall了
+            // 修改fn的this指向
+            // 获取设置新的this
+            context = context || window;
+            // 是undefined null 那么context就等于window。其他context就等于context
+            // 将调用对象设置为对象的方法
+            context.fun=this;
+            // 调用fn
+            context.fun();//使this指针指向context
+        }
+        function fun(name,age){
+            this.name=name;
+            this.age=age;
+            console.log(this,name,age);
+        }
+        fun.mycall({name:'wxr',age:18});
+        
+    </script>
+</body>
+</html>
