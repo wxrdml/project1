@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css层叠样式表</title>
+    <!-- 三种引入样式的方法，推荐 3外部 2内部样式 -->
+    <!-- 内联样式优先级最高，后两者优先级相同 -->
+
+    <!-- 3、外部样式 当前文件夹下的div标签 -->
+    <link rel="stylesheet" href="./外部样式.css">
+    <!-- ./   本目录下的文件，也可以不加./      别的文件下需要加../ -->
+    <!-- 2、内部样式 head里写一个style标签加body里写一个div -->
+    <style>
+        div{ 
+            /* 选择器div */
+            width: 100px;   
+            /* 属性及属性值 */
+            height: 100px;
+            background: black;
+        }
+    </style>
+    <!-- <link rel="stylesheet" href="外部样式.css"> -->
+</head>
+<body>
+    <!-- 1、内联样式 :style属性-->
+    <div style="height: 200px; width: 200px; background: green; color: red;">123456</div>
+    <div>789789</div>
+    <span>span</span>
+</body>
+</html>

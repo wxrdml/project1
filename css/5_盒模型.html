@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>盒模型</title>
+    <style>
+        /* 外边距 内边距  边框 */
+        /* 1、外边距margin：默认8px（每个浏览器的默认边距不同，因此要去掉外边距 内边距）
+        使用通配符选择器，会选中页面所有样式
+            2、border边框
+            3、内边距padding
+            4、元素
+         */
+         *{
+             margin: 0 ;
+             padding: 0 ;
+         }
+        div{
+            width: 200px;
+            height: 200px;
+            background-color: black;
+            color: aliceblue;
+            text-align: center;
+            /* margin在通用选择器中设定之后，也可以在选择器里再次设定
+                margin: 40px;顺时针：上右下左
+                margin-top上页外边距
+                 margin-right右外边距
+                margin-bottom下页外边距
+                margin-left左外边距
+               
+             */
+            
+            margin-top: 100px;
+            margin-bottom: 10px;
+            margin-left: 12px;
+            margin-right: 80px;
+            /* margin: 10px;每个外边距都是10px */
+            /* margin: 10px 20px;  上下边距  左右边距 */
+            /* margin: 20px 30px  40px ;没有写的部分对面相同 顺时针 */
+
+
+            /* 将div块级元素在父元素中水平居中  左右设为自动 auto */
+            margin: 100px auto;
+            background-color: blue;
+
+
+
+            /* 内边距padding */
+            /* 同外边距用法  顺时针的顺序  可省略某一内边框像素值 */
+            padding: 50px 50px 90px 30px;
+            padding-top: 40px;
+            padding-right: 90px;
+            padding-bottom: 60px;
+            padding-left: 50px;
+
+            /* 边框border： 
+                border-width：top right bottom left
+                border-style：solid实线   dashed虚线   dotted 原点  double双线 
+                border-color：边框颜色*/
+            /* 边框粗细 边框样式 边框颜色 */
+            border: 10px solid white;
+            border-style: dotted ;
+            border-color: brown;
+            /* 元素实际看到的大小 == 元素设置的大小 （width+heigth） + padding + border  */
+
+        }
+    </style>
+</head>
+<body>
+    <div>
+        dvidiv
+    </div>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js面基</title>
+</head>
+<body>
+    <ul>
+        <li>001</li>
+        <li>002</li>
+        <li>003</li>
+    </ul>
+    <!-- es6中新的两个数据类型：symbol  bigint -->
+    <script>
+        // 唯一性
+        const level=Symbol('level');
+        console.log(level);
+
+        const student={
+            name:'wxr',
+            age:18,
+            [level]:'nice',
+            [Symbol('level')]:'not good',
+        };
+        console.log(student);
+        // 隐藏性
+
+        // bigint
+        console.log(0.1+0.2==0.4);//false
+        // 双精度保存
+        // 计算机通过二进制存储数据，转换的过程出现无限循环，
+        // 64位存储
+        // 一位 0表示正数，1代表负数
+        // 11位 表示指数，决定数值大小[-2^1024+1,2^1024-1]
+        // 52位 存储小数
+        // 最大安全数：53位，，那第一位默认是1，不包括在64位内
+        console.log(parseFloat(0.1+0.2).toFixed(10));//0.3000000000
+
+        
+        // var let const 块级作用域区别
+        // let  const跨级作用域：{}
+        // const a=document.getElementsByTagName('li');
+        // for(var i=0;i<5;i++){
+        //     a[i].onclick=function(){
+        //         console.log(i);
+        //     }
+            
+        // }
+        // for(let i=0;i<5;i++){
+        //     a[i].onclick=function(){
+        //         console.log(i);
+        //     }
+        // }
+        var id='wai';
+        var obj={
+            id:'nei',
+            b:()=>{
+                console.log(this.id);
+            },
+            a:function(){
+                console.log(this.id);
+            }
+        }
+        obj.a();//obj--nei
+        obj.b();//window---wai
+        new obj.a();//why undefined
+        //new obj.b();
+
+
+        var id='wai';
+        function aa(){
+            id='nei';
+            console.log(this.id);
+        }
+        aa();//nei
+        var Obj={
+            id:'obj',
+        }
+        aa.apply(Obj);//obj
+
+        const obj1={name:'wxr'};
+
+        // proxy拦截行为
+        const hander={
+            // 监听器，获取某属性，
+            get(target,_p,_r){
+                console.log(target,_p,_r);
+                if(target ==='wxr'){
+                    return '王芯蕊很很棒';
+                }
+            },
+            // 目标对象，yaoxiugaide属性
+            set(target,_p,val,_r){
+                console.log(target,_p,val,_r);
+                if(_p === name){
+                    target[_p]='secret';
+                }
+            },
+        }
+        // 创建proxy对象
+        const obj2=new Proxy(obj1,hander)
+        console.log(obj2.name);
+        obj2.name='lisi';
+        console.log(obj2);
+        // 对象和数组的解构
+        var [a,b,c]=[1,2,3];
+        console.log(a);
+        console.log(b);
+
+        var kk={
+            name:'oo',
+            age:19,
+        };
+        var{name,age}=kk;
+        console.log(name,age);
+        // 对象的嵌套，，用冒号
+        const con={
+            claas:{
+                stu:{
+                    you:'yy',
+                    are:20,
+                }
+            }
+        }
+        // 最外层对象放在等号右侧
+        const {claas:{stu:{you,are}}}=con;
+        console.log(you,are);
+        
+    </script>
+    <script>
+        // 函数的arguments参数是类数组
+        // 遍历lei数组的三种方法
+        // arguments是有值的，它的值就是我们传递进去的参数，虽然我们没有给fun函数定义形参，
+        // 但是我们还是可以通过arguments来调用传递给函数fun的实参。
+        // 将数组的方法应用到类数组中，使用call apply方法
+        function foo(){
+            Array.prototype.forEach.call(arguments,a=>console.log(a))
+        }
+        foo('wxr','tom',10);
+
+        // 使用array.from方法将类数组转化为数组
+        function fo(){
+            let arr=Array.from(arguments);
+            arr.forEach(a=>console.log(a));
+        }
+        fo('asd',90,'pp');
+        // 使用展开运算符将类数组转化为数组
+        function fooo(){
+            let arr=[...arguments];
+            arr.forEach(a=>console.log(a));
+        }
+        fooo('wxr',20,'cat');
+
+    </script>
+</body>
+</html>

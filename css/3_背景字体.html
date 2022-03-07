@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4个背景、3个文本、4个字体</title>
+    <style>
+        body{
+            width: 1000px;
+            height: 1000px;
+            background-color: antiquewhite;
+        }
+        #div1{
+            width: 400px;
+            height: 400px;
+            background-color: bisque;
+            background-image: url('../imgs/index.png');
+            background-repeat: no-repeat;
+            /* 背景图片不重复 */
+            /* repeat-x  x轴重复 */
+            /* repeat-y  y轴重复 */
+            /* 1、方向位置：center  left  right  top  bottom*/
+            /* 2、px：左右x 上下y*/
+            /* 3、百分比  x   y */
+            /* 省略则是center */
+            background-position: left auto;
+        }
+        /* 背景简写 */
+        .content{
+            width: 200px;
+            height: 200px;
+            background: red url('../imgs/dog.jpg')  center  no-repeat;
+        }
+    </style>
+
+    <style>
+        #p{
+            width: 300px;
+            height: 300px;
+            background-color: blue;
+            /* 文本对齐方式：center right left */
+            text-align: center;
+            /* 文本的 indent首行缩进  20 、-20 */
+            text-indent: 100px;
+            /* 文本装饰：underline下划线  none无装饰  line—through中划线  文本闪烁blink：不支持 */
+            text-decoration:underline;
+
+        }
+    </style>
+    <style>
+        .containter{
+            /* 设置字体:可以设置多个字体，从前往后依次识别，知道某个字体支持
+            字体名称是多个单词，用引号 */
+            font-family:'Times New Roman', Times, serif;
+            /* pc端字体大小默认是16px，最小支持12px，不能再小了
+            手机 移动端字体大小可以支持小于12px */
+            font-size: 50px;
+            text-decoration: underline;
+            /* 字体风格  斜体italic（i标签设置斜体）  normal正常  oblique倾斜展示，俩个斜没区别 */
+            font-style: italic;
+            font-weight: 900;
+            /* 给父元素添加样式，，子元素默认添加此样式 */
+            /* 加粗，，权重值100-900，，默认400  bold 加粗700 bolder 更粗比已设置的字体粗细之上*/
+        }
+    </style>
+</head>
+<body>
+    <div id="div1">div1</div>
+    <div class="content">div2</div>
+
+    <p id="p">p</p>
+    <div class="containter">containter</div>
+
+</body>
+</html>

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>练习题</title>
+</head>
+<body>
+    <script>
+        function fn(a){
+            console.log(a);//a()函数
+            console.log(a);//a()函数
+            // 函数内，变量和函数都声明了，函数提升高于变量提升
+            var a=2;
+            console.log(a);//a=2
+            // var的局部变量，可以提升到局部函数的最前面，仅声明不赋值
+            // 这种情况下，没有传参，所以a输出undefined
+            function a(){
+                // 函数也可以提升，而且
+            }
+            console.log(a);//a=2
+        }
+        fn(2);
+    </script>
+    <script>
+        // 数组的随机排序
+        // sort() 
+        var arr=[1,2,3,4,5,6,7,8,9];
+        arr.sort(aa);
+        function aa(a,b){
+            return 0.5-Math.random();
+            // Math.random()代表0-1内的随机数，用0.5-（0-1）有一半的机率大于零
+            // 实现随机数
+        }
+        console.log(arr);
+    </script>
+    <script>
+        function fn(a){
+            // 正则表达式
+            // ?=正向预查
+            return a && a.toString().replace(/(\d)(?=(\d{3})+\.)/g,function(match,$1,$2,$3){
+                console.log(match,$1,$2,$3);
+                return $1+',';//2,5
+            });
+        }
+        console.log(fn(12345678.11));
+
+        var num=12345678.11;//'2', '2', '678', index: 1
+        //   (\d{3})+\.)   三的倍数,345  678  只能记录最后一个值，第二个括号也就是数组的第二个是678，覆盖了345
+        var reg=/(\d)(?=(\d{3})+\.)/g;
+        var str=num.toString();
+        console.log(  reg.exec(str));
+
+
+        // replace
+        var str='abcd';
+        console.log(str.replace('a','g'),str);
+
+
+        var str='abcd';
+        console.log(str.replace(/a/,'f'),str);
+
+        var str='abcd123';
+        var reg=/([a-z])+/;//'abcd', 'd'   index=0数组的第二元素是'd'将前面的abc覆盖
+        console.log(reg.exec(str));
+        var reg=/([a-z]+)/;//'abcd', 'abcd'
+        console.log(reg.exec(str));
+        // match==输出值  $1第一个子表达式 
+        var newStr=str.replace(reg,function(match,$1,index,input){
+            console.log(match);
+            console.log($1);
+            console.log(index);
+            console.log(input);
+        });
+    </script>
+    <script>
+        // 判断字符串是不是回文字符串
+        function fn(str){
+            var str1='';
+            for(var i=str.length-1;i>=0;i--){
+                str1+=str[i];//daozhe xiangjia 
+            }
+            return str1==str;
+        }
+        console.log(fn('qwerrewq'));//true
+
+        // or
+        var str='qwerrewq';
+        console.log(str==str.split('').reverse().join(''));//true  字符串--数组--字符串
+    </script>
+    <script>
+        // 给Array本地对象增加一个原型方法，用于删除数字数组中重复的数字
+        // 返回时去重数组
+        // 第一，利用js中对象属性不能重复这个特性
+        var arra=[1,1,2,2,3,3,4,4,5];
+        function fn(arra){
+            var rra=[];//存放去重后的元素的新数组
+            var o={};
+            for(var i=0;i<arra.length;i++){
+                var v=arra[i];
+                if(!o[v]){
+                    //o是对象，o[v]对象o的属性v，返回true--没有v属性---存进数组中
+                    // 将数组元素arr[i]作为属性值v
+                    o[v]=9;
+                    rra.push(v);
+                }
+            }
+            // console.log(rra);
+            return rra;
+        }
+        console.log(fn(arra));
+
+        // 第二，数组有splice方法将数组中重复的删除,原数组被修改
+        //splice 删除、添加
+        var arr=[1,1,2,2,3,3,4,4,5];
+        function fnn(arr){
+            for(var i=0;i<arr.length;i++){
+                for(var j=i+1;j<arr.length;j++){
+                    if(arr[i]==arr[j])
+                    {
+                        arr.splice(j,1);//删除第j个位置的元素
+                        j--;
+                        // console.log(arr[j]);//被删除元素
+                        //因为删除了一个元素，指针指向原本第j+1个元素，for循环将j++，指向原本的j+2个元素，所以将指针移向j的前一个位置
+                    }
+                }
+            }
+            return arr;
+        }
+        console.log(fnn(arr));
+
+
+        // 放在原型中
+        Array.prototype.gg=function(){
+            var rra=[];//存放去重后的元素的新数组
+            var o={};
+            for(var i=0;i<this.length;i++){
+                var v=this[i];
+                if(!o[v]){
+                    //o是对象，o[v]对象o的属性v，返回true--没有v属性---存进数组中
+                    // 将数组元素arr[i]作为属性值v
+                    o[v]=9;
+                    rra.push(v);
+                }
+            }
+            // console.log(rra);
+            return rra;
+        }
+        console.log('原型array定义下的数组：'+arra.gg());
+
+
+        Array.prototype.tt=function(){
+            for(var i=0;i<this.length;i++){
+                for(var j=i+1;j<this.length;j++){
+                    if(this[i]==this[j])
+                    {
+                        arr.splice(j,1);//删除第j个位置的元素
+                        j--;
+                        // console.log(arr[j]);//被删除元素
+                        //因为删除了一个元素，指针指向原本第j+1个元素，for循环将j++，指向原本的j+2个元素，所以将指针移向j的前一个位置
+                    }
+                }
+            }
+            return arr;
+        }
+        console.log('原型array定义下的数组：'+ arr.tt());
+    </script>
+    <script>
+        // 给数组添加equal（）方法，用于判断两数组是否完全相等
+        var ar1=[1,2,3];
+        var ar2=[1,2,3];
+        function equal(ar1,arr2){
+            var len1=ar1.length;
+            var len2=ar2.length;
+            if(len1==len2){
+                for(var i=0;i<len1;i++){
+                    if(ar1[i]==ar2[i])
+                        console.log('两数组等');
+                    else
+                        console.log('两数组不等');
+                }
+            }
+            else{
+                console.log('两数组不等');
+            }
+        }
+        equal(ar1,ar2);
+
+
+        // ------------------------------------------------------
+        // 但是此方法不是给数组添加方法
+        // console.log(ar2.constructor);//数组的构造函数返回Array
+        // var f={};
+        // console.log(f.constructor);//对象的构造函数返回object
+        // console.log(  typeof ar2,typeof f  );
+        // 二者都是object类型,因此用constructor构造函数判断是否是数组
+        // ar2={};
+        Array.prototype.equal=function(arr4){
+            // first 情况
+            if(Array !== arr4.constructor){
+                // ===   和   !==
+                throw new Error('参数不是数组');
+            }
+            var len1=this.length;
+            var len2=arr4.length;
+            if(len1==len2){
+                // second 情况
+                for(var i=0;i<len1;i++){
+                    if(this[i]!==arr4[i])
+                        // console.log('两数组不等');
+                        return false;
+                    else
+                        // console.log('两数组等');
+                        return true;
+                }
+            }
+            else{
+                console.log('两数组长度不等');
+            }
+        
+        }
+        // ar1.equal(ar2);//true-----原型
+        // ar1必须是数组，，ar2不一定是数组，所以第一步必须判断ar2是否是数组
+        var arr3=[3,4,5,[6,7]];
+        var arr4=[3,4,5,[6,7]];
+        console.log(arr3.equal(arr4));//true
+        
+        // // 引用数据类型，比地址
+        // var a=[5,6];
+        // var b=[5,6];
+        // console.log(a==b);//false
+        // console.log(a===b);//false
+        // var jj={name:'wxr'};
+        // var vv={name:'wxr'};
+        // console.log(jj==vv);//false
+        // // 基本数据类型
+        // var s='123';
+        // var d=123;
+        // console.log(s==d);//true   值相同
+        // console.log(s===d);//false   值和数据类型都相同
+
+
+
+        Array.prototype.equal=function(arr4){
+            // first 情况
+            if(Array !== arr4.constructor){
+                // ===   和   !==
+                throw new Error('参数不是数组');
+            }
+            var len1=this.length;
+            var len2=arr4.length;
+            
+            // second 情况
+            if(len1!==len2){
+                console.log('两数组长度不等');
+            }
+            for(var i=0;i<len1;i++){
+                if(this[i]!==arr4[i])
+                    return false;
+                    // 递归
+                // 判断数组元素数据类型是不是还有数组，有的话，递归equal，没有的话，直接比较
+            }
+            return true;
+        
+        }
+        var arr3=[3,4,5,[6,7]];
+        var arr4=[3,4,5,[6,7]];//3,4,5相同   [6,7]整体作为数组元素（引用数据类型）指向的地址不同
+        console.log(arr3.equal(arr4));//false
+
+        // 怎么解决这个问题，，，
+
+    </script>
+    <script>
+        // 贪吃蛇
+        // 蛇的对象 属性：名字，长度，方向，   方法：移动，吃食物
+        // 食物的对象 属性：位置（x，y）
+        // 草场的对象  方法：创建食物
+        function Snake(name,len,dir){
+            this.name=name;
+            this.len=len;
+            this.dir=dir;
+        }
+        Snake.prototype.move=function(){
+            console.log(`${this.name}正在移动中。`);
+        }
+        var food=new Food();
+        var grass=new Grassland();
+        Snake.prototype.eatFood=function(){
+            food=null;
+            food=grass.createfood();
+            console.log(`长度为：${this.len}${this.name}正在吃。`);
+        }
+        function Food(loc){
+            this.loc={
+                x:Math.floor(Math.random()*10)*20,
+                y:Math.floor(Math.random()*10)*20,
+            };
+            console.log('食物{x:'+this.loc.x+",y:"+this.loc.y+'}被创建。');
+        }
+        function Grassland(){
+
+        }
+        Grassland.prototype.createfood=function(){
+            // var food=new Food();
+            // return food;
+            return new Food();
+        }
+        var snake=new Snake('sss',12,'right');
+        snake.move();
+        snake.eatFood();
+        
+
+    </script>
+    <script>
+        function fn(a,b){
+            var stra=a.toString();
+            var strb=b.toString();
+            // console.log(stra+'  '+strb);
+            // var lena=stra.length;
+            // var lenb=strb.length;
+            // console.log(lena,lenb);
+            // console.log(stra.indexOf('.'));
+            // console.log(strb.indexOf('.'));
+            var lena=(stra.indexOf('.') == -1) ? 0 : (stra.length - indexOf('.') - 1);
+            // var lenb=(strb.indexOf('.') == -1) ? 0 : (strb.length - indexOf('.') - 1);
+            // Uncaught ReferenceError: indexOf is not defined
+
+            if(strb.indexOf('.')==-1){
+                var lenb=0;
+            }
+            lenb=strb.length-strb.indexOf('.')-1;
+
+            var len=Math.max(lena,lenb);
+            var result=parseFloat(a*b).toFixed(len);
+            console.log(result);
+        }
+        fn(2,0.008)
+
+
+
+        
+    </script>
+</body>
+</html>

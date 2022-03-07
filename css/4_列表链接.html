@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>列表、4链接</title>
+    <style>
+        /* 有顺序：link默认未访问过的 visted访问过的 hovers鼠标位于连接上方 active正在被访问 */
+        a:link{
+            color: blue;
+            text-decoration: none;
+        }
+        
+        a:visited{
+            color: brown;
+        }
+        a:hover{
+            color: red;
+        }
+        a:active{
+            color: aqua;
+        }
+        div:hover{
+            color: blueviolet;
+        }
+        /* div:link{
+            color: red;
+            不起作用
+        } */
+        div:active{
+            text-decoration: underline;
+            color: red;
+        }
+        ul>li{
+            /* list—style:列表的前面的点的样式
+                type:disc默认实心圆
+                     square正方形
+                     circle空心圆
+                     decimal数字
+                     none取消点
+                position：outside默认
+                          inside 内部
+            */
+            list-style: disc;
+            /* 去掉列表样式，也就是列表前面的点 */
+            text-align: left;
+            background-color: aqua;
+            /* 此时的列表样式的点，位于背景外（默认outside），怎么设置将其纳入背景内呢（inside） */
+            list-style: inside;
+        }
+    </style>
+</head>
+<body>
+    <!-- 链接样式有四种状态  target开一个新窗口返回链接-->
+    <a href="http://www.baidu.com" target='_blank'>百度</a>
+    <div id="div">div</div>
+
+    <!-- 列表 ul无序   ol有序-->
+    <ul>
+        <li>001</li>
+        <li>002</li>
+        <li>003</li>
+
+    </ul>
+
+</body>
+</html>

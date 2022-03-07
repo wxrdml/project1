@@ -16,16 +16,16 @@
         第一，在script内引入js
         第二，直接引入js文件
      -->
-    <script src="../js/index.js"></script>
+    <script src="index.js"></script>
     <script>
         //js单行注释
         /*
         js多行注释
         */
         //页面输出信息 
-        document.write('<h5>hello world</h5>');
+        // document.write('<h5>hello world</h5>');
         // 控制台console输出信息
-        console.log('hello world！');
+        // console.log('hello world！');
         // 写分号，要不然压缩代码容易把好几行整成一行
         // 弹出对话框，适用于调试代码，用户不可见
         //alert('hello!')
@@ -33,7 +33,7 @@
 
     <!-- 变量 -->
     <script>
-        //弱数据类型js php：only 用var定义变量 ess6
+        //弱数据类型js php：only 用var定义变量 es6
         //强数据类型语言c c++ java go用各种定义
         //五种基本数据类型：number，Boolean，undefined，string，null
         // 引用数据类型：数组和对象
@@ -47,14 +47,16 @@
         console.log( typeof c);
         a = 'world';
         console.log( typeof a);
+        // 注意！！
         var d;
         console.log( typeof d)
         // undefined变量定义了，但未赋值
         // null是空对象
-        var f =document.getElementsByTagName('p');
-        document.write(f);
+        var f =document.getElementsByTagName('p');//p标签名字
+        document.write('我是f:'+f);
         // console里number打印出为蓝色
-        console.log(123,'123',f)
+        console.log(123,'123');
+        console.log(f);
         // 变量名定义规则
         // 变量名(链接 驼峰：小、大）包含：字母 数字 下划线_ ＄；变量名开头：字母 下划线 ＄（数字不能开头）
 
@@ -68,18 +70,18 @@
         console.log(a+b);  
         var c ='hello',d ='world',e=true,f ='3';
         // 一旦有boolean=true 1;==false  0,进行Number()数字类型转化，当number和Boolean相运算（相加减）
-        console.log(c+d);
-        console.log(c+d+e);
-        console.log(a+e);
+        console.log(c+d); //helloworld
+        console.log(c+d+e); //helloworldtrue
+        console.log(a+e); //2----number
         console.log(c-d); //NaN not a number 串减串
         console.log(c-a); //NaN not a number 串减数字
-        console.log(a*f);
+        console.log(a*f); //串*数字
         //alert(a * c);
         //减法 乘法，除法：number类型正常计算，非number类型：Boolean/string 转化成number类型，能计算就计算，不能计算返回nan，只有加法才进行拼接
         console.log(a-f)  //string 转化成number类型，只有加法才进行拼接
         //关系比较：true false
         var m =1,n=2;
-        console.log( m > n);
+        console.log( m > n);//false
 
         //==判断值是否相等，===判断值和数据类型是否相等
         var o='3';
@@ -107,6 +109,7 @@
         else{
             console.log("adult")
         }
+
         //三目运算符
         var tag=a<12?"child":"no child";
 
@@ -184,7 +187,7 @@
             console.log(a);
         }
         test(function(){
-
+            // ????
         })
 
         //3、返回值：什么时候用（模块化module）
@@ -198,7 +201,7 @@
         //二者等同
         // var val=function(){
         //         console.log('third');
-        //     }
+        // }
         val();
 
         test01()();//val=test01()=test01()()   二者等同
@@ -210,12 +213,13 @@
 
         //实参 形参问题
         function sub(a,b){//形参
-            return a-b;//return  后面的语句不会执行
+            return a-b;
+            //return  后面的语句不会执行
             console.log(a-b);
         }
         sub(4,3);//实参
 
-        //ff();//ff is not a fu`nction，此时还是一个变量
+        //ff();//ff is not a function，此时还是一个变量
         var ff=function(){
             console.log(73920402);
         }
@@ -230,9 +234,9 @@
             var tt=5;//局部变量
             tt=7;
             //没加val，此变量为全局,为什么没有修改全局tt=2？，
-            //，，，，，因为tt在函数体内先定义为局部变量=5，再而将tt=7，相当于改变局部变量ok？
+            //因为tt在函数体内先定义为局部变量=5，再而将tt=7，相当于改变局部变量ok？
             //因此不加val，也不一定都是全局变量
-            console.log("tt:"+tt);//tt=5
+            console.log("tt:"+tt);//7
         }
         test();
         console.log(tt);//访问全局tt    
@@ -406,6 +410,7 @@
         var arr9=arr3.splice(3,5);
         console.log("arr9",arr9);
         console.log("arr3",arr3);
+        // 添加
         //从数组中0开始的2个元素删除，在原位置增加“后面元素”：apple banana
         var arr10=arr3.splice(1,2,'apple','banana');
         console.log("arr10",arr10);

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>选择器</title>
+    <style>
+        /* 找到想要修改的元素标签，加上样式 */
+        /* 宽高单位：像素px
+        第一，id选择器 == #  id名字 */
+        #containter{
+            width: 200px;
+            height: 200px;
+            background-color: antiquewhite;
+        }
+        /* class选择器 */
+        .gsp{
+            color: blue;
+            background-color: aliceblue;
+        }
+        /* 标签选择器 */
+        p{
+            color: blueviolet;
+        }
+        /* 子代选择器 > 可以写连续的子代:qiantaoguanxi嵌套关系 */
+        ul>li{
+            color: blueviolet;
+        }
+        /* 选择器的嵌套 */
+        ul>#wxr{
+            color: aqua;
+        }
+        ul>.tl{
+            color: bisque;
+        }
+
+        /* 后代选择器' '儿子还是孙子  所有后代都要遵循这个选择器 */
+        ul li{
+            background-color: antiquewhite;
+        }
+        /* 分组选择器  加, */
+        #containter,.tl{
+            background-color: blue;
+        }
+        #linka{
+            color: aqua;
+        }
+        /* 伪类选择器 ：鼠标划上会变色 */
+        #linka:hover{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <!-- id选择器  在当前html页面中，必须是唯一的 -->
+    <div id="containter">当前是containter</div>
+    <!-- class选择器 在当前的html页面中，相同名字的class可以是多个：
+        说明相同名字的class代表的标签是相同样式 -->
+    <div class="gsp">当前是div标签</div>
+    <span class="gsp">当前是span标签</span>
+    <!-- 标签选择器 -->
+    <p>当前是p标签</p>
+
+
+    <ul>
+        <li id="wxr">001</li>
+        <li class="tl">002</li>
+        <li>003</li>
+    </ul>
+
+    <a href="www.baidu.com" id="linka">百度</a>
+</body>
+</html>
