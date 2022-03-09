@@ -4,48 +4,135 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>tab</title>
+    <title>tab选项卡</title>
     <style>
-            /* 所有的样式重置 */
-            *{
-                margin: 0;
-                /* 边距和小点 */
-                padding: 0;
-            }
-            ul{
-                list-style: none;
-            }
-            .container{
-                width: 300px;
-                height: 350px;
-                background-color: bisque;
-                margin: 100px auto;
-                /* 居中   第一个参数：上下50px，，左右auto*/
-            }
-            .tabs li{
-                float: left;
-            }
-            /* .tabs{
-                float: left;
-            } */
+        *{
+            /* 通配符选择器 */
+            margin: 0;
+            padding: 0;
+        }
+        .container{
+            height: 350px;
+            width: 300px;
+            text-align: center;
+            margin:100px auto ;
+            background-color: blanchedalmond;
+            border: 2px solid black;
+        }
+        .tabs{
+            /* width: 300px;
+            height: 30px; */
+            font-size: 20px;
+            font-weight: bold;
+            list-style: none;
+            background-color: grey;
+            overflow: hidden;
+            border-bottom: 2px solid black;
+        }
+        li{
+            background-color: grey;
+            float: left;
+            width: 100px;
+            height: 30px;
+            /* 块级元素所占高度 */
+            text-align: center;
+            line-height: 30px;
+            /* 每行文字所占的高度   */
+            /* li标签浮动，原来的空间会释放，下面的元素会跑上来，父元素塌陷
+            解决父元素塌陷问题：
+            1.设置父元素的宽高
+            2.在父元素类里设置伪元素
+            3.给父元素加一个块级子元素
+            4.给父元素设置溢出隐藏 */
+        }
+        /* 默认情况下 被选中 */
+        /* 那么选中后，只显示本页内容怎么设置呢 */
+        .tabs>.selected{
+            background-color: black;
+            color: white;
+        }
+        /* .clearfixed::after{
+            content: "";
+            display: block;
+            clear: both;
+        } */
+        /* .tabs>li{
+            background-color: grey;
+            float: left; */
+            /* li标签浮动，原来的空间会释放，下面的元素会跑上来，ul父元素塌陷300px*0 */
+        /* } */
+        /* 所有div标签都隐藏，selected显示block */
+        .contents>div{
+            display: none;
+        }
+        .contents>.selected{
+            display: block;
+        }
+        /* .contents>div{
+            display: none;
+        }
+        .contents>.seed{
+            display: block;
+        }
+        .contents>.div{
+            display: none;
+        }
+        .contents>.lected{
+            display: block;
+        } */
+        /* #child{
+            clear: both;
+        } */
     </style>
+    <!-- <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .div1{
+            width: 200x;
+            height: 300px;
+            background-color: bisque;
+        }
+        .rapper{
+            float: left;
+            width: 100px;
+            height: 20px;
+            font-size: 18px;
+            background-color: gray;
+        }
+        
+    </style> -->
 </head>
 <body>
     <div class="container">
-    <!-- id唯一，，考虑复用性，，用class，，表示外部容器 -->
-    <!-- ul列表 -->
-    <ul class="tabs">
-        <li>页面一</li>
-        <li>页面二</li>
-        <li>页面三</li>
-    </ul>
-    <!-- 每个页面对应的内容板块 -->
-    <!-- div.contents + enter -->
-    <div class="contents">
-        <div>001</div>
-        <div>002</div>
-        <div>003</div>
+        <ul class="tabs clearfixed">
+            <li class="uili selected">001</li>
+            <li class="ulli seed">002</li>
+            <li class="ulli lected">003</li>
+            <!-- <div id="child"></div> -->
+        </ul>
+        <div class="contents">
+            <div class="selected">一</div>
+            <div class="seed">二</div>                                                                               
+            <div class="lected">三</div>
+        </div>
     </div>
-    </div> 
+    <!-- <div class="div1">
+        <div class="rapper">001</div>
+        <div class="rapper">002</div>
+        <div class="rapper">003</div>
+        <div class="contents" >
+            <div class="con">one</div>
+            <div class="con">two</div>
+            <div class="con">third</div>
+        </div>
+    </div> -->
+    <script>
+        // js交互，点1，2，3显示对应的页面内容，而不是全部的一二三
+        var val=document.getElementsByTagName('li');
+        val.on
+
+    </script>
 </body>
 </html>

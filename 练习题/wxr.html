@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+               Array.prototype.equal=function(arr4){
+            // first 情况
+            if(Array !== arr4.constructor){
+                // ===   和   !==
+                throw new Error('参数不是数组');
+            }
+            var len1=this.length;
+            var len2=arr4.length;
+            if(len1==len2){
+                // second 情况
+                for(var i=0;i<len1;i++){
+                    if(this[i]!==arr4[i])
+                        // console.log('两数组不等');
+                        return false;
+                    else
+                        // console.log('两数组等');
+                        return true;
+                }
+            }
+            else{
+                console.log('两数组长度不等');
+            }
+        
+        }
+        // ar1.equal(ar2);//true-----原型
+        // ar1必须是数组，，ar2不一定是数组，所以第一步必须判断ar2是否是数组
+        var arr3=[3,4,5,[6,7]];
+        var arr4=[3,4,5,[6,7]];
+        console.log(arr3.equal(arr4));//true
+    </script>
+</body>
+</html>

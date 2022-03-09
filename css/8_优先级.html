@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>display 优先级</title>
+    <style>
+        /* *{
+            margin: 0;
+            padding: 0;
+        } */
+        /* 行级元素吧块级元素的宽高值 */
+        #div1{
+            /*  display布局,
+                块级元素默认是block,
+                行级元素可以进行修改 */
+            /*  inline变成行级元素
+                inline-block变成行级块元素
+                none隐藏,不展示 
+            */
+            /* display: inline-block; */
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+        #span1{
+            /* 此时,span标签的宽高并没有生效 */
+            width: 200px;
+            height: 100px;
+            background-color: blue;
+            /* 第一,行级元素可以进行修改为块级元素 行级块元素 */
+            /* 第二,设置浮动 */
+            float: left;
+            /* display: inline-block; */
+        }
+        img{
+            width: 50px;
+            height: 50px;
+            /* 行级元素可以进行修改为块级元素 */
+            /* display: block; */
+        }
+    </style>
+    <style>
+        /* 同一个元素的相同属性id class 标签 */
+        .neilian{
+            /* 同一元素被不同选择器设置不同属性都会生效 */
+            width: 100px;
+            height: 200px;
+            text-decoration:overline;
+            font-size: 40px;
+            background-color: aqua;
+        }
+        #cl{
+            background-color: blue;
+        }
+        div{
+            background-color: green;
+        }
+        .div1{
+            /* 同一优先级 同一元素  后面设置会把前面的设置覆盖 */
+            text-decoration:underline;
+            font-size: 10px;
+        }
+        /* class：内联   id:cl 标签div----都指向div标签，
+        同一个元素的相同属性id class 标签 */
+        /* 同一元素被不同选择器设置不同属性都会生效 */
+        /* 同一优先级 同一元素  样式的先后顺序:后面设置会把前面的设置覆盖 */
+    </style>
+    <style>
+        /* 权重计算:
+            内联样式  最高1000
+            id选择器 100
+            class选择器 10
+            标签选择器 1
+            伪类选择器 10
+            伪元素 1*/
+            /* 在父元素的最后写一个伪元素,代表在子元素中加入一个元素,
+            这个元素不是通过html写si的,而是通过样式加进去的
+            类名::after{}*/
+        *{
+            margin: 0;
+            padding: 0;
+            /* ul li 标签清除圆点:用list-style: none 设置外边距 内边距为0 */
+        }
+        li{
+            /* 1 */
+            color: orange !important;
+            /* !important  将优先级改为最高 */
+        }
+
+        ul>li{
+            /* 2 */
+            color: red;
+        }
+        /* 此时是红色,同一元素,同一优先级,后面覆盖前面 */
+        .ulli>li{
+            /* 11 */
+            color: aqua;
+        }
+        /* id class 标签 */
+        .list{
+            /* 10 */
+            color: black;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="div1">div1</div>
+    <span id="span1">span1</span>
+    <!-- 块级元素:块级元素可以嵌套块级和行级元素,除了h p不可以嵌套块级元素
+        1.单个元素占一行
+        2.可以设置宽高
+        行级元素:span a img
+        1.多个元素占一行
+        2.宽高是被内容撑开的
+        行级块元素:
+        1.多个元素占一行
+        2.可以设置宽高
+    -->
+    
+    <img src="../imgs/dog.jpg" alt="dog">
+    <img src="../imgs/index.png" alt="cat">
+
+    <!-- 内联样式的优先级是最高的，内部样式外部样式 -->
+    <div style="width: 200px;height: 200px; " class="neilian div1" id="cl" >div div div</div>
+
+
+    <ul class="ulli">
+        <li class="list">001</li>
+        <li>002</li>
+        <li>003</li>
+    </ul>
+    <!-- ui组件库pc:cube-ui
+        b:iviewui
+        将组件引入,不用自己写了 -->
+</body>
+</html>

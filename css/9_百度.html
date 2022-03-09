@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+    
+        #container{
+            overflow: hidden;
+        }
+        #menu>.menu_list>.menu-list-btn{
+            background-color: blue;
+            color: white;
+            margin-top: 3px;
+            margin-left: 6px;
+        }
+        #menu{
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        .menu_list{
+            float: right;
+            list-style: none;
+            margin-right: 10px;
+        }
+        #menu>.menu_list>a{
+            /* a标签的颜色，不可继承父元素，要自己的选择器里修改 */
+            color: black;
+            font-size: 12px;
+        }
+        #menu>.menu_list>a:hover{
+            color: blue;
+            font-weight: bold;
+        }
+        #menu>.menu_list>.menu-list-link{
+            font-weight: normal;
+            /* 字体默认权重400px */
+        }
+        #logo{
+            text-align: center;
+        }
+        #logo>a>img{
+            /* a img是行级元素 要改变为block块级元素，否则无法设置宽和高
+                行级元素、行级块元素想要居中展示，必须在其父元素样式内设置居中
+                 */
+            display: inline-block;
+            width: 270px;
+            height: 129px;
+
+        }
+        #disp{
+            text-align: center;
+        }
+        #disp>.text{
+            width: 500px;
+            height: 25px;
+            display: inline-block;
+            border: 1px solid grey;
+        }
+        #disp>a{
+            color: white;
+            background-color: blue;
+            font-size: 20px;
+            text-decoration: none;
+            position: relative;
+            top: 2px;
+
+        }
+    </style>
+</head>
+<body>
+    <!-- 对当前页面进行划分 -->
+    <div id="container">
+        <ul id="menu">
+            <li class="menu_list">
+                <button class="menu-list-btn">更多</button>
+            </li>
+            <li class="menu_list">
+                <a href="">新闻</a>
+            </li>
+            <li class="menu_list">
+                <a href="">hao123</a>
+            </li>
+            <li class="menu_list">
+                <a href="">地图</a>
+            </li>
+            <li class="menu_list">
+                <a href="">贴吧</a>
+            </li>
+            <li class="menu_list">
+                <a href="">视频</a></li>
+            <li class="menu_list">
+                <a href="">图片</a>
+            </li>
+            <li class="menu_list">
+                <a href="">网盘</a>
+            </li>
+            <li class="menu_list">
+                <a href="" class="menu-list-link">登录</a>
+            </li>
+        </ul>
+    </div>
+    <div id="logo">
+        <a href="https://www.baidu.com">
+            <img src="https://www.baidu.com/img/pc_9c5c85e6b953f1d172e1ed6821618b91.png" alt="biadu.logo">
+        </a>
+    </div>
+    <div id="disp">
+        <input type="text" class="text">
+        <a href="https://taobao.com">百度一下</a>
+    </div>
+
+</body>
+</html>
