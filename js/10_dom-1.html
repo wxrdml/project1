@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>轮播图</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #container{
+            width: 750px;
+            height: 291px;
+            background-color: blueviolet;
+            text-align: center;
+            margin: 100px auto 0;
+            /* 祖先元素进行相对定位:相对于元素本身进行定位,不释放原有空间 */
+            position: relative;
+        }
+        #swiper{
+            width: 100%;
+            height: 100%;
+        }
+        #swiper>img{
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+        #swiper>.show{
+            display: block;
+            /* background-color: red; */
+        }
+        #list{
+            position: absolute;
+            /* 相对于祖先元素container进行定位,释放原有空间,,因此在图象上显示 */
+            right: 30px;
+            bottom: 30px;
+        }
+        #list>li{
+            list-style: none;
+            width: 22px;
+            height: 22px;
+            float: left;
+            color: white;
+            /* 背景设置透明度0.6
+            opacity元素整体半透明 */
+            background-color: rgba(0, 0, 0, 0.6);
+            margin: 0 5px;
+            /* 上下左右居中对齐 */
+            text-align: center;
+            line-height: 22px;
+            cursor: pointer;
+        }
+        #list>.select{
+            background-color: red;
+        }
+        #container>span{
+            background-color: grey;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            margin-top: -25px;
+            display: block;
+        }
+        /* 有高度的元素，居中不仅要50%，还要外边距加上高度的-一半 */
+        #container>#left{
+            position: absolute;
+            top: 50%;
+            left: 0;
+        }
+        #container>#right{
+            position: absolute;
+            top: 50%;
+            right: 0;
+        }
+        /* span是行内元素，设置为块级元素或者行级块元素，才可以设置宽和高 */
+        #left::after{
+            content: '';
+            width: 20px;
+            height: 20px;
+            display: block;
+            border-left: 5px solid white;
+            border-bottom: 5px solid white;
+            transform: rotate(45deg);
+            position: relative;
+            top: 10px;
+            left: 10px;
+        }
+        #right::after{
+            content: '';
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            border-right: 5px solid white;
+            border-top: 5px solid white;
+            transform: rotate(45deg);
+            position: relative;
+            top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <!-- 大容器装所有 -->
+        <div id="swiper">
+            <!-- 处于大容器下的，小容器装图片img行级块元素，yuansu之间有空格，因为标签间的回车换行 -->
+            <img src="https://gw.alicdn.com/imgextra/i3/O1CN01Am8Sra21Zaice06ax_!!6000000006999-2-tps-1130-500.png_570x10000.jpg_.webp" alt="tmall-1" class="show">
+            <img src="https://img.alicdn.com/simba/img/TB1lUZLJVXXXXXtXFXXSutbFXXX.jpg" alt="tmall-2">
+            <img src="https://gw.alicdn.com/tps/i4/i3/6000000003435/O1CN01fS1G4M1bFHA2rvIwi_!!6000000003435-0-ald.jpg_570x10000Q75.jpg_.webp" alt="tmall-3">
+            <img src="https://img.alicdn.com/imgextra/i4/6000000004047/O1CN01Y8A3Cu1flZaFyZZft_!!6000000004047-0-alimamazszw.jpg" alt="tmall-4">
+            <img src="https://gw.alicdn.com/tps/TB1x2eZLVXXXXbCXVXXXXXXXXXX-1130-500.jpg_570x10000Q75.jpg_.webp" alt="tmall-5">
+        </div>
+        <ul id="list">
+            <!-- 处于大容器下的，无序列表  -->
+            <li class="select">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+        </ul>
+        <!-- hangji元素:先做一个灰色背景,
+            在背景里做个正方形旋转 -->
+        <span id="left" ></span>
+        <span id="right"></span>
+    </div>
+
+    <script>
+        var ali=document.getElementsByTagName('li');
+        var aImg=document.getElementsByTagName("img");
+        var lli=document.getElementById('left');
+        var rli=document.getElementById('right');
+        var acontainer=document.getElementById('container');
+        var k=0;
+        for(var i=0;i<ali.length;i++){
+            ali[i].index=i;
+            
+            ali[i].onclick=function(){
+                console.log(this.index);
+                // 循环去掉每个li的样式
+                k=this.index;
+                aa();
+                // 将类数组ali下标设置为与btn相同的索引k
+                // for(var j=0;j<ali.length;j++){
+                //     ali[j].className='';
+                //     // ba所有元素的样式去掉
+                //     // 下面点击那个li标签,就加上class=show
+                //     aImg[j].className='';
+                // }
+                // // 将点击事件加上样式
+                // ali[this.index].className='select';
+                // aImg[this.index].className='show';
+            }
+        }
+        function aa(){
+            for(var l=0;l<ali.length;l++){
+                ali[l].className='';
+                aImg[l].className='';
+            }
+            ali[k].className='select';
+            aImg[k].className='show';
+        }
+        rli.onclick=function(){
+            k++;
+            if(k==ali.length)
+            {
+                k=0;
+            }
+            aa();
+        }
+        lli.onclick=function(){
+            k--;
+            if(k==-1){
+                k=ali.length-1;//4
+            }
+            aa();
+        }
+        // 轮播图，自动执行----setinterval
+        goTimer();
+        // Timer= setInterval(function(){
+        //     rli.onclick();
+        // }, 1000);
+        // 当鼠标划入时，轮播图暂停，划出时轮播图继续滚动
+        acontainer.onmouseover=function(){
+            clearInterval(Timer);
+            // 清除定时器Timer
+        }
+        acontainer.onmouseout=function(){
+            goTimer();
+            // Timer=setInterval(function(){
+            //     rli.onclick();
+            // }, 1000);
+        }
+        function goTimer(){
+            // 要声明一个变量Timer==setinterval
+            // 重复性高的代码要写一个函数方法进行调用
+            Timer=setInterval(function(){
+                rli.onclick();
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

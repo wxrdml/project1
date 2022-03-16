@@ -149,10 +149,10 @@
 
     <!-- parent是三个rapper的父元素，块级元素自动被内容撑开，当rapper浮动后，其空间被释放，
         那么parent也没有了内容，会出现塌陷现象 -->
-        <!-- 1.给父元素设置高度 -->
-        <!-- 2.给父元素设置溢出隐藏 -->
-        <!-- 3.在父元素中加入一个块级子元素,清除浮动 -->
-        <!-- 4.在父元素中设置伪元素 clearfix -->
+        <!-- 1.给父元素设置高度，不灵活，不常用 -->
+        <!-- 2.给父元素设置溢出隐藏overflow：hidden 常用 -->
+        <!-- 3.在父元素中加入一个空的块级子元素,设置样式清除浮动child 设置宽高 -->
+        <!-- 4.在父元素中设置伪元素 clearfix类，其样式里面写clear both 常用-->
     <div id="parent" class="clearfix">
         <div class="rapper" id="we1">cdiv1</div>
         <div class="rapper" id="we2">cdiv2</div>

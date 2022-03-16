@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>垂直导航</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        h1{
+            width: 100px;
+            height: 24px;
+            background-color: red;
+            color: white;
+            text-align: center;
+            line-height: 24px;
+            font-size: 22px;
+            border: 1px solid black;
+            cursor: pointer;
+        }
+        ul{
+            display: none;
+        }
+        li{
+            width: 100px;
+            height: 24px;
+            text-align: center;
+            line-height: 24px;
+            border: 1px solid black;
+        }
+        /* #base{
+
+        }
+        #kj{
+
+        } */
+        #show{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>前端基础</h1>
+    <ul>
+        <li>html</li>
+        <li>css</li>
+        <li>js</li>
+    </ul>
+    <h1>前端框架</h1>
+    <ul>
+        <li>vue</li>
+        <li>react</li>
+        <li>jqure</li>
+    </ul>
+    <script>
+        var ah=document.getElementsByTagName('h1');//0,1
+        var aul=document.getElementsByTagName('ul');//0,1
+        // 用于展示0和隐藏1的标志,,或者设置为true false
+        for(var i=0;i<ah.length;i++){
+            // 有两个h1---ul元素，各自的tag控制各自的显示和隐藏
+            ah[i].tag=true;
+            ah[i].index=i;
+            ah[i].onclick=function(){
+                if(this.tag){
+                    // tag=0;
+                    aul[this.index].style.display='block';
+                }
+                else{
+                    // tag=1;
+                    aul[this.index].style.display='none';
+                }
+                console.log(this.tag);
+                console.log(!this.tag);
+                this.tag= !this.tag;
+            }
+        }
+    </script>
+</body>
+</html>

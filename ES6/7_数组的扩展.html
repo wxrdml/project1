@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数组的扩展</title>
+</head>
+<body>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+    <!-- 1.Array.from() 1.类数组 2.arguments 3.对象  转化为数组 -->
+    <!-- 2.Array.of()方法用于将一组值，转换为数组。可以理解为定义一个数组 -->
+    <!-- 3.数组实例的copyWithin()方法，在当前数组内部，
+        将指定位置的成员复制到其他位置（会覆盖原有成员），然后返回当前数组。
+        也就是说，使用这个方法，**会修改当前数组。 -->
+    <!-- Array.prototype.copyWithin(target, start = 0, end = this.length) 数组索引-->
+    <!-- target：从该位置开始替换数据。如果为负值，表示倒数 -->
+    <!-- start:读取数组元素的开始索引值 -->
+    <!-- end：读取数组索引的end结束之前，不包含end -->
+    <script>
+        let a=[1,2,3,4,5,6];
+        console.log( a.copyWithin(2,3,4)  );//124456
+
+    </script>
+    <!-- 4.数组.find（function(value,index,arr原数组){}）返回满足条件的第一个数组成员，不满足返回undefined
+         5.findindex（）返回满足条件的第一个数组索引，不满足返回-1 -->
+    <script>
+        let b=[1,2,3,4,15,16];
+        console.log(b.find(function(value,index,array){
+            // return value>10;
+            // 找到数组b中的值大于10，返回第一个符合条件的值（大于十）
+            return index<0
+            // index索引值,找到数组b中的索引大于10，返回第一个符合条件的的值。
+
+        }));
+        console.log(b.findIndex(function(value,index,array){
+            return value>10;
+            // 找到数组b中的值大于10，返回第一个符合条件的值（大于十）
+            // return index>1
+            // index索引值,找到数组b中的索引大于10，返回第一个符合条件的的值。
+
+        }));
+    </script>
+    <!-- fill 给数组进行填充，用填充内容pp填充原数组的每个位置，数组长度不变-->
+    <script>
+        console.log(['www',1,3,4,5].fill('pp'));
+        // fill(value,start,end)
+
+    </script>
+    <!-- includes:字符串、数组是否包含** ----返回Boolean-->
+    <script>
+        let c=['www',1,3,4,5];
+        console.log(c.includes(1));//true
+    </script>
+    <!-- for in对象 -->
+    <!-- for of循环：数组，类数组  方法list.keys   list.values   list.entries-->
+    <script>
+        let list=[
+            {
+                name:'lisi',
+            },
+            {
+                name:'wangwu',
+            },
+            {
+                age:20,
+                name:'pp'
+            }
+        ]
+        // for(obj of list){
+        //     // obj默认全局变脸
+        //     // list.keys()索引
+        //     // list.values()每一项
+        //     // list.entris():index value
+        //     console.log(obj);
+        //     // 每个obj：{name: 'lisi'} {name: 'wangwu'}....
+        // }
+        for([index,value] of list.entries()){
+            // obj默认全局变脸
+            // list.keys()索引
+            // list.values()每一项
+            // list.entris():index value
+            console.log(index);
+            console.log(value);
+            // 每个obj：{name: 'lisi'} {name: 'wangwu'}....
+
+        }
+        let ali=document.getElementsByTagName('li');
+        console.log(ali);//类数组HTMLCollection(3) [li, li, li]
+        let aali=[...ali];
+        console.log(aali);//数组 [li, li, li]
+
+        for(i of ali){
+            console.log(i);//每个标签
+            console.log(ali);//类数组
+        }
+    </script>
+    <!-- 数组遍历：1.arr.foreach(function(value，index，arr){}普通函数、箭头函数)没有返回值
+                  2.arr.map(function(value,index)) 有返回值list1 list2（返回一个新的数组） ，不改变原数组
+                  3.arr.filter(function(value,index){})过滤,有返回值（只返回符合条件的数组元素），不改变原数组-->
+    <script>
+        list.forEach((value,index) => {
+            value.age+=1;//没有age属性的，就返回nan
+            console.log(value);//每个数组元素
+        })
+        console.log(list);//数组
+
+
+        let list1=list.map(function(value,index){
+            if(value.age>2){
+                console.log(value);//{age: 21, name: 'pp'}
+                return value
+            }
+            else{
+                console.log('false');//false false
+            }
+            // return value.age>10;
+        })
+        console.log(list1);//0:undefined 1: undefined 2: {age: 21, name: 'pp'}
+        console.log(list);
+
+
+        let list2=list.map(function(value,index){
+            return value.age>10;
+        })
+        console.log(list2);//[false, false, true]
+        console.log(list);//不改变原数组
+
+
+        let list3=list.filter((value,index)=> {
+            return value.name=='pp';
+        })
+        console.log(list3);
+        console.log(list);//不改变原数组
+    </script>
+</body>
+</html>

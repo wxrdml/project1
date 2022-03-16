@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>右键菜单</title>
+    <style>
+        *{
+            /* 自带 border ：输入框input 按钮button */
+            /* 一般项目里并不是所有都清零，而是分组选择器  ，{清零，默认} */
+            margin: 0;
+            padding: 0;
+        }
+        #list{
+            width: 75px;
+            height: 178px;
+            background-color: grey;
+            border: 1px solid white;
+            text-align: center;
+            list-style: none;
+            /* margin: 50px auto; */
+            /* 圆角 
+            设置为width的一半，为圆*/
+            border-radius: 4px;
+            display: none;
+            /* 右键点击哪里，菜单栏就在哪里 */
+            /* position: fixed; */
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        #list>li{
+            width: 75px;
+            height: 24px;
+            border: 1px solid white;
+            line-height: 24px;
+            /* 、垂直居中，height==line-height */
+            cursor: pointer;
+            /* 设置鼠标样式cursor，pointer从指针变成小手
+                move：样式可移动十字
+                crosshair十字线
+                text指示文本 长杠 */
+        }
+        li:hover{
+            background-color: orange;
+            color: white;
+        }
+        #list>.show{
+            
+        }
+    </style>
+</head>
+<body>
+    <ul id="list">
+        <li  class="show">打开</li>
+        <li>下载</li>
+        <li>分享</li>
+        <li>移动到</li>
+        <li>复制到</li>
+        <li>重命名</li>
+        <li>删除</li>
+    </ul>
+    <!-- 点击浏览器（document）右键，有菜单选择 -->
+    <!-- oncontextmenu 事件在元素中用户右击鼠标时触发并打开上下文菜单。 -->
+    <script>
+        var oul=document.getElementById('list');
+
+        document.oncontextmenu=function(event){
+            // event.preventDefault();
+            // diyi ,阻止浏览器的默认行为
+            // dier, 或者return false
+            // console.log('121345');测试
+            oul.style.display='block';
+            // 让菜单显示
+            var left=event.clientX;//返回number类型
+            var top=event.clientY;
+            // 设置样式需要带单位
+            oul.style.top=top+'px';
+            oul.style.left=left+'px';
+            return false;
+        }
+        // oul.onclick指的是点击list发生的事件，document.onclick指的是点击浏览器的页面
+        document.onclick=function(){
+            oul.style.display='none';
+        }
+        // 这样显示的是两个菜单：自定义菜单（想要的），浏览器本身菜单（不想要）
+
+        var oli=oul.getElementsByTagName("li");
+        for(var i=0;i<oli.length;i++){
+            oli[i].index=i;
+            oli[i].onclick=function(){
+                // console.log(this.index);
+                // 将oli类数组的每个htmlname取出innerhtml
+                console.log(oli[this.index].innerHTML);
+            }
+        
+        }
+    </script>
+</body>
+</html>

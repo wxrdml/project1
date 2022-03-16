@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>扩展运算符...  rest运算符</title>
+</head>
+<body>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+    <script>
+        // ...rest  函数调用时，剩余参数，用于参数个数不明确
+        // arguments  在灭有形参的情况下，用于参数个数不明确，通过arguments获取参数
+
+        function nnf(){
+            // console.log(q,...rest);括号内的参数(q,...rest)
+            console.log(arguments);
+            console.log(arguments.callee);
+            // 应用 函数的递归调用，调用当前函数
+            // ƒ nnf(){
+            // // console.log(q,...rest);
+            // console.log(arguments);
+            // console.log(arguments.callee);
+            // }
+        }
+        nnf(2,3,4,5,6);
+
+    </script>
+    <script>
+        let ali=document.getElementsByTagName('li');
+        console.log(ali);//类数组，只有长度
+        // ali.push('<li>4</li>')//错误，因为ali是类数组，没有数组的方法
+        // 那么类数组怎么使用数组的方法呢？
+
+        let s1=[...ali];//ali成为数组
+        console.log(s1.push('aa'));//返回数组的新长度4
+        for(let i=0;i<s1.length;i++){
+            console.log(s1[i]);
+        }
+    </script>
+    <script>
+        // 扩展运算符...1.数组的复制（深克隆）  2.作为数组的一部分  3.数组、对象的合并连接   4.类数组转化成数组
+        // 深拷贝：将一个变量a的内容赋值给另一个变量b，如果b里面的内容修改了，a不变（基本数据类型
+        // 浅拷贝：如果b里面的内容修改了，a改变（引用数据类型
+        // 如果希望引用数据类型实现深拷贝-----扩展运算符
+        let a1=[1,2,3];
+        let a2=[...a1];
+        console.log(a1);//123
+        console.log(a2);//123
+        // 用扩展运算符的方式，实现数组的深拷贝（两个变量地址不同，只是将啊
+        // a1的内容赋值给a2）
+        a2[0]=5;
+        console.log(a1);//123
+        console.log(a2);//523
+        // 作为数组的一部分
+        let a3=['pp',...a1];
+        console.log(a3);
+
+        console.log(a1.join(a3));//转化为字符串的合并
+        // 数组的合并concat\\扩展运算符
+        console.log(a1.concat(a3));//[1, 2, 3, 'pp', 1, 2, 3]
+        console.log([...a1,...a3]);//[1, 2, 3, 'pp', 1, 2, 3]
+
+
+        // 对象的深克隆，合并顺序：从前往后依次合并，后面覆盖前面
+        let obj1={
+            name: 'lisi',
+            age:13
+        }
+        let obj2={
+            height:'130cm',
+            weight:'70kg',
+            age:90
+            // key:value:key唯一
+        }
+        let obj3={...obj1,obj2}
+        console.log(obj3);
+        // age: 13
+        // name: "lisi"
+        // obj2: {height: '130cm', weight: '70kg', age: 90}
+
+        obj3={...obj1,...obj2}
+        console.log(obj3);//obj1 obj2都含有age属性，合并之后的obj3要obj2中的age（后面属性把前面覆盖）
+        // {name: 'lisi', age: 90, height: '130cm', weight: '70kg'}
+
+
+        let obj4={
+            height:'130cm',
+            weight:'70kg',
+            age:90,
+            ...obj1//后面覆盖前面，，与obj1的区别
+        }
+        console.log(obj4);
+
+    </script>
+
+</body>
+</html>

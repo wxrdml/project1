@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>选项卡</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #container{
+            width: 300px;
+            height: 200px;
+            position: relative;
+            margin: 100px auto;
+            border: 1px solid grey;
+        }
+        #list{
+            width: 300px;
+            height: 25px;
+            list-style: none;
+            background-color: white;
+            color: orange;
+            border-bottom: 1px solid grey;
+            text-align: center;
+            /* shuiping juzhong */
+            line-height: 25px;
+            /* chuizhi juzhong  */
+        }
+        li{
+            float: left;
+            width: 100px;
+            height: 25px;
+        }
+        #content{
+            width: 100%;
+            height: 300px;
+            /* content和div里的两个定位怎么回事
+            div绝对定位 相对于祖先元素content而言 释放原有空间,因此该div会上移动至顶端
+            content相对定位,相对元素本身而言,不会释放原有空间,占位用 */
+            position: relative;
+        }
+        #content>div{
+            /* display: none; */
+            width: 100%;
+            height: 175px;
+            text-align: center;
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        /* #oo{
+            color: white;
+            background-color: orange;
+        }
+    
+        #tt{
+            display: none;
+        }
+        #hh{
+            display: none;
+        } */
+        #content>.show{
+            display: block;
+            color: white;
+            background-color: orange;
+            opacity: 1;
+            transition: opacity 1s ease;
+            /* 1s之内透明度从零到一 */
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <ul id="list">
+            <li id="one" class="active">菜单一</li>
+            <li id="two">菜单二</li>
+            <li id="three">菜单三</li>
+        </ul>
+        <div id="content">
+            <div id="oo" class="show">内容一</div>
+            <div id="tt">内容二</div>
+            <div id="hh">内容三</div>
+        </div>
+    </div>
+    <script>
+        var dd=document.getElementById('content');
+        var oo=dd.getElementsByTagName('div');
+    
+        var olist=document.getElementById('list');
+        var ali=olist.getElementsByTagName('li');
+        for(var i=0;i<ali.length;i++){
+            ali[i].index=i;
+            ali[i].onclick=function(){
+                console.log(this.index);//0,1,2
+                for(var j=0;j<ali.length;j++){
+                    ali[j].className='';
+                    // ba所有元素的样式去掉
+                    // 下面点击那个li标签,就加上class=active
+                    oo[j].className='';
+                }
+                // ali[i].className='active';// undefined,,此处的i==3，但是类数组里面没有i=3
+                // 二者对应的索引值相同
+                ali[this.index].className='active';
+                oo[this.index].className='show';
+            }
+        }
+        // 类数组，没有数组自带的方法，只能用length，通过for循环拿到元素
+        // getElementById('id')
+        // getElementsByTagName('biaoqian');返回类数组
+        // getelementsbyname('name');返回类数组，通过标签的name属性获取元素
+        // getelementsbyclassname('classname');返回类数组
+    </script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>symbol set</title>
+</head>
+<body>
+    <!--es5 数据类型：基本；string number boolean null undefined；引用：数组、对象 
+        es6：symbol：独一无二的值，不会出现属性名相同
+        二者区别：内存存储不同；复制时不同，地址，内容
+        深拷贝和浅拷贝是只针对Object和Array这样的引用数据类型的
+        深拷贝：深拷贝会另外创造一个一模一样的对象，新对象跟原对象不共享内存，二者修改内容，另一变量不改变
+        浅拷贝：将变量的地址拷贝给另一变量，新旧对象还是共享同一块内存，一个变量修改内容，另一个变量也修改
+        -->
+        <script>
+            // 浅拷贝
+            var obj1 = {
+                'name' : 'zhangsan',
+                'age' :  '18',
+                'language' : [1,[2,3],[4,5]],
+                };
+            var obj3 = shallowCopy(obj1);
+            obj3.name = "lisi";
+            obj3.language[1] = ["二","三"];
+            function shallowCopy(src) {
+            var dst = {};
+            for (var prop in src) {
+                if (src.hasOwnProperty(prop)) {
+                    dst[prop] = src[prop];
+                }
+            }
+            return dst;
+            }
+            console.log('obj1',obj1)
+            console.log('obj3',obj3)
+            // 复制，浅拷贝，深拷贝之间的区别
+            // 当第一层数据类型是基本：改变会使原来的数据一同改变；改变不会使原来的数据一同改变；改变不会使原来的数据一同改变；
+            // 当原数据包含子对象时：改变会使原来的数据一同改变；改变会使原来的数据一同改变；改变不会使原来的数据一同改变
+
+            // for of 遍历数组的元素
+            for (const key in obj1) {
+                // forin 遍历对象的键名
+                if (Object.hasOwnProperty.call(obj1, key)) {
+                    const element = obj1[key];
+                    // 对象----属性值
+                    console.log(element);
+                    // 对象-----属性名
+                    console.log(key);
+                    
+                }
+            }
+            let a=Symbol('123');
+            console.log(a);//Symbol(123)
+            let b=Symbol('123');
+            console.log(b);//Symbol(123)
+            // 独一无二
+            console.log(  Object.is(a,b));//false
+            console.log(a===b);//false
+            let xxx=Symbol('1')
+            let ob1={
+                name:'lisi',
+                age:9,
+                [xxx]:'60kg',
+                [Symbol('2')]:'163cm'
+            }
+            console.log(ob1);//{name: 'lisi', age: 9, Symbol(): '60kg', Symbol(): '163cm'}
+            ob1[Symbol(3)]=98;//向ob1对象添加新的属性98，与前两个symbol不同
+            console.log(ob1[xxx]);
+            for(key in ob1){
+                //name age,,for in循环没有symbol创建出来的属性
+                console.log(key);
+                console.log(ob1[key]);//lisi 9
+            }
+        </script>
+    <!-- BigInt 只用来表示整数，没有位数的限制，任何位数的整数都可以精确表示。 -->
+        <script>
+            // BigInt:数字结尾要加n；数字前可以加负号，不可以加＋；
+            // BigInt函数，将其他数据类型强制转化成BigInt；BigInt()函数必须有参数，而且参数必须可以正常转为数值。
+            // BigInt(undefined) //TypeError
+            // BigInt(null) // TypeError
+            // BigInt('123n') // SyntaxError
+            // BigInt('abc') // SyntaxError
+            // BigInt(1.5) // RangeError
+            let p = 1n;
+            for (let i = 1n; i <= 70n; i++) {
+                p *= i;
+            }
+            console.log(p);//70!
+        </script>
+    <!-- Set类似于数组:Set类数组：1、去重  2、length--size -->
+    <script>
+        let as=['oo',1,2,2,3,3];
+        let as1=new Set(as);
+        console.log(as);//['oo',1,2,2,3,3];length=6
+        console.log(as1);//['oo',1,2,3];size=4
+        // ...将类数组转化为数组
+        console.log([...as1]);
+        // add()向类数组末尾里添加数据as1,但是如果类数组里包含此元素，则不可添加
+        console.log(as1.add(1));
+        // delete()删除类数组元素-----boolean
+        console.log(as1.delete('oo'));//true
+        console.log(as1);
+        // has判断as1类数组里是否含有元素---Boolean
+        console.log(as1.has(1));
+        // clear清除所有成员----无返回
+        as1.clear();
+        console.log(as1);//Set(0) {size: 0}
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>复习</title>
+</head>
+<body>
+    <script>
+        // html:
+        // 1.元素分类: 
+        // 块级元素(h p标签不可以嵌套,其余可以) :每个块级元素占一行,宽高可以设置
+        // 行级元素(a标签自己不可以嵌套自己) :多个元素占一行 ,宽高不可以设置
+        // 行级块元素多个元素占一行,宽高可以设置
+
+
+        // css
+        // 1.盒模型
+        // 标准盒模型 元素宽度width+padding+border
+        // 怪异盒模型 width(我设置的)=元素宽度+padding+border
+        
+        // 2.选择器
+        // Id选择器100
+        // 类选择器10
+        // 标签选择器1
+        // 子代选择器
+        // 后代选择器
+        // 分组选择器
+        // 伪类选择器10
+        // 伪元素选择器1
+        // 通配符选择器
+        // !important最高的值
+        // width:100px!important尽量不写
+
+        // 块级元素嵌套div，，在不设置样式的情况下，父元素的width是100%，子元素的width继承父元素
+        // 父元素的height和子元素的height不会继承，被内容自动撑开
+
+        // 3.外边距margin
+        // 外边距合并：父元素设置边框border，父元素设置溢出隐藏；父或者子元素设置浮动；父或者子绝对定位
+        // 浮动导致父元素塌陷： 父元素里加一个空的子块；伪元素clearfix；父元素设置高度；父元素溢出隐藏
+
+        // 4。定位：绝对：释放空间，已经定位的祖先元素  相对：不释放空间，本身元素定位   固定：释放空间，相对浏览器窗口定位
+
+        // 5.div嵌套要求子元素水平 垂直居中：
+        // 在子元素中设置子元素为margin：50px auto 0水平居中
+        // 或者在子元素中设置定位：position：absolute，left=width/2 top=height/2 margin：-width/2 0 0 -height/2  +父元素的相对定位
+        // 行级元素水平居中：需要在父元素中text-align=center   子或者父line-height=height
+
+        // 6.透明度
+        // opacity0-1 背景和文字都通明
+        // background-color：rgba（0，0，0，0.6）只有背景透明
+        // 7.css圆角border -radius
+
+    </script>
+    <script>
+
+        // js
+        // 1、数据类型：typeof基本数据类型：undefined null number string boolean  引用数据类型：数组 对象
+        // 二者数据类型的存储方式不同：栈内存（基本数据类型，引用数据类型的地址） 
+        // 堆内存（引用数据类型的内容：ab赋值问题：对堆内存的数组某个元素进行修改，ab都改变；重新修改数组整体，要重新开辟堆内存空间，a不随之改变。
+        // a b 指向同一片内存空间
+        var a=[1,2,3];
+        var b=a;
+        b[0]=10;
+        console.log(a);//[10,2,3]
+        console.log(b);//[10,2,3]
+        // a b指向不同的内存空间
+        var a=[1,2,3];
+        var b=a;
+        b=[3,4,98,7];
+        console.log(a);
+        console.log(b);
+        console.log( typeof(a) );//对于引用数据类型来说，数组和对象都返回object，所以typeof只能判断基本数据类型
+        //shuzu
+        var a=new Array(3);//数组长度3，元素为空
+        var b=new Array(7,8);//有两个元素：7和8
+
+        var num=13;
+        switch (true) {
+            case num<10:
+                console.log('ss');
+            case num>=10 && num<20:
+                console.log('mm');
+            case num>20:
+                console.log('ll');
+            default:
+                break;
+        }
+        // mm ll没有加break，符合条件的case语句执行完成后，后面的语句都要执行
+
+
+        // 变量的作用域：全局、局部
+        // var x=10;
+        // function fun(){
+        //     x=20;
+        //     console.log(x);//20
+        // }
+        // fun();
+        // console.log(x);//20   函数内的全局作用域的x修改了全局的var x
+
+        // var x=10;
+        // function fun(){
+        //     var x=0;//局部
+        //     x=20;//函数体内20修改了局部变量的x，因此不加val也不一定是全局
+        //     console.log(x);//20
+        // }
+        // fun();
+        // console.log(x);//10  调用全局
+
+
+        // var x=10;
+        // function fun(){
+        //     var x=20;//局部变量无法修改全局x
+        //     console.log(x);//20
+        // }
+        // fun();
+        // console.log(x);//10
+
+
+        // 变量提升
+        // var x=10;
+        // function fun(){
+        //     console.log(x);//undefined
+        //     var x=1;
+        // }
+        // fun();
+        // console.log(x);//10
+
+
+        // var x=10;
+        // function fun(){
+        //     console.log(x);//10，
+        // x没有用var定义，此时没有变量提升，输出x应该像函数体的外一层寻找x
+        //     x=1;
+        // }
+        // fun();
+        // console.log(x);//1  函数体内不用var定义的变量为全局变量可以修改全局x
+
+
+        //函数提升
+        fun();
+        // fn();
+        function fun(params) {
+            console.log(1);
+        } 
+        // 在一开始var了一个fn，相当于定义了一个变量，变量提升var fn，变量无法当成函数，
+        // 所以报错信息是fn is not a function
+        // 后面是将一个函数定义给一个变量
+        var fn=function(){
+            console.log(2);
+        }
+
+
+        // pull unshift向数组的末尾和开头添加元素
+        // pop shift给数组的末尾和开头删除元素
+
+        // 对象
+        var obj={
+            name:'lisi',
+            age:3
+        }
+        obj.height=190;//给对象增加属性
+        console.log(obj.name);
+        console.log(obj['name']);//此种写法类似dom对象
+        // lisi
+
+        ali=document.getElementsByClassName('ss');
+        for(var i=9;i<ali.length;i++){
+            ali[i].index=i;//类似普通对象添加属性 属性值
+        }
+
+
+        // 定时器:每隔几秒执行  几秒之后执行
+        setInterval(() => {
+            
+        }, interval);
+        clearInterval(timer)
+        setTimeout(() => {
+            
+        }, timeout);
+        clearTimeout(timer);
+
+        // JS顺序执行+单线程：任务事件分为同步和异步
+        // 顺序：第一，主线程（同步）  第二，任务队列（异步）
+
+
+        // dom事件的形参e、event，获取事件对象e的各种值
+        // 阻止浏览器的默认行为：右键、点击a标签时阻止跳转
+        // 第一，e.preventdefault()
+        // 第二，ruturn false
+
+        // 对象：history:返回顶端
+        // go back forward
+        // scrollTo(x,y)滑动到
+        // scrollBy(x,y)滚动了
+
+
+        // navigator.useragent:判断用户手机端网页端 环境浏览器型号 ，来匹配不同页面--afrigo的广告位
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>无缝滚动</title>
+    <!-- <style>
+
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            overflow:hidden;
+            /* 给父元素加上溢出隐藏；给父元素加上border-top：1px solid transparent */
+            /* 给父或者子 加上浮动；加上绝对定位 */
+        }
+        div{
+            width: 200px;
+            height: 200px;
+            padding: 20px;
+            border: 10px solid grey;
+            margin: 10px;
+
+            position: relative;
+            top: 90px;
+            background-color: red;
+        }
+    </style> -->
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #container{
+            width: 408px;
+            height: 200px;
+            border: 1px solid pink;
+            position: relative;
+            top: 0;
+            left: 0;
+            margin: 100px auto;
+            overflow: hidden;
+        }
+        li{
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+            color: white;
+            text-align: center;
+            float: left;
+            list-style: none;
+            line-height: 100px;
+            margin-right: 2px;
+        }
+        #swipter{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        span{
+            display: block;
+            background-color: purple;
+            color: white;
+            text-align: center;
+            width: 100px;
+            height: 22px;
+            position: absolute;
+            bottom: 20px;
+            cursor: pointer;
+        }
+        #left{
+            position: absolute;
+            left: 50px;
+        }
+        #right{
+            position: absolute;
+            right: 50px;
+        }
+    </style>
+</head>
+<body>
+    <!-- <div>div</div> -->
+    <!-- <script>
+        // 类数组按照元素顺序获取0，1，2，3、、
+        var adiv=document.getElementsByTagName('div')[0];
+        console.log(adiv.style.width);//kong
+        
+        // 内联样式
+        // adiv.style.width='400px';
+        // 该方法也是获取内联样式，返回字符串400px
+        // console.log(adiv.style.width);
+
+        // 那么内部、外部样式应该怎么获取呢？----返回number ：260
+        console.log(adiv.offsetWidth);
+        // offsetwidth= width + border*2 + padding*2  （不包含margin）
+        // number-----240 border==10  padding==20
+        console.log(adiv.clientWidth);
+        // clientWidth==width + padding*2   140
+        // offsetHeight  clientHeight 获取高
+
+        // offsetTop距离:已经定位的祖先元素  margin+position+border
+        console.log( adiv.offsetTop );
+        // offsetleft   100
+
+    </script> -->
+
+
+    <div id="container">
+        <ul id="swipter">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+        <div id="footer">
+            <span id="left">left</span>
+            <span id="right">right</span>
+        </div>
+
+    </div>
+
+    <script>
+        // 将四个li复制，要不然可能滚动时出现空白
+        var oleft=document.getElementById('left');
+        var oright=document.getElementById('right');
+        var oswipter=document.getElementById('swipter');
+        oswipter.innerHTML+= oswipter.innerHTML;
+        // console.log(oswipter.style.width);//kong因为还没有设置内部样式
+        // 将li*2，但是两排并列，需要设置ul的width值,内联样式=内部宽度*2（number）---px
+        oswipter.style.width=oswipter.offsetWidth*2+'px';
+        // console.log(oswipter.style.width);//816px
+        // console.log(oswipter.offsetWidth);//816
+        // console.log(oswipter.offsetLeft);0
+        // 要想ul向左移动，就要加绝对定位
+        // 有瑕疵,,点击箭头会不断的设置新的定时器,不断加快速度
+        goleft();
+        oleft.onclick=function(){
+            clearInterval(goRight);
+            goleft();
+        }
+        var goRight;
+        oright.onclick=function(){
+            clearInterval(goLeft);
+            goRight=setInterval(function() {
+                oswipter.style.left=oswipter.offsetLeft+10+'px';
+                if(oswipter.offsetLeft > 0){
+                    //四个元素放在框外
+                    oswipter.style.left= - oswipter.offsetWidth/2 +'px';
+                }
+            }, 100);
+        }
+        function goleft(){
+            goLeft=setInterval(function() {
+            oswipter.style.left=oswipter.offsetLeft-10+'px';
+            // 走到宽度的一半时，让前面4个元素返回到后面
+            if(oswipter.offsetLeft < -oswipter.offsetWidth/2){
+                oswipter.style.left=0;
+                // 让8个元素放到left==0时
+            }
+        }, 100);
+        }
+        // var speed=10;
+        // setInterval(function() {
+        //     oswipter.style.left=oswipter.offsetLeft-speed+'px';
+        //     if(  oswipter.offsetLeft< -oswipter.offsetWidth/2  ){
+        //         // console.log(oswipter.offsetLeft);
+        //         // console.log(oswipter.style.left);
+        //         oswipter.style.left=0;
+        //         // 1. style.left 返回的是字符串，如28px，offsetLeft返回的是数值28，如果需要对取得的值进行计算，还用offsetLeft比较方便。
+        //         // 2. style.left是读写的，offsetLeft是只读的，所以要改变div的位置，只能修改style.left。
+        //         // 3. style.left的值需要事先定义，否则取到的值为空。而且必须要定义在html里，我做过试验，如果定义在css里，style.left的值仍然为空,offsetLeft则仍然能够取到，无需事先定义div的位置。
+        //     }
+        //     if(oswipter.offsetLeft>0){
+        //         oswipter.style.left=-oswipter.offsetWidth/2+'px';
+        //     }
+            
+        // }, 100);
+        // oleft.onclick=function(){
+        //     speed=10;
+        // }
+        // oright.onclick=function(){
+        //     speed=-10;
+        // }
+    </script>
+</body>
+</html>

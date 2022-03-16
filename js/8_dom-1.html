@@ -41,7 +41,7 @@
             right: 50px;
         }
         .open{
-            width: 90px;
+            width: 110px;
             height: 22px;
             color: aqua;
             font-size: 14px;
@@ -56,18 +56,19 @@
     他最强大的地方是提供类一个可以访问html页面的入口--document对象-->
     <!-- js中var全局变量 全局方法都是window对象 -->
     <script>
-        var aa=1;
-        var afn=function(){
-            console.log('ffff');
-        }
-        afn();
+        // var aa=1;
+        // var afn=function(){
+        //     console.log('ffff');
+        // }
+        // afn();
     </script>
     <script>
         // window.alert('alert');//浏览器弹出alert
-        // alert();二者相同
+        // window.confirm('confirm');//浏览器弹出confirm 包含确定（返回true）和取消（返回false）
+        // // alert();二者相同
         // window.prompt('prompt');//浏览器提示，prompt，带有文本框输入的弹窗
     </script>
-    <!-- stroll -->
+    <!-- stroll回到页面的哪哪哪 -->
     <h1>hello world</h1>
     <div id="btnn">回到顶部</div>
     <script>
@@ -79,8 +80,8 @@
             // 滚动了x，y
         }
     </script>
-    <!-- open -->
-    <div class="open" id="open">打开新页面</div>
+    <!-- open 打开指定页面-->
+    <div class="open" id="open">打开新页面百度</div>
     <script>
         var Open_cl=document.getElementById("open")
         Open_cl.onclick=function(){
@@ -88,6 +89,60 @@
             // pageURL 为子窗口路径 
             // name 为子窗口句柄 
             // parameters 为窗口参数
+        }
+    </script>
+
+    <!-- 时间 -->
+    <script>
+        // n毫秒之后执行方法
+        // var ti=
+        // setTimeout(function()  {
+        //     console.log('2s后');
+        // }, 2000);
+        // clearTimeout（ti）取消定时器
+
+        // 每间隔n毫秒之后执行方法，方法，时间间隔ms
+        // var i=0;
+        // var timer=setInterval(function(){
+        //     console.log(i++);
+        //     if(i>=50)
+        //     {
+        //         clearInterval(timer);
+        //         // 清除定时器
+        //     }
+        // },1000)
+        // timer没有特别的含义，是number类型的数
+
+        setTimeout(function() {
+            console.log(1);
+        }, 3000);
+        console.log(2);
+        console.log(3);
+        // 231
+        // 单线程 多线程  js是单线程，所有任务需要排队，前面完事了，后面才能干
+        // 同步 异步（做事情的先后顺序不同）
+        // settimeout是异步方法，先执行主线程23，再看任务队列里面的settimeout
+        // 主线程 任务队列
+        // 代码顺序执行,遇到异步方法 ,会把该方法放到任务队列里
+        // 当主线程的的任务执行完毕后,会将任务队列中的方法取出,并且在等待时间间隔后,调用异步方法
+        // 函数去抖:用户输入--前端---后端---将输入信息返回一个查询相关列表---用户
+        // 但不是每时每秒的返回,而是有一定的时间间隔(帮助服务器减小查询,帮助后端减小压力)
+        // setInterval执行轮询任务
+    </script>
+    <!-- 以上是window对象，以下是history对象 -->
+    <h1>页面二</h1>
+    <button id="bttn">back返回上一页面</button>
+    <button id="btnnn">go上一页面</button>
+    <script>
+        var bttn=document.getElementById('bttn');
+        bttn.onclick=function(){
+            history.back();
+            // back返回上一页面 forward进入下一页面 go返回或者进入下一页面
+        }
+        var btnn=document.getElementById('btnnn');
+        btnn.onclick=function(){
+            history.go(-1);
+            // go(num)前进为正数，后退为负数
         }
     </script>
     <!-- 此处的button div就是对象 -->
