@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>list</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h3>人员列表：数组</h3>
+        <ul>
+            <li v-for="(p,index) in persons" :key="index">
+                <!-- 
+                    p是形参，index是遍历索引值 
+                    key是每个节点的标识，p.id==index前面加冒号，动态绑定
+                 -->
+                {{ p.id }}--{{ p.name }}
+            </li>
+        </ul>
+        <h3>汽车：对象</h3>
+        <ul>
+            <li v-for="(c,index) in  cars" :key="index">
+                <!-- value和key索引值  -->
+                {{c}}---{{index}}
+            </li>
+        </ul>
+        <h3>str：字符串</h3>
+        <ul>
+            <li v-for="(s,index) in str" ::key="index">
+                <!-- 字符，索引值 -->
+                {{s}}--{{index}}
+            </li>
+        </ul>
+        <h3>遍历指定次数</h3>
+        <ul>
+            <li v-for="(number,index) in 10" ::key="index">
+                <!-- 数字--索引值 -->
+                {{number}}--{{index}}
+            </li>
+        </ul>
+    </div>
+    <script>
+        Vue.config.productionTip = false;
+        new Vue({
+            el: "#root",
+            data: {
+                persons: [
+                    {
+                        id: '001',
+                        name: 'wxr'
+                    },
+                    {
+                        id: '002',
+                        name: 'wxr'
+                    },
+                    {
+                        id: '003',
+                        name: 'wxr'
+                    }
+                ],
+                cars:{
+                    name:'aodi',
+                    price:'190',
+                    color:"black"
+                },
+                str:'hello world!'
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dom事件</title>
+    <style>
+        .active{
+            background-color: pink;
+            display: block;
+        }
+        /* .act{
+            background-color: blue;
+        } */
+        #btn{
+            /* display: block; */
+        }
+    </style>
+</head>
+<body>
+    <input type="text" class="active act" value="value默认值">
+    <!-- button是个hangji块元素 -->
+    <button id="btn">鼠标按钮</button>
+    <!-- 下拉列表  select+option -->
+    <select name="" id="xiala">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+    </select>
+    <script>
+        // var btn=document.getElementById();//id
+        // var btn=document.getElementsByClassName();//类名,类数组, NodeList 对象,有length属性,数组里面提供的方法不可用
+        // var btn=document.getElementsByName();//name属性,类数组, NodeList 对象
+        // var btn=document.getElementsByTagName();//标签,类数组, NodeList 对象
+
+        // html里理解为标签元素---在dom里可以理解为对象
+        // dom事件:
+        // 1.onclick点击事件  ondblclick双击事件  --client-x client-y鼠标点击坐标值
+        // 2.onfocus获取的焦点点输入框 有闪杠   onblur失去焦点,点击输出框以外的位置
+        var oinput=document.getElementsByTagName('input')[0];
+        console.log(oinput);//返回<input type="text">
+        oinput.onblur=function(){
+            // oinput.style.backgroundColor='blue';
+            // oinput.className='act';
+            oinput.className='';
+        }
+
+        oinput.onfocus=function(){
+            // 第一,在js中设置样式(对象.style.属性='')
+            // oinput.style.backgroundColor='green';
+            // 第二,设置内部样式,在js内部对象中应用此样式(对象.classname='***')  class--classname
+            oinput.className='active';
+            // 元素显示隐藏 display
+        }
+        oinput.onchange=function(){
+            console.log(   oinput.value );
+        }
+        oinput.index=11;
+        console.log(oinput.index);
+        // 但是标签里面并不会增加一个属性名叫index,值为11的属性
+        console.log(oinput);
+
+        // 3.onmousedown()点击事件 onmouseup()移上事件 onmousemove()鼠标在按钮上移动
+        // onmouseover onmouseout鼠标移上 移开
+        // onchange
+        // 一次按下操作,伴随一个移上操作
+        var val=document.getElementById('btn');
+        console.log(window.getComputedStyle(val).display);
+        // getComputedStyle()获取当前val元素所使用的css样式
+        // display什么元素  block inline  inline-block
+        val.onmousedown=function(){
+            val.style.backgroundColor='red';
+            console.log('onmousedown');
+        }
+        val.onmouseup=function(){
+            val.style.backgroundColor='grey';
+            console.log('onmouseup');
+        }
+        val.onmousemove=function(){
+            val.style.fontSize='20px';
+            console.log('onmousemove');
+        }
+        var oxia=document.getElementById('xiala');
+        oxia.onchange=function(){
+            console.log(oxia.value);
+        }
+        // 键盘码,谁触发的这个事件,那么我们的形参就是谁的阿斯克码
+        // which  keycode==49  key==1  不区分大小写
+        oinput.onkeydown=function(a){
+            console.log(a);
+        }
+        
+
+
+    </script>
+</body>
+</html>

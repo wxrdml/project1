@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件、事件流、事件处理函数、事件源</title>
+    <style>
+        div{
+            width: 100px;
+            height: 100px;
+            color: white;
+            background-color: black;
+        }
+        #inner{
+            width: 50px;
+            height: 50px;
+            background-color: blanchedalmond;
+        }
+    </style>
+</head>
+<body>
+    <!-- 判断引用数据类型是数组还是对象：
+        1、array.isarray(arr)--true   
+        array.isarray(obj)---true
+        2、构造函数：arr.constructor==Array--true
+        obj.construtor==Object----------true 
+        3、arr instanceof Array  arr是不是array的实例化对象-->
+        <!-- 
+            prototype是一个指针，指向原型对象，这个对象包含了通过调用该构造函数所创建的对象共享的属性和方法。
+            原型对象的优势：所有的对象实例都可以共享它包含的属性和方法。
+            给类 内置对象增加原型方法
+            Student.prototype.sleep=function(){
+                ...
+            }
+            String.prototype.addstr=function(){
+                ...
+            }
+         -->
+    <script>
+        // var obj={
+        //     name:'lisi',
+        //     age:19
+        // };
+        // // console.log(Object.is(obj));//false,,,比较两个字符串，两个数字是否相同
+        // console.log(Array.isArray(obj));//false,代表不是数组，而是对象
+
+    </script>
+    <!-- 1、事件onclick  事件处理函数function  事件源odiv(谁触发的这个事件)
+
+    2、this：给谁绑定事件，谁就是this
+
+    3、对象：dom对象、8类内置对象（date，number，string，array，boolean，math，global，regexp）、自定义对象 
+    
+    4、事件函数有两个同名函数，会被覆盖------addeventlistener（"事件类型",事件处理函数function(){}，事件捕获true还是事件冒泡false-- boolean）
+    给同一个元素，添加多个相同的事件监听
+    
+    事件流：
+    只有父子嵌套关系才会有这样的顺序
+    事件冒泡：从里向外false  子元素事件---》父元素事件
+    事件捕获：从外向里true  父元素事件---》子元素事件
+    一个事件既有捕获又有冒泡，先执行捕获，后执行冒泡
+
+    阻止事件冒泡
+    onclick：事件绑定，相同函数事件会被覆盖-->
+    <div>123
+        <div id="inner"></div>
+    </div>
+    <script>
+        var odiv=document.getElementsByTagName('div')[0];
+        var div2=document.getElementById('inner');
+        // 类数组的每一项是dom对象，因此要先取到类数组的每个元素
+
+        // 二者最大的区别：
+        // 事件函数有两个同名函数，会被覆盖
+        // odiv.onclick=function(e){
+        //     // this给谁绑定事件，谁就是this ---- odiv是dom对象
+        //     console.log(e.target);//e.target是事件源：点击大的div，大的div就是事件源，点击小的div，小的div就是事件源
+        //     console.log(odiv.innerHTML);//输出div元素内部的值
+        // }
+        // odiv.onclick=function(e){
+        //     console.log(e.target);//e.target是事件源：点击大的div，大的div就是事件源，点击小的div，小的div就是事件源
+        //     console.log(odiv.innerHTML);//输出div元素内部的值
+        // }
+        // 添加事件监听函数   1  2  给同一个元素div，添加多个相同的事件监听click
+        odiv.addEventListener('click',function(){
+            console.log(1);
+        },false);
+        div2.addEventListener('click',function(e){
+            console.log(2);
+            e.stopPropagation();//阻止事件冒泡：可以进行事件函数的的执行，但是不再允许冒泡，也并不组织捕获
+            e.preventDefault();//阻止浏览器默认行为
+            return false;//阻止浏览器默认行为
+        },false);
+    </script>
+</body>
+</html>

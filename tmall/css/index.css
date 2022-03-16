@@ -1,0 +1,108 @@
+/* input{
+    百度输入框
+    float: left;
+}
+button{
+    float:left;
+} */
+/* 搜索区域 */
+#search{
+    height: 130px;
+}
+.search-wrapper{
+    position: relative;
+    /* top: 26px;
+    left: 0; */
+}
+.search-wrapper>img{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+#search #search-content{
+    width: 625px;
+    margin: 50px auto;
+}
+#search #search-content #search-content-si{
+    border: 2px solid #ff0036;
+}
+#search #search-content #search-content-input{
+    width: 483px;
+    height: 26px;
+    padding: 5px 3px 5px 5px;
+    border: none;
+    float: left;
+}
+#search #search-content #search-content-button{
+    width: 130px;
+    height: 36px;
+    background-color: #ff0036;
+    color: #fff;
+    border: none;
+    float: left;
+}
+#search #search-content>div>a{
+    font-size: 14px;
+    color: #999;
+    /* 两个a之间加入|  */
+    border-right: 1px solid #999;
+    padding: 0px 12px;
+}
+#search #search-content>div>.search-content-red{
+    color: #ff0036;
+}
+/* #search #search-content>div>.search-content-dress{
+    border: none;
+} 
+二者等同
+*/
+#search #search-content>div>a:last-child{
+    /* 一定要有一个父元素div，这个元素a必须是父元素的最后一个元素 */
+    border: none;
+    /* first-child  一定要有一个父元素ul，这个元素li必须是父元素的第一个元素 */
+}
+/* #search #search-content>#search-content-list>.search-content-camera{
+    一 padding-left: 0;
+} */
+/* #search-content-list{
+    二 margin:-12px;
+} */
+#search #search-content>#search-content-list>a:first-child{
+    /* 三 */
+    padding-left: 0;
+}
+
+/* 分站入口 */
+#type{
+    border: 2px solid #ff0036;
+    height: 50px;
+    width: 1190px;
+}
+#type>.wrapper{
+    width: 1230px;
+    height: 35px;
+    margin: 0 auto;
+    text-align: center;
+    padding-left: 212px;
+}
+#type>.wrapper>a{
+    /* display: inline-block; */
+    height: 35px;
+    color: #333;
+    float: left;
+    padding-left: 8px;
+    font-size: 16px;
+}
+#type>.wrapper>a>img{
+    width: 100px;
+    height: 35px;
+    line-height: 35px;
+    
+}
+#type>.wrapper>a:hover{
+    color: #ff0036;
+}
+#type>.wrapper>.wrapper-list{
+    display: inline-block;
+    margin: 5px auto;
+}

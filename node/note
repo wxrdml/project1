@@ -1,0 +1,31 @@
+node.js单线程，非阻塞，异步的
+可以使得js运行在服务端，操作磁盘文件，让前后端可以使用同一语言。
+fs.readfile(path,option,callback)
+callback回调，读完文件，回头调用callback函数
+node以模块化形式存在
+和其他后端语言的区别，优势：取决于文件大小，安全性，，它更适合做中间件
+
+同步与 异步（非阻塞）：主线程和任务队列
+异步：es6--promise---axios--get、post
+
+前后端交互：
+客户端------1、发送请求--------中间件node---------2、响应-------服务端（接受请求，处理请求）
+函数是粒度最小的封装
+模块是粒度更大的封装
+modejs模块使用commonjs规范
+客户端浏览器的模块使用的是 
+
+服务器其实是一个 web server
+封装模块module.exports=###
+引入模块require('')
+
+koa框架：是下一代nodejs的web框架，web后端
+不要改目录
+npm(node pakeage management)
+koa-generator(这是脚手架用于创建目录)
+安装koa：npm install -g koa-generator
+创建项目：koa2 文件名
+打开相关目录下的文件cd pakeage.json再安装
+npm install（安装依赖包）
+npm start（项目启动www） 或者直接在终端写npm bin/www
+npm install ejs(等同于p ug都是一个模板文件,把主文件app.js设置成ejs)

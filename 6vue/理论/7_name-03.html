@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>computed</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        姓：<input type="text" v-model="firstname"></br>
+        名：<input type="text" v-model="lastname"></br>
+        全名：<span>{{fullname}}</span>
+    </div>
+    <script>
+        Vue.config.productionTip = false;
+        let vm=new Vue({
+            el:'#root',
+            data:{
+                //属性名 属性值
+                firstname:'li',
+                lastname:'si'
+            },
+            // 计算属性定义
+            // 1、计算属性，要用的属性不存在，要通过已经写完的属性加工后形成计算属性
+            // 2、computed的底层借助了已有的defineproperty：get set
+            // methods: {
+            //     fullname(){
+            //         this.firstname+"-"+this.lastname;
+            //         console.log(fullname);
+            //     }
+            // },
+            // computed:{
+                // fullname:{
+                //     get(){
+                //         // 当读取fullname，get方法会被调用，且返回值作为fullname的值
+                //         // 3、***get:1.初次读取fullname时调用（4、读取完之后会有缓存，效率更高）  2.所依赖的数据（firstname  lastname）发生变化
+                //         // 相较于methods方法，methods读取fullname几次调用几次get
+                // 调用fullname对象时候，自动调用get，并将get返回值自动赋值给fullname
+                //         // console.log('getting...');
+                //         return this.firstname.slice(0,3)+'-'+this.lastname;
+                //     },
+                    // 当确定了只读不改，就可以应用简写方法
+                    // set(value){
+                    //     const arr=value.split('-');
+                    //     // split:按照指定字符，将字符串拆成数组
+                    //     // for(var i=0;i<arr.length;i++){
+                    //     //     console.log(arr[i]);
+                    //     // };
+                    //     // 修改fullname所依赖的firstname和lastname的值
+                    //     this.firstname=arr[0];
+                    //     this.lastname=arr[1];
+                    //     return this.firstname.slice(0,3)+'-'+this.lastname;
+                    // }
+        //         }
+        //     },
+        // 被vue管理的函数，不可以是箭头函数
+        // 当确定了只读不改，就可以应用简写方法
+        // 简写形式：代表将vm.fullname属性===此函数调用的结果----计算属性  而不是调用methods方法
+            computed:{
+                // fullname的两种写法fullname：{}此处的fullname是对象；fullname（）{}函数，这个函数代表getter
+                // this指向vm对象
+                fullname(){
+                    return this.firstname+'-'+this.lastname;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

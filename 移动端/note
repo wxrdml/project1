@@ -1,0 +1,38 @@
+三类应用程序：
+1、原生native app： ios使用object c   ；安卓使用java  优点：访问本地资源 用户留存率高 有通知和提醒 ；缺点：分发成本高：ios和安卓 不像webapp适用于所有浏览器  维护成本高（出新版本要开发 旧版本需要维护）更新缓慢 移动端
+2、web app：使用html5语言，不需要下载安装，优点：开发成本低 更新无需通知用户 更新快 跨多个平台 ；缺点：用户留存性低 临时性入口 设计受限制多---依赖于端来完成部分功能 pc端
+3、混合hybrid app：使用object c + 使用html，需要下载安装---大部分
+
+跨端开发三大框架：flutter  wexx（vue）  RN（react）
+测试机---浏览器的兼容---pc端-----使用navigator.useragent判断浏览器
+移动端---参考不同手机是否适配移动端功能---测试机
+
+响应式设计
+meta标签：
+viewport 视口
+width=device-width 设备宽度
+initial-scale=1.0 首次页面加载时缩放比 -no
+user-scalable=no 禁止用户缩放页面
+maximum-scale minimum-scale最大最小缩放比
+
+css单位:
+1、
+px:绝对单位，不能自适应浏览器大小
+rem:相对单位,相对根元素html的fontsize进行计算----移动端---rem.js---根据浏览器的大小设置html根元素字体大小
+em:相对单位,相对于fontsize计算出来的大小，如果本选择器没有fontsize，向父选择器的fontsize，一层层寻找，直到浏览器的fontsize=16px
+第三方组件库,cube-ui有的是使用em的
+reset.css 重设样式，禁止复制 粘贴啊
+计算: 例如： 根元素的100px==1rem，以后的计算，都要按照这种比例
+2、
+将浏览器窗口分成100份，1ww=1/100窗口宽度 1wh=1/100窗口高度，随着浏览器窗口大小的改变，ww wh也会不同
+vw：窗口宽度
+vh：窗口高度
+@media screen and(max-width:980px) and (min-width:200px){
+    div{
+        //当屏幕宽度在200px-980px时，div标签的背景颜色设置为红色
+        //媒体查询media query
+        //想要控制的设备：screen彩色电脑屏幕  all所有设备  
+        background:red;
+    }
+}
+3、百分比：相对单位

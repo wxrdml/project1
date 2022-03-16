@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./jquery.js"></script>
+    <script>
+        // window.onload=function(){
+        //     // 1、window.onload()页面所有资源加载完毕，才执行此函数
+        //     // 资源：页面元素 图片 视频
+        //     var adiv=document.getElementsByTagName('div')[0];
+        //     adiv.onclick=function(){
+        //         console.log('a');
+        //     }
+        // }
+
+        // // 2、文档就绪函数，页面结构加载完成之后执行（html标签），而不等待图片视频加载完成
+        // // 简写
+        // $(function(){
+        //     console.log($('#wrapper'));
+        // })
+        // $(document).ready(function(){
+        //     console.log($('#wrapper'));
+        // })
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        111
+    </div>
+    <p class="pp">p</p>
+    <!-- 
+        首先引入jquery 才能使用
+        jquery不能混用dom方法
+     -->
+    <!-- <script src="./jquery.js"></script> -->
+    <script>
+        // 1、dom原生代码  vs  jquery----获取元素
+        var odiv=document.getElementById('wrapper')
+        console.log(odiv);
+        // $('div');
+        var $div=$('#wrapper');
+        console.log($div);
+
+        // 2、二者相互转化：
+        // dom对象-->jquery对象
+        console.log($(odiv));
+
+        // jquery对象-->dom对象
+        console.log($div[0]);
+        // or
+        console.log($div.get(0));
+
+        // 3、选择器---5
+        // 通配符选择器
+        $('*').css('color','red');
+        // 类选择器.class
+        $('.pp').css('color','pink');
+        // 标签选择器
+        $('div').css('background','orange');
+        // id选择器
+        $('#wrapper').css('fontSize','30px');
+        // 分组选择器
+        $('#wrapper,.pp').css('color','black');
+        // 子代选择器 '父>子'
+        // 后代选择器 '父 子'
+        // nextSibiling #list ~ li 该元素后面的所有li兄弟元素
+        // #list + li 该元素后面的下一个li兄弟元素
+        
+        // 4、筛选
+        // 'li:eq(2)'匹配li标签中索引为 2 的元素
+        // 选中所有的suoyin偶数 'li:even'
+        // 选中所有的suoyin奇数  'li:odd'
+        // 选中大于索引的元素gt  'li:gt(2)'
+        // 选中小于索引的元素lt   'li:lt(2)'
+        // 选中所有的标题元素h标签  ':header'
+        // 选中该文档根元素html   ':root'
+        // 选中li标签中语言为中文的标签 'li:lang(zh-CN）'
+        // 除了某元素，剩下的设置样式（筛选掉某元素） 'li:not(#list)'
+        // ps 获取颜色  #ff8907
+
+        // 元素隐藏：
+        // display :none 不在页面结构中，空间释放
+        // opacity = 0 还在页面结构中，还沾有空间
+        // visibility  ：hidden 还在页面结构中，还沾有空间
+        // 宽和高都设置为0  
+        // 表单元素type='hidden'  不存在 表单input  name=''是提交后网址栏里写的 
+        // 祖先元素隐藏，那么该元素不会在页面上显示
+        // 绝对定位
+        // z-index  负值
+
+
+        // 选中所有隐藏元素 ':hidden'  选中所有显示元素 ':visible'
+
+        // 5、属性选择器
+        // "li[属性名|='list']" name属性是list属性值，或者属性值前缀是list
+        // "li[属性名*='list']" name属性中包含list属性值就会被选中
+        // "li[属性名~='list']" 属性中包含此属性值
+    </script>
+</body>
+</html>

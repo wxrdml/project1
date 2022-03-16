@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>节点</title>
+</head>
+<body>
+    <div id="aa">
+        123
+        <div>456</div>
+    </div>
+    <a href="http://www.baidu.com">百度</a>
+    <ul>
+        <li id="list" name="lo">1</li>
+        <li name="lo">2</li>
+        <li  id="last" name="lo">3</li>
+    </ul>
+    <!-- 获取节点 -->
+    <script>
+        // 1，NODE接口，1，2，3，8节点
+        // node.element(1)
+        // node.attribut(2)
+        // node.text_node(3)
+        // node.conmment_node(8)
+        // 2，NODE接口下的方法
+        // nodename 1-标签名 2-属性名 3-#text  
+        // nodetype节点类型--number
+        // nodevalue节点的值 1-null  2--返回属性值  3--节点中的字符串
+        // firstchild第一个节点  lastchild最后一个节点
+        // nextsibling后一个兄弟节点：如果标签回车换行了，那么该节点的后一个兄弟节点是回车
+        // nextElementSibing
+        // previousSibling   previousElementSibling
+        // 一个结点的:firstchild第一个孩子节点 lastchild最后一个孩子节点
+        var odiv=document.getElementsByTagName('div')[0];
+
+        var fchild=odiv.firstChild;
+        console.log(fchild);//string  '123'
+        console.log(fchild.nodeName);//#text
+
+        var lchild=odiv.lastChild;
+        console.log(lchild);//#text--dta：回车空格
+        console.log(lchild.nodeName);//#text
+
+
+        console.log(odiv.nodeName);//DIV
+        console.log(odiv.nodeType);//1
+        console.log(odiv.nodeValue);//null
+
+        var adiv=document.getElementById('aa');
+        console.log(adiv.nodeName);//DIV
+        console.log(adiv.nodeType);//1
+        console.log(adiv.nodeValue);//null
+        var ab=document.getElementsByTagName('a');
+        console.log(ab.nodeName);//undefined
+
+        var oli=document.getElementById('list')
+        console.log(oli.nextSibling);//#text--data:回车空格也算文本节点
+        // 那么在保留li的回车换行，怎么获取真正的兄弟元素节点？
+        // 第一，找到下一个兄弟节点，并且判断兄弟节点的nodetype是不是元素节点，如果不是就继续循环找到下下一个兄弟节点
+
+        // function fun(oli){
+        //     var fn=oli.nextSibling.nodeType;
+        //     while(fn==3){
+        //         var fn=oli.nextSibling.nextSibling;
+        //         console.log(fn);//'2'
+        //     }
+        // }
+        // fun(oli);
+
+        // function fun(oli) {
+        //     do{
+        //         oli=oli.nextSibling;
+        //     }
+        //     while (oli.nodeType!=1) {
+        //         // 不等于 1继续执行do  等于1执行while语句
+        //         return oli;
+        //     }
+        // }
+        // console.log(fun(oli));
+        console.log(oli.nextElementSibling);
+        // 第二，此方法就是在标准浏览器下找到下一个兄弟元素节点
+
+        // nextSibling 
+        // 标准浏览器：谷歌safari火狐会扫描出回车空格  在ie浏览器中则不会
+        // 通过navigator.useragent获取浏览器，indexof判断浏览器信息中是否含有chrome msie firefox safari
+        // indexof 判断字符串中是否包含某字符串  包含返回索引，不包含返回-1 ---number
+        // function next_new(elem) {
+        //     var next=navigator.userAgent;
+        //     if(next.indexOf('MSIE')!=-1){
+        //         // ie
+        //         elem=elem.nextSibling;
+        //     }
+        //     else{
+        //         // 标准浏览器
+        //         elem=elem.nextElementSibling;
+        //     }
+        // }
+
+        // previousSibling
+        var last=document.getElementById('last')
+        // console.log(last.previousSibling); //回车 空格
+        // console.log(last.previousElementSibling);//'2'
+        
+        // console.log(last.previousSibling.nodeType);//3
+        // 第一，
+        // function new_previous(last){
+        //     do{
+        //         last=last.previousSibling;
+        //         // console.log(last);
+        //         // console.log(last.nodeType);
+        //     }while(last.nodeType!=1){
+        //         return last;
+        //     }
+        // }
+        // console.log( new_previous(last) );
+
+         // 第二，
+        //  function fn(last) {
+             
+        //     var fnn=navigator.userAgent;
+        //     if(fnn.indexOf('MSIE')!=-1){
+        //         last=last.previousSibling;
+        //         console.log(1);
+        //     }
+        //     else{
+        //         last=last.previousElementSibling;
+        //         console.log(2);
+        //     }
+        //     return last;
+        //  }
+        // console.log(fn(last)); 
+    </script>
+    <!-- 创建节点 -->
+    <script>
+        // 创建p标签create element，向标签内添加内容inner HTML=‘’
+        var op=document.createElement('p');
+        console.log(op);//<p>p tag</p>
+        op.innerHTML='p tag';
+        console.log(op.innerHTML);
+        // 将node节点op添加到父节点的孩子节点末尾appendchild（）
+        var sdiv=document.getElementsByTagName("div")[0];
+        sdiv.appendChild(op);
+        console.log(sdiv);
+        // insertbefore（newnode，benode）在msdiv节点的孩子节点中的sa节点之前插入新节点sa
+        var sa=document.createElement('a');
+        sa.innerHTML='a tag';
+        sdiv.insertBefore(sa,op);
+        console.log(sdiv);
+        console.log(sa.innerHTML);//获取标签内容
+        // 在位十三年的雍正
+        // 头绪纷繁的乱局：允祀 允祥 马齐（满洲贵族） 隆科多（京城九门提督）
+        // 会考府：十三允祥：调查财政报表：弥补亏空、追缴欠款
+        // 欠款类别：公式挪用 上司勒索 官员贪污
+        // 火耗银、官粮当官一体化、摊丁汝亩
+
+        // removechild() 删除标签
+        // sdiv.removeChild(sa);
+        // console.log(sdiv);
+
+        // replacechild(newnode，oldnode)替换标签
+        // sdiv.replaceChild(sa,op);
+        // console.log(sdiv);
+
+    </script>
+    <!-- 属性相关方法 -->
+    <script>
+        // 1、设置属性，标签内可见
+        sdiv.setAttribute('index',1);
+        console.log(sdiv);
+        // 2、sdiv.getattribute('')方法获取属性，
+        // 输出为string类型，要强制转化为number类型，方便校验,判断 ===
+        // 1、number（）  2、sdiv.getattribute('')*1   3、sdiv.getattribute('')/1
+        console.log(  Number(sdiv.getAttribute('index')) );
+        // 标签对象.属性，也可以设置属性，但是输出的标签内部不可见
+        sdiv.tag=false;
+        console.log(sdiv.tag);
+        // 3、移除属性remove attribute（）
+        sdiv.removeAttribute('index');
+        console.log(sdiv);
+    </script>
+
+    <!-- nodelist节点列表 -->
+    <script>
+        var wli=document.getElementsByTagName('li');
+        var qli=document.getElementsByName('lo');
+        console.log(wli);//类数组：html集合
+        console.log(qli);//类数组：节点列表
+    </script>
+    <!-- 克隆节点clonenode -->
+    <script>
+        var oll=document.getElementsByTagName('ul')[0];
+        // var oll=document.getElementById('aa');
+        var o=oll.cloneNode(true);
+        // true---克隆父节点+子节点
+        // 没有true----光克隆父节点ul
+        console.log(o);//克隆的ul标签元素
+
+        // 将克隆的子标签  再克隆到原来的ul标签内
+        // 向父元素ul内插入节点，并且在克隆的节点ul内将插入的节点删除，改变了数组的下标
+        // 获取克隆的li标签
+        var eli=o.getElementsByTagName('li');
+        for(var i=0;i<eli.length;i++){
+            oll.appendChild(eli[i].cloneNode(true));
+            // 在克隆的ul标签内，再次将移走的li标签克隆到克隆的ul标签内，使其数组下标不变
+        }
+        console.log(oll);
+    </script>
+
+
+</body>
+</html>

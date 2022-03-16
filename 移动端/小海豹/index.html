@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 
+        点击事件中如果是单击事件，移动端会出现300ms延迟现象，因为判断用户是否想要双击页面进行缩放
+        但是如果有了meta配置信息，这一行禁止使用缩放，所以没有延迟 
+    -->
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+    <style>
+        .wipe{
+            width: 300px;
+            height: 300px;
+            text-align: center;
+            line-height: 300px;
+            background-color: blue;
+            /* 58569091  */
+        }
+    </style>
+</head>
+<body>
+    <div class="wipe">wipe</div>
+    <script src="../js/touch.min.js"></script>
+    <script src="../js/zepto.js"></script>
+    <!-- html5 -->
+    <div id="container">
+        <header>页头</header>
+        <nav>导航</nav>
+        <div class="wrapper">
+            <img src="../../imgs/img01.png" alt="001">
+            <img src="../../imgs/img02.png" alt="002">
+            <img src="../../imgs/img03.png" alt="003">
+        </div>
+        
+        <div class="content">
+            <article>
+                <p>
+                    雪碧图就是将很多很多的小图标放在一张图片上,就称之为雪碧图使用雪碧图的优点有以下几点:
+                </p>
+            </article>
+            <aside>
+                <P>
+                    将多张图片合并到一张图片中，可以减小图片的总大小。将多张图片合并成一张图片后，下载全部所需的资源，只需一次请求。可以减小建立连接的消耗。
+                </P>
+            </aside>
+        </div>
+        
+        <footer>页尾</footer>
+    </div>
+    <div>
+        <span>######################################################</span>
+    </div>
+    <script>
+        // zepto手册
+        // pc端的鼠标移入移出，在移动端因为没有鼠标，onmousemove--所以用touchmouse函数
+        $('.wipe').on('tap',function(){
+            console.log('tap');// 轻拍
+        })
+        // on(触发事件，事件的方法)
+        $('.wipe').on('touchmove',function(){
+            console.log('touchmove');//鼠标移动
+        })
+        // tap  touchmove swipeleft  swiper
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <style>
+        #list{
+            width: 150px;
+            height: 150px;
+            background-color: brown;
+            overflow: auto;
+        }
+        li{
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<!-- 
+    1、绑定事件：v-on:事件名  @事件名
+    2、事件修饰符：可以连续写 click.prevent.stop=''
+    3、键盘事件keydown keyup.alt.q:只有点击alt+q才输出
+ -->
+<body>
+    <div id="root">
+        hello,my name is {{name}}.
+        i am {{age}}
+        <!-- v-on:click=''点击事件 -->
+        <!-- @click简写+传参问题(丢失event--需要占位) -->
+        <button v-on:click="showinfo">click</button>
+        <button @click="showInfo(66,$event)">click me</button>
+
+        <a href="https://www.baidu.com" @click.prevent="aa" target="blank">百度</a>
+        <ul id="list" @wheel.passive="roll">
+            <!-- 
+                scroll and wheel 两个事件区别：
+                scroll：是进度条动，触发事件
+                wheel：鼠标滑轮动，触发事件
+            -->
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+        <input type="text" placeholder="请输入，按下回车已完成" @keyup.alt="key">
+        <!-- 
+            keydown:键盘按下--触发事件
+            keyup:键盘按下+回上----触发事件
+            placeholder:输入框默认值，当输入值后，默认值消失
+        -->
+    </div>
+
+    <script>
+        Vue.config.productionTip = false;
+        let vm=new Vue({
+            el:'#root',
+            data:{
+                // 1.data数据代理，数据劫持，需要修改---getter setter
+                name:'wxr',
+                age:'eight',
+            },
+            methods:{
+                // 2.methods没有数据代理，不需要修改，没有setter getter
+                // 不要写箭头函数，函数都是在vm实例化对象上的，this指向vm或者组件实例化对象
+                showinfo(){
+                    console.log('wooooooooo!click me!!');
+                },
+                showInfo(num,event){
+                    console.log(num,event);
+                },
+                aa(e){
+                    // dom中阻止浏览器默认行为的两种方式，然而在vue中则不用,在模板中写事件修饰符.prevent：@click.prevent="aa"
+                    // e.preventDefault();
+                    console.log('jump at baidu.');
+                    // return false;
+
+                    // 事件修饰符：
+                    // 阻止默认事件：.prevent
+                    // 阻止事件冒泡：.stop(子--父)
+                    // 事件只触发一次：.once
+                    // 使用事件的捕获模式：.capture(父---子)（不写capture，就默认是冒泡顺序）
+                    // 只有e.target是 当前操作元素 时才 触发事件：.self（也可以阻止冒泡）
+                    // 事件默认行为（滑轮滚动）立即执行，无需等待回调函数（roll）执行完毕：.passive
+                },
+                roll(){
+                    console.log('i am rolling..');
+                    // 向下滑动滚轮----调用触发事件（回调函数）--（如果此时的事件过于复杂，需要很长时间而不能完成，造成页面中的滚轮不能滑动）--完成事件调用----滑动滚轮
+                    // 针对如上的特殊情况，我们要使用事件修饰符.passive-----应用移动端
+                },
+                key(e){
+                    // 方法1，利用键盘编码keyCode  key键名--不推荐
+                    // if(e.keyCode !==13 )  return;
+                    // e.keyCode事件源的键盘编码
+                    console.log(e.target.value);
+                    // console.log(e.key);
+                    // console.log(e.keyCode);
+                    
+                    // 2.键盘修饰符：
+                    // 回车：enter    删除：delete    退出esc   空格：space  上下左右 up down left right
+                    // 别的按键大小写 CapsLock--->  caps-lock 开头大写变成小写  中间加连字符
+                    // 特殊的键tab---需要配合keydown，而不是keyup
+
+                    // ctrl  alt  shift  meta系统修饰键：
+                    // 配合keyup使用：按下修饰键，同时按下其他键，随后释放是他键，事件才被触发
+                    // 配合keydown使用：正常触发
+                    
+                }
+            }
+        });
+
+    </script>
+
+</body>
+</html>

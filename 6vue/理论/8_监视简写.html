@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简写</title>
+</head>
+<body>
+    <div id="root">
+        <!-- 计算属性；三元运算符；监视属性 -->
+        <h1>今天天气很{{info}}</h1>
+        <h1>今天天气很{{ishot ? 'hot' : 'cool'}}</h1>
+        <button @click="weatherChange">天气改变</button>
+    </div>
+</body>
+<script src="./vue.js"></script>
+<script>
+    Vue.config.productionTip = false;
+    const vm=new Vue({
+        el:'#root',
+        data:{
+            ishot:true,
+        },
+        methods: {
+            weatherChange(){
+                if(this.ishot){
+                    this.ishot=false;
+                    console.log(111111);
+                }
+                else{
+                    this.ishot=true;
+                }
+            }
+        },
+        computed:{
+            info(){
+                // 必须加入this，让ishot指向vm
+                return this.ishot?'炎热':'凉爽'
+            }
+        }
+    })
+    vm.$watch('info',{
+        handler(newValue,oldValue){
+            console.log('info被修改了',newValue,oldValue);
+        }
+    })
+</script>
+</html>

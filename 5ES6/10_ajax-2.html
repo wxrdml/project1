@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery_ajax应用</title>
+</head>
+<body>
+    <script type="text/javascript" src="../4JQuery/jquery.min.js"></script>
+    <button>按钮</button>
+    <div></div>
+    <!-- xmlhttp原理是原生的方法;这个是封装好的jquery方法:引入jquery库 -->
+    <!-- <script src="../JQuery/jquery.min.js"></script> -->
+    <script>
+        // let btn=document.querySelector('button')dom原生方法,返回文档中匹配指定 CSS 选择器的一个元素。
+        $('button').on('click',function(){
+            // jquery方法
+            // 进入文件，请求Ajax方法
+            $.ajax({
+                // 这个参数是对象类型，对象下有几个属性
+                method:'GET',//请求的方法get post方法，默认是get
+                url:"./Data.json",//请求的地址
+                // url:'真正的地址http://www.qingmengtech.com:8082/browse/getBrowse'
+                dataType:'json',//jquery内部自动转化数据类型：从服务器返回的数据类型json,xml,html，script---转化为对象obj
+                success(res){//请求成功之后的回调函数
+                    // 返回参数
+                    // 判断返回数据res的多种情况
+                    if(res.errno*1===101){
+                        // 开启本地服务的插件 preview on web server ；live server
+                        $('button').html('已登录');
+                        // 获取集合中第一个匹配元素的html内容,或者,设置每一个匹配元素的html内容(覆盖)
+                        $('div').html(res.data.name+'欢迎访问本网站');
+
+                        // 接口,返回101代表请求成功
+                        // "errno":101,
+                        // // 接口   登陆网站    用户名密码---服务器响应readystate==4，status==200
+                        // "errmsg":"SUCCESS",
+                        // // 1.成功 2.密码错误 3.账号错误
+                        // "data":{
+                        //     // 返回信息 数组或者对象类型
+                        //     "name":"lisi",
+                        //     "age":18,
+                        //     "height":"180cm",
+                        //     "weight":"70kg"
+                        // }
+                    }
+                    else if(errno*1===0)
+                    {
+                        $('div').html('errors:404');
+                    }
+                    else{
+                        $('div').html('用户未注册，请先注册再登录')
+                    }
+                    console.log(res);
+                    // 发送请求,不通过file协议,,要通过http协议,安装插件,开启本地服务
+                },
+                error(){
+                    alert('请刷新 重新加载页面')
+                    // 请求失败的回调函数:原因:网络中断或者接口超时,触发此方法
+                }
+            })
+        })
+
+    
+        
+        // 用户注册的状态：
+        // 1、注册成功
+        // 2、用户名不符合要求
+        // 3、密码不符合要求
+        // 4、用户已注册
+//  jQuery：  
+ 
+//  <script  type="text/javascript"  src="http://code.jquery.com/jquery-latest.js"></script>
+ 
+<!-- //  <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script> -->
+ 
+ 
+<!-- //  <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+ 
+ 
+ 
+<!-- //  <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.1.min.js"></script> -->
+ 
+ 
+<!-- //  <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.1.js"></script>  -->
+ 
+  
+ 
+<!-- //  jQuery mobile： -->
+ 
+<!-- //    <link  rel="stylesheet"   href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css"  /> -->
+ 
+<!-- //      <script  src="http://code.jquery.com/jquery-1.8.0.min.js"></script> -->
+ 
+<!-- //      <script  src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script> -->
+ 
+<!-- //  jQuery UI： -->
+ 
+<!-- //    <link  rel="stylesheet"  href="http://apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css"> -->
+ 
+<!-- //    <script  src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script> -->
+ 
+<!-- //    <script  src="http://apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script> -->
+
+<!-- // 这个网址有多版本jquery的公用地址http://www.bootcdn.cn/jquery/ -->
+
+<!-- // https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js -->
+ 
+<!-- // 百度jquery引用地址 -->
+
+<!-- //     http://apps.bdimg.com/libs/jquery/1.6.4/jquery.js
+//     http://apps.bdimg.com/libs/jquery/1.6.4/jquery.min.js
+//     http://apps.bdimg.com/libs/jquery/2.1.1/jquery.js
+//     http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js
+
+// 可以根据需要把上面地址中的版本号更换以下就可以引用对用的jquery版本。
+// 百度CDN公共库
+
+// 百度公共CDN为站长的应用程序提供稳定、可靠、高速的服务，包含全球所有最流行的开源JavaScript库。
+
+// 官网：http://cdn.code.baidu.com/ -->
+
+<!-- // https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js -->
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>过滤</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <h2>模糊搜索</h2>
+        <input type="text" placeholder="请输入名字" v-model="keyWord">
+        <!-- 拿到用户输入v-model，watch监视输入框的变化，对比name过滤 -->
+        <ul>
+            <!-- ul不能作为被绑定的容器 -->
+            <li v-for="(p,index) in filpersons" :keys="p.id">
+                {{p.name}}---{{p.age}}
+            </li>
+        </ul>
+        <button @click="sortType=2">升序</button>
+        <button @click="sortType=1">降序</button>
+        <button @click="sortType=0">原顺序</button>
+    </div>
+    <script>
+        Vue.config.productionTip = false;
+        new Vue({
+            el:'#root',
+            data:{
+                keyWord:'',
+                sortType:0,
+                // 0是原顺序 1是降序 2是升序
+                persons:[
+                    {name:"马冬梅",age:19,id:001},
+                    {name:"周冬雨",age:30,id:002},
+                    {name:"周杰伦",age:27,id:003},
+                    {name:"刘兆伦",age:15,id:004},
+                ],
+                // filpersons:[]
+            },
+            watch:{
+                // keyWord(newValue){
+                //     immediate:true,简写不行，不能用立即调用immdiate
+                //     // console.log(newValue);
+                //     this.filpersons=this.persons.filter((p)=>{
+                //         // filter过滤出来
+                //         // indexof：newValue在不在name中,空串返回零
+                //         // 原数组不改变，返回全新数组
+                //         return p.name.indexOf(newValue)!==-1
+                //         // 但是这种写法让过滤的数组的元素越来越少
+                //     })
+                // }
+                // keyWord:{
+                //     immediate:true,
+                //     // 在页面还没变化时，就立即调用监视的回调函数，空字符返回0
+                //     // 匹配任何字符
+                //     handler(newValue){
+                //         this.filpersons=this.persons.filter((p)=>{
+                //             return p.name.indexOf(newValue)!==-1
+                //         })
+                //     }
+                // }
+            },
+            // 二者都可以完成，优先选择computed
+            computed:{
+                filpersons(){
+                    // 计算属性的返回
+                    const arr= this.persons.filter((p)=>{
+                        // 过滤的返回
+                        return p.name.indexOf(this.keyWord)!==-1
+                    });
+                    // 接收到arr，判断是否需要怕排序
+                    // sort对yuan数组排序a-b升序，b-a降序
+                    if(this.sortType){
+                        arr.sort((a,b)=>{
+                            return this.sortType === 1 ? b.age-a.age : a.age-b.age
+                        })
+                    }
+                    return arr
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>对象</title>
+</head>
+<body>
+    <script>
+        let name='lisi';
+        let age=21;
+        let person={
+            name:name,//变量的名称和属性名相同
+            age:age,
+            eating:function(){
+                console.log(`${age}岁的${name}正在吃东西。`);
+            }
+        }
+        person.eating();
+        // 1.对象的属性值是一个变量，并且变量的名称和属性名相同,变量可以不写，光写属性名
+        // 方法可以 简写
+        let p1={
+            name,//向前找同名变量
+            age,
+            eating(){
+                console.log(`${age}岁的${name}正在吃东西。`);
+            }
+        }
+        p1.eating();
+
+        // 2.属性表达式：属性名不确定,修改拼接 [表达式]："ss"
+        let a1='name';
+        let a2={
+            [a1+'-grade']:'wxr',
+        }
+        console.log(a2);
+        // console.log(a2[a1+'grage']);//undefined
+
+        // 3.object.is  判断是否严格相等-----boolean
+        console.log(Object.is(11,'11'));//false
+        // nan  0
+        console.log(-0 ===+0);//true,es5
+        console.log( Object.is(0,-0) );//false,es6
+        console.log(Object.is(NaN,NaN));//true
+        console.log(NaN===NaN);//false
+
+
+        // 4.对象的合并：扩展运算符；方法object.assign（目标对象，源对象....）同名属性的替换覆盖
+
+        let obj1={
+            name:'oo',
+            age:23
+        }
+        let obj2={
+            l:'az',
+            k:9
+        }
+        let obj3=Object.assign(obj1,obj2)
+        // obj3 obj1相同，将obj2连接合并到obj1，改变了obj1---浅拷贝,obj3改变--obj1改变
+        console.log(obj3);
+        console.log(obj2);
+        console.log(obj1);
+        // freeze冻结：冻结的是obj1，obj3所指向的内存地址空间
+        // Object.freeze(obj3)无法修改属性值 Object.freeze(obj1)
+        obj3.age=100;
+        console.log(obj3);
+        console.log(obj2);
+        console.log(obj1);
+
+        // 摆脱浅拷贝,深拷贝，对象合并到一个空对象内
+        // let obj4=Object.assign({},obj1,obj2);
+        // console.log(obj4);
+        // console.log(obj2);
+        // console.log(obj1);
+        // obj4.age=66;
+        // console.log(obj4);
+        // console.log(obj2);
+        // console.log(obj1);
+
+        // freeze冻结
+
+        const v1 = 'abc';
+        const v2 = true;
+        const v3 = 10;
+
+        const obj = Object.assign({}, v1, v2, v3);
+        //{0: 'a', 1: 'b', 2: 'c'}
+        console.log(obj);
+        // v1、v2、v3分别是字符串、布尔值和数值，
+        // 结果只有字符串合入目标对象（以字符数组的形式），数值和布尔值都会被忽略。
+        // 这是因为只有字符串的包装对象，会产生可枚举属性。
+
+        // 可以用来处理数组，但是会把数组视为对象。
+        Object.assign([1, 2, 3], [4, 5])
+        // [4, 5, 3]把数组视为属性名为 0、1、2 的对象，因此源数组的 0 号属性4覆盖了目标数组的 0 号属性1
+        // 5.in  是否含有某属性---boolean
+        // 数组中是否包含某元素
+        console.log('ll' in obj1);//false
+        console.log(1 in [1,2,3,4]);//false
+        // 6.object.keys()  object.values()-----数组
+        // 数组(数组的每一项都是【key，value】)-----object.entries()
+
+    </script>
+</body>
+</html>

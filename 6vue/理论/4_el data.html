@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>data el*2</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <!-- 容器里写的模板：两个问题：el和mount  data的两种写法 -->
+    <div id="root">
+        你好，{{name}}
+    </div>
+    <script>
+        Vue.config.productionTip=false;
+        // 阻止vue在启动时生成生产提示
+
+        // vue实例，容器里的模板给实例对象解析，解析后放到页面挂载
+        let vm=new Vue({
+            // one、立即设置绑定容器
+            // el:'',
+            // 1、data的对象式
+            // data:{
+            //     name:'baidu',
+            // },
+            // 2、data的函数式：组件的时候，需要函数式
+            data:function(){
+                // 该函数必须返回对象
+                // 由vue管理的函数（data（）），不要用箭头函数，用普通函数，否则此处this指向window
+                console.log('@@@@',this);// vue
+                return{
+                    name:'淘宝',
+                }
+                // data(){
+                //     return{}
+                // }
+            }
+        });
+        console.log(vm);
+        setTimeout(() => {
+            // two、利用$mount函数稍后绑定容器,mount挂载
+            vm.$mount('#root');
+        }, 1000);
+        // vue实例分为：$是vue给我们封装好的方法
+    </script>
+</body>
+</html>

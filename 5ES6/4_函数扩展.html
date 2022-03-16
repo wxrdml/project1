@@ -1,0 +1,200 @@
+1<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>函数扩展</title>
+</head>
+<body>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+    <script>
+        // 复习：es6作用域：全局 局部 块级，解构+扩展运算符
+        // 函数扩展：1.设置参数默认值  2.箭头函数this作用域
+        function fn(a,b=9){
+            // es6之前设置默认值
+            // a=a||1;
+            // b=b||1;
+
+            // es6设置默认值
+            // 直接在形参部份设置默认值
+            console.log(a,b);
+            console.log(this);//window
+        }
+        fn(1);//不设置默认值：1,undefined
+        console.log(fn.length);//没有设置哦任职的参数个数
+        console.log(fn.name);//方法名
+
+
+        // 普通函数-->箭头函数
+        // let fun=function(){}  去掉function  在（）{}之间加上箭头、
+        // 1.箭头函数内部的this就是（指向的是）父作用域的this
+        // 2.构造函数不可以当作箭头函数
+        // 3.不能使用arguments对象(arguments获取形参)
+        // 构造函数:Person就是类==构造函数
+        // 改写的好处
+        let oli=document.getElementsByTagName('li');
+        for(let i=0;i<oli.length;i++){
+            oli[i].onclick=function(){
+                console.log(this);//每个li标签
+                // console.log(i);//oli索引
+                setTimeout(function() {
+                    console.log(this);//window----window对象下的方法，所以指向window
+                }.bind(this), 1000);
+                // 用call、apply方法，没有延迟，直接输出，所以要用bind，改变this指针指向从window转到oli类数组
+            }
+        }
+        // 将定时器设置为箭头函数
+        for(let i=0;i<oli.length;i++){
+            oli[i].onclick=function(){
+                console.log(this);//每个li标签
+                setTimeout(() => {
+                    console.log(this);
+                    // 箭头函数的this就是父作用域的this---oli
+                    // 而且相对于普通函数的定时器，不用使用bind apply bind，1s延迟不会失效
+                }, 1000);
+            }
+        }
+
+        
+        // function kk(){
+
+        // }
+        let kk=()=>{
+            // console.log(arguments);//rguments is not defined
+        }
+        kk(1,2,3,4);
+        // this指向：给谁绑定的事件或者方法，谁就是this,,,方法归属于谁
+        // 事件处理函数中：  this---绑定事件的dom对象（oli
+        // 在自定义函数体内：    this-----window（fn
+        // 定时器中:         this-----window（settimeout
+        // 自定义对象中：     this-------对象（obj
+        // 类中：              this-------实例化对象（Person---p
+        let  obj={
+            name:'lisi',
+            age:27,
+            code:function(){
+                console.log(this);//code方法属于obj对象
+            }
+        };
+        obj.code();//this -----obj
+
+
+
+        function Person(name,age){
+            this.name=name;
+            this.age=age;
+            this.eating=function(){
+
+            }
+            console.log(this);//this -----p
+        }
+        let p=new Person('wxr',67);
+        // 修改this指向：call apply bind
+        // call：函数.call（对象指针，参数多个）调用函数
+        // apply：函数.apply（对象指针，[数组]）调用函数
+        // bind：函数.bind（独享指针，实参）不会调用函数,()可以调用了
+
+
+
+
+        //111
+        // let obj1={
+        //     list:[12,34,5],
+        //     success:function(){
+        //         console.log(this);//obj1
+        //         // obj2.code();不可,因为let声明的关键字没有变量提升
+        //         let obj2={
+        //             name:'lisi',
+        //             code:function(){
+        //                 console.log(this);//obj2
+        //             }
+        //         }
+        //         obj2.code();
+        //     }
+        // }
+        // obj1.success();
+        // obj1.obj2.code();//Cannot read properties of undefined (reading 'code')
+
+
+        //222
+        // let obj1={
+        //     list:[12,34,5],
+        //     success:function(){
+        //         console.log(this);//obj1
+        //         // obj2.code();不可,因为let声明的关键字没有变量提升
+        //         let obj2={
+        //             name:'lisi',
+        //             code:()=>{
+        //                 console.log(this);//obj1
+        //             }
+        //         }
+        //         obj2.code();
+        //     }
+        // }
+        // obj1.success();
+
+        //333
+        // let obj1={
+        //     list:[12,34,5],
+        //     success:function(){
+        //         console.log(this);//obj1
+        //         // obj2.code();不可,因为let声明的关键字没有变量提升
+        //         setTimeout(function() {
+        //             let obj2={
+        //             name:'lisi',
+        //             code:()=>{
+        //                 console.log(this);//window,箭头函数找上一级setimeout属于window下的方法
+        //             }
+        //         }
+        //         obj2.code();
+        //         }, 1000);
+        //     }
+        // }
+        // obj1.success();
+
+
+        //444
+        // let obj1={
+        //     list:[12,34,5],
+        //     success:function(){
+        //         console.log(this);//obj1
+        //         // obj2.code();不可,因为let声明的关键字没有变量提升
+        //         setTimeout(()=> {
+        //             let obj2={
+        //             name:'lisi',
+        //             code:()=>{
+        //                 console.log(this);//箭头函数找上一级setimeout属于箭头函数找上一级this指向obj1
+        //             }
+        //         }
+        //         obj2.code();
+        //         }, 1000);
+        //     }
+        // }
+        // obj1.success();
+
+        //555
+        let obj1={
+            list:[12,34,5],
+            success:()=>{
+                console.log(this);//window
+                // obj2.code();不可,因为let声明的关键字没有变量提升
+                setTimeout(()=> {
+                    let obj2={
+                        name:'lisi',
+                        code:()=>{
+                            console.log(this);//window
+                        }
+                    }
+                    obj2.code();
+                }, 1000);
+            }
+        }
+        obj1.success();
+    </script>
+</body>
+</html>

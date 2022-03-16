@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>定位position 浮动float</title>
+    <!-- <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #div1{
+            /* position定位：relative不会释放空间，元素本身定位、absolute会释放空间 父元素定位、fixed释放空间 窗口定位、z-index
+                1.relative 相对定位 :相对于元素本身进行定位*/
+            width: 250px;
+            height: 250px;
+            background-color: antiquewhite;
+            /* position: relative; */
+            /* position: absolute;
+            top: 200px;
+            left: 200px; */
+        }
+        /* 1.相对定位:相对于元素本身进行定位,原有空间不会被释放
+            div是块级元素,在没有定位的情况下,div2在div1的下一行展示元素div2
+            但是,div1有了定位,上 左下移了100px,div1原本占有的空间没有被释放 */
+        #div2{
+            width: 100px;
+            height: 100px;
+            background-color:blueviolet;
+        }
+        /* 2.绝对定位:absolute:是相对于最近的已定位祖先元素进行定位,空间会被释放
+        如果找到了最后,祖先元素没有被定位,找到body元素定位
+        绝对定位元素的子元素也会随之改变位置
+        元素可以只进行定位,不改变位置的值,但是一旦要改变位置的值,要先进行定位
+        ,div1移位后不占据原本空间, 因此div2会占据div1的空间*/
+        #div1>#parent{
+            width: 200px;
+            height: 200px;
+            background-color: aqua;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+        #div1>#parent>#child{
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+        /* fixed固定定位 ，定位后的元素div4空间会被释放，相对于浏览器的窗口定位，在窗口下固定不动
+        z-index层级，元素只有在设置定位（position）后才有层级，值越大，元素越在上面 
+        或者写定位的元素会在上面*/
+        #div3{
+            width: 200px;
+            height: 200px;
+            background-color: aquamarine;
+            /* position: relative; */
+            position: absolute;
+            top: 400px;
+            z-index: 9999;
+            /* 确保此标签元素在页面的最上方 */
+        }
+        #div4{
+            width: 100%;
+            height: 200px;
+            background-color: blue;
+            position: absolute;
+            top: 400px;
+        }
+        #div5{
+            width: 200px;
+            height: 200px;
+            background-color:pink;
+            position: fixed;
+            top: 400px;
+        }
+    </style> -->
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+        }
+        .rapper{
+            /* float: left; */
+            /* 向左浮动，所有标签元素，都从左向右排列 */
+            /* float: right; */
+            /* 向右浮动，所有标签元素，都从右向左排列 */
+            /* 浮动后，原有空间释放 */
+            width: 100px;
+            height: 100px;
+        }
+        #we1{
+            background-color: red;
+        }
+        #we2{
+            background-color: green;
+        }
+        #we3{
+            background-color: blue;
+        }
+        #p1{
+            width: 100%;
+            height: 200px;
+            background-color:brown;
+        }
+        #parent{
+            background-color: pink;
+            /* height: 200px; */
+            /* overflow: hidden; */
+        }
+        /* #child{
+            /* width: 200px;
+            height: 200px; */
+            /* left right both */
+            /* clear: both; */
+            /* background-color: black;
+            color: aliceblue; */
+        /* } */
+        /* 设置伪元素 */
+        .clearfix::after{
+            content: "";
+            /* 设置内容 */
+            display: block;
+            /* 设置为块元素 */
+            clear: both;
+            /* 清除浮动 */
+        }
+    </style>
+</head>
+<body>
+    <!-- <div id="div1">
+        div1
+        <div id="parent">
+            parent
+            <div id="child">
+                child
+            </div>
+        </div>
+    </div>
+    <div id="div2">div2</div>
+    按照声明顺序相反排列
+    <div id="div3">div3</div>
+    <div id="div4">div4mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm</div>
+    <div id="div5">div5</div> -->
+
+
+    <!-- parent是三个rapper的父元素，块级元素自动被内容撑开，当rapper浮动后，其空间被释放，
+        那么parent也没有了内容，会出现塌陷现象 -->
+        <!-- 1.给父元素设置高度，不灵活，不常用 -->
+        <!-- 2.给父元素设置溢出隐藏overflow：hidden 常用 -->
+        <!-- 3.在父元素中加入一个空的块级子元素,设置样式清除浮动child 设置宽高 -->
+        <!-- 4.在父元素中设置伪元素 clearfix类，其样式里面写clear both 常用-->
+    <div id="parent" class="clearfix">
+        <div class="rapper" id="we1">cdiv1</div>
+        <div class="rapper" id="we2">cdiv2</div>
+        <div class="rapper" id="we3">cdiv3</div>
+        <div id="child">
+            <!-- 浮动 -->
+
+        </div>
+    </div>
+    <p id="p1">p标签</p>
+</body>
+</html>

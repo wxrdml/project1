@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>if for show</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <!-- 显示和隐藏v-show和v-if、v-else-if、v-else（三者结构不能被打断）：Boolean,视觉效果的不见，但是元素还在，只是调整display -->
+        <!-- <div >你好，{{name}}</div>
+        <div v-show="false">你好，{{name}}</div>
+        <div v-show="1===1">你好，{{name}}</div>
+        <div v-if="true">你好，{{name}}</div>
+        <div v-if="1===1">你好，{{name}}</div> -->
+
+        <!-- n每增加一个。就多展示一个div -->
+            <!-- <h5>当前的n:{{n}}</h5>
+            <button @click="n++">点我n加一</button>
+              或者v-if：二者区别：show变化快，if频率低
+            <div v-show="n===1">1</div>
+            <div v-show="n===2">2</div>
+            <div v-show="n===3">3</div> -->
+            <!-- v-if和template在后台中不显示，不会影响结构，不能搭配v-show -->
+            <template v-if="true">
+                <h4>1</h4>
+                <h4>1</h4>
+                <h4>1</h4>
+            </template>
+    </div>
+    <script>
+        Vue.config.productionTi== false;
+        new Vue({
+            el:"#root",
+            data() {
+                return {
+                    name:"wxr",
+                    n:0
+                }
+            },
+        })
+    </script>
+</body>
+</html>

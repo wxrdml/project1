@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+    <button>button</button>
+    <script>
+        var ali=document.getElementsByTagName('li');
+        for(var i=0;i<ali.length;i++){
+            ali[i].onclick=function(e){
+                console.log(e.target.innerHTML);
+                // console.log(this.innerHTML);二者等同，事件源和inner HTML
+            }
+        }
+        var btn=document.getElementsByTagName('button')[0];
+        var ul=document.getElementsByTagName('ul')[0];
+        btn.onclick=function(){
+            // 节点创建
+            var oli=document.createElement('li');
+            // 节点内容
+            oli.innerHTML=Math.random();
+            // 将节点当作子元素添加到ul元素
+            ul.appendChild(oli);
+            // 现在只给前三个li绑定了点击事件，后面添加的
+        }
+    </script>
+</body>
+</html>

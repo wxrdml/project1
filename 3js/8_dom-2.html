@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>页面一</h1>
+    <a href="8_dom.html">点击进入页面二</a>
+    <button id="btn">forward进入下一页面</button>
+    <a href="8_dom-3.html">点击进入页面三</a>
+    <!-- <button id="bbtn">back返回上页</button> -->
+    <script>
+        var bttn=document.getElementById('btn');
+        bttn.onclick=function(){
+            history.forward();
+        }
+        var bbtn=document.getElementById('bbtn');
+        bbtn.onclick=function(){
+            history.back();
+        }
+    </script>
+</body>
+</html>

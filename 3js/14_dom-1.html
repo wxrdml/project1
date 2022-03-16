@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>放大镜</title>
+    <style>
+        *{
+            /* 为了每个浏览器的默认样式相同 */
+            margin: 0;
+            padding: 0;
+        }
+        /* 透明样式 ： 
+        1、background-color：rgba（225，225，225，0.6）：文字部分不变，背景变浅
+        2、opacity 0-1透明度：文字和背景整个都变浅
+         */
+        #small{
+            float: left;
+            width: 400px;
+            height: 400px;
+            position: relative;
+        }
+        #small>img{
+            width: 100%;
+            height: 100%;
+        }
+        #big>img{
+            width: 800px;
+            height: 800px;
+        }
+        #big{
+            float: left;
+            width: 400px;
+            height: 400px;
+            overflow: hidden;
+            display: none;
+            position: relative;
+        }
+        #drag{
+            width: 200px;
+            height: 200px;
+            background-color: rgba(255, 255, 255, 0.6);
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+        }
+        #bigg{
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="small">
+        <img src="../imgs/cat.png" alt="cat">
+        <div id="drag"></div>
+    </div>
+    <div id="big">
+        <img id="bigg" src="../imgs/cat_2.png" alt="dog">
+    </div>
+    <!-- 鼠标划入，鼠标移动，鼠标滑出事件 -->
+    <script>
+        var smal=document.getElementById('small');
+        var dra=document.getElementById('drag');
+        var bi=document.getElementById('big');
+        var oimg=document.getElementById('bigg');
+        // var 
+        smal.onmouseover=function(event){
+            dra.style.display='block';
+            bi.style.display='block';
+            // var x=event.clientX-smal.offsetLeft;
+            // var y=event.clientY-smal.offsetTop;
+            // console.log(x,y);
+            smal.onmousemove=function(e){
+                // dra.style.left=e.clientX-x+'px';
+                // dra.style.top=e.clientY-y+'px';
+                // 二者区别
+                dra.style.left=e.clientX-dra.offsetWidth/2 +'px';
+                dra.style.top=e.clientY-dra.offsetHeight/2 +'px';
+                if( dra.offsetLeft<0 ){
+                    dra.style.left=0;
+                    // offsetLeft去获取值
+                    // style.left去赋值
+                }
+                if( dra.offsetLeft>smal.offsetWidth-dra.offsetWidth ){
+                    dra.style.left=200+'px';
+                }
+                if( dra.offsetTop < 0){
+                    dra.style.top=0;
+                }
+                // 注意通用性
+                if(dra.offsetTop>smal.offsetHeight-dra.offsetHeight){
+                    dra.style.top=200+'px';
+                }
+                // console.log(dra.style.left,dra.style.top);
+                // 移动big容器里面的img图片
+                // 图片img 两个div容器中big 和 small的最大移动距离
+                var sMaxWidth=smal.offsetWidth-dra.offsetWidth;
+                var sMaxHeight=smal.offsetHeight-dra.offsetHeight;
+
+                var bMaxWidth=oimg.offsetWidth-bi.offsetWidth;
+                var bMaxHeight=oimg.offsetHeight-bi.offsetHeight;
+
+                // 两个最大移动距离间的比例,,前提是两个容器div成比例,两个图片img成比例,那么他们的最大距离也就成比例
+                var perx=bMaxWidth/sMaxWidth;
+                var pery=bMaxHeight/sMaxHeight;
+
+                // 算出img的left 和 top,需要负值,drag向右移+   ,但是img需要向左移动来使得img展示在div框内
+                oimg.style.left= -perx * dra.offsetLeft + 'px';
+                oimg.style.top=-pery * dra.offsetTop + 'px';
+                // console.log(oimg.style.left);
+                // console.log(oimg.style.top);
+
+                // bi.style.left=e.clientX-x+400+'px';
+                // bi.style.top=e.clientY-y+'px';
+                // console.log(bi.style.left);
+                // console.log(bi.style.top);
+            }
+        }
+        smal.onmouseout=function(){
+            dra.style.display='none';
+            bi.style.display='none';
+        }
+    </script>
+    <!-- 复习 -->
+    <input type="radio" name="sex">男
+    <input type="radio" name="sex">女
+    <script>
+        // dom:
+        // 1.获取元素:getElementsByTagName标签名 ,返回类数组--length,其他数组的方法没有
+        // var div=document.getElementsByTagName('div')[0];
+        // 2.通过id获取元素,返回一个值(DOM对象)getelementbtid
+        // 3.getelementsbyname(input标签) 通过那么属性获取元素,返回类数组 (两个input标签)
+        var sex=document.getElementsByName('sex');
+        for(var i =0;i<sex.length;i++){
+            console.log(sex[i]);
+        }
+        // 2.style 获取的是内联属性(标签内部  +'px'
+        // console.log(div.style.width);//此时为空
+        // div.style.width=22+'px'=='22px';
+        // console.log(div.style.width);//22px
+
+        // 3.
+        // offsetwidth==border+padding+width---22---number
+        // clientwidth==width+padding-----number
+        // 4.放大镜,,时间不可以绑定img标签,而要绑定div
+        // 否则,,滑入图片img---显示拖拽页面drag----此时离开了img在拖拽div上,应该响应鼠标移出事件---
+        // 移出后drag隐藏,鼠标又落在了img上..显示拖拽页面,,如此循环..
+        // 5.div元素隐藏后none,没有办法获取元素的宽高(offsetwidth offsetheight),offsetwidth==0 , offsetheight==0
+        // 所以应该在元素设置为block之后,才能获取此值,计算得最大移动距离
+
+
+
+
+    </script>
+</body>
+</html>

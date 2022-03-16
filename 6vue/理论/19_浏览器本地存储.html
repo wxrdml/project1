@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>webstorage：localStorage sessionStorage</title>
+</head>
+<body>
+    <button onclick="saveData()">保存一个数据</button>
+    <button onclick="readData()">读取一个数据</button>
+    <button onclick="deleteData()">删除一个数据</button>
+    <script>
+        // 保存数据到本地存储localStorage，浏览器关闭，数据不会消失
+        // 用户清空缓存或者使用api：remove和clear，localstorage的数据会消失
+        // sessionStorage的方法相同
+            function saveData(){
+                localStorage.setItem('MSG','    HI! ')
+                localStorage.setItem('person',JSON.stringify({name:'xrw',age:20}))
+                // JSON.stringify能让对象变成数组展示出来
+                // JSON.parse('字符串')可以让字符串解析成数组
+            };
+            function readData(){
+                console.log(localStorage.getItem( "MSG"));
+                console.log(JSON.parse(localStorage.getItem( "person")));
+            };
+            function deleteData(){
+                localStorage.removeItem('MSG')
+            }
+            // qingkong localstorage.clear()
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            width: 0;
+            height: 0;
+            border: 2px solid transparent;
+            border-top: 2px solid red;
+            transition: all 1s ease 2s;
+        }
+        div:hover{
+            /* chrome safari */
+            -webkit-transform: rotate(180deg);
+            /* firefox */
+            -moz-transform: rotate(180deg);
+            /* ie */
+            -ms-transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+</body>
+</html>

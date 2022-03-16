@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>滑动轮播图</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #container{
+            width: 750px;
+            height: 291px;
+            /* text-align: center; */
+            margin: 100px auto 0;
+            position: relative;
+            /* 超出部分隐藏 */
+            overflow: hidden;
+        }
+        #conimg{
+            /* 把所有的图象都横过来 */
+            width: 3750px;
+            height: 100%;
+            /* 父元素加上默认定位，才能在js中修改left */
+            position: absolute;
+            top: 0;
+            left: 0;
+            /* 过渡动画：1s想做平滑移动 */
+            transition: left 1s ease;
+        }
+        #conimg>img{
+            width: 750px;
+            height: 100%;
+            /* display: none; */
+            /* display: inline; */
+            /* cursor: pointer; */
+        }
+        /* #conimg>.show{
+            display: block;
+        } */
+        #list{
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            cursor: pointer;
+        }
+        li{
+            width: 22px;
+            height: 22px;
+            background-color: grey;
+            text-align: center;
+            line-height: 22px;
+            color: white;
+            list-style: none;
+            float: left;
+            margin-right: 2px;
+        }
+        #list>.active{
+            background-color: red;
+        }
+        span{
+            width: 50px;
+            height: 50px;
+            /* 外边距-25 上移25px */
+            margin-top: -25px;
+            background-color: grey;
+            cursor: pointer;
+        }
+        #left{
+            position: absolute;
+            top: 50%;
+            left: 0;
+            /* border-top: 5px solid white;
+            border-left: 5px solid white; */
+        }
+        #right{
+            position: absolute;
+            top: 50%;
+            right: 0;
+        }
+        /* span是行内元素，设置为块级元素或者行级块元素，才可以设置宽和高 */
+        #left::after{
+            content: '';
+            width: 20px;
+            height: 20px;
+            border-top: 5px solid white;
+            border-left: 5px solid white;
+            transform: rotate(315deg);
+            display: block;
+            position: absolute;
+            top: 10px;
+            left: 16px;
+        }
+        #right::after{
+            content: '';
+            width: 20px;
+            height: 20px;
+            border-top: 5px solid white;
+            border-right: 5px solid white;
+            transform: rotate(45deg);
+            display: block;
+            position: absolute;
+            top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="conimg">
+            <img class="show" src="https://gw.alicdn.com/imgextra/i3/O1CN01Am8Sra21Zaice06ax_!!6000000006999-2-tps-1130-500.png_570x10000.jpg_.webp" alt=""><img src="https://img.alicdn.com/simba/img/TB1lUZLJVXXXXXtXFXXSutbFXXX.jpg" alt=""><img src="https://gw.alicdn.com/tps/i4/i3/6000000003435/O1CN01fS1G4M1bFHA2rvIwi_!!6000000003435-0-ald.jpg_570x10000Q75.jpg_.webp" alt=""><img src="https://img.alicdn.com/imgextra/i4/6000000004047/O1CN01Y8A3Cu1flZaFyZZft_!!6000000004047-0-alimamazszw.jpg" alt=""><img src="https://gw.alicdn.com/tps/TB1x2eZLVXXXXbCXVXXXXXXXXXX-1130-500.jpg_570x10000Q75.jpg_.webp" alt="">
+        </div>
+        <ul id="list">
+            <li class="active">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+        </ul>
+        <span id="left"></span>
+        <span id="right"></span>
+    </div>
+    <script>
+        var oli=document.getElementsByTagName('li');
+        // var ili=document.getElementsByTagName('img');
+        var oconimg=document.getElementById('conimg');
+        var rspan=document.getElementsByClassName('right');
+        var lspan=document.getElementsByClassName('left')
+        // li
+        for(var i=0;i<oli.length;i++){
+            oli[i].index=i;
+            // this指向oli【i】
+            oli[i].onclick=function(){
+                console.log(this.index);
+                tag=this.index;
+                for(var j=0;j<oli.length;j++){
+                    oli[j].className='';
+                    // ili[j].className='';
+                }
+                // i越界了，所以要用this.index
+                // console.log(oli[this.index]);
+                // 这种效果是切换，想要滑动：移动img让每个img在显示框中（不好）；移动父元素conimg，
+                // 让conimg父元素一整块移动，使得图片滑动展示给container
+                oli[this.index].className='active';
+                // ili[this.index].className='show';
+                // 左移为负
+                oconimg.style.left= -750 * this.index + 'px';
+            }
+        }
+        // right
+        var tag=0;
+        rspan.onclick=function(){
+            tag++;
+            if(tag==oli.length){
+                tag=0;
+            }
+            for(var j = 0;j<oli.length;j++){
+                oli[j].className='';
+            }
+            oli[tag].className='active';
+            oconimg.style.left= -750 * tag + 'px';
+        }
+        // left
+        lspan.onclick=function(){
+            tag--;
+            if(tag==-1){
+                tag=oli.length-1;
+            }
+            for(var j = 0;j<oli.length;j++){
+                oli[j].className='';
+            }
+            oli[tag].className='active';
+            oconimg.style.right= 750 * tag + 'px';
+        }
+
+    </script>
+</body>
+</html>

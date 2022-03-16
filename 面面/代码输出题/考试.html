@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // let arr=[1,[2,[3,4]]];
+        // function fun(arr){
+        //     let result=[];
+        //     for(var i=0;i<arr.length;i++){
+        //         if(Array.isArray(arr[i])){
+        //             result=result.concat(fun(arr[i]));
+        //         }else{
+        //             result.push(arr[i]);
+        //         }
+        //     }
+        //     return result;
+        // }
+        // console.log(fun(arr));
+
+        // 解析url参数
+        // function parse(url){
+        //     let h_url=/^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+(?::(\d+))?(?::\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$)/;
+        //     var names=["url","scheme","slash","host","port","path","query","hash"];
+        //     var res=h_url.exec(url);
+        //     var re=[];
+        //     for(var i=0;i<names.length;i++){
+        //         re[i]=names[i]+':'+res[i];
+        //     }
+        //     return re
+        // }
+        // let str="https://test.com:8080/index.html?a=true&b=2323#Html";
+        // console.log(JSON.stringify(parse(str)));
+
+        // function myFunction( param ) {
+        //     // write code here
+        //     // param=0;
+        //     let result='';
+        //     let numArr=param.toString().split('.');
+        //     let inn=numArr[0];
+        //     let dec=numArr[1]?'.'+numArr[1]:'';
+        //     while(inn.length>3){
+        //         result=','+inn.slice(-3)+result;
+        //         inn=inn.slice(0,inn.length-3);
+        //     }
+        //     if(inn){
+        //         result=inn+result;
+        //     }
+        //     return result+dec;
+        // }
+        // console.log(myFunction(111222333.444))
+
+        // function myFunction( str ) {
+        //     let obj={};
+        //     for(var i of str){
+        //         i=i.toString();
+        //         if(obj.hasOwnProperty(i)){
+        //             obj[i]+=1;
+        //         }else{
+        //             obj[i]=1;
+        //         }
+        //     }
+        //     return Object.keys(obj).sort((a,b)=>obj[b]-obj[a]).reverse().map(Number);
+        // }
+        // var a=myFunction( "2,1,2" );
+        // console.log(`"${a}"`);
+
+        // function myFunction( str ) {
+        //     let obj=new Map();
+        //     for(var i of str){
+        //         if(obj.has(i)){
+        //             obj.set(i,obj.get(i)+1);
+        //         }
+        //         else{
+        //             obj.set(i,1);
+        //         }
+        //     }
+        //     return Array.from(obj.keys()).sort((a,b)=>obj.get(a)-obj.get(b));
+        // }
+        // var a=myFunction( "2,1,2" );
+        // console.log(`"${a}"`);
+
+        // var arr=[];
+        // var arr1=[1,2,3];
+        // arr=arr1.push(10)
+        // console.log(arr);//4
+        // console.log(arr1);//[1, 2, 3, 10]
+        function myFunction( str ) {
+            str=str.split(',');
+            var newStr=[];
+            for(let i=0;i<str.length;i++){
+                for(let j=i+1;j<str.length;j++){
+                    if(str[i]===str[j]){
+                        newStr.splice(0,0,...str[i]);
+                        console.log(newStr);
+                    }
+                }
+            }
+            console.log(newStr);
+            return newStr.sort((a,b)=>a-b).toString();
+        }
+        var a=myFunction( "2,1,2" );
+        console.log(`"${a}"`);
+
+                // if(arr[i]%2===1&&arr[i+2]%2===1){
+                //     res+=Math.floor((cla[i]-1)/2)
+                // }else{
+                //     res+=Math.floor((cla[i]-2)/2)
+                // }
+                function fn(arr){
+                    let cla=[];
+                    let temp=0;
+                    for(let i=0;i<arr.length;i++){
+                        if(arr[i]%2!=1){
+                            cla.push(temp);
+                            temp=0;
+                        }
+                        temp++;
+                    }
+                    if(temp) cla.push(temp);
+                    let res=0;
+                    for(let i=0;i<cla.length;i++){
+                        res+=Math.ceil(cla[i]/3);
+                    }
+                    return res;
+                }
+                console.log(fn([2,2,2]));//3
+        </script>
+</body>
+</html>

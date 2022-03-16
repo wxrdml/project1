@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mvvm模型</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <!-- view模板 -->
+        <!-- vm变量的属性、vm的原型 (log(vm))都可以使用插值语法 -->
+        <h4>学校名称：{{name}}</h4>
+        <h4>学校地址：{{address}}</h4>
+        <!-- <h4>测试：{{$options}}</h4> -->
+    </div>
+    <script>
+        // m v vm: model模型:data数据（一般js对象）-------viewmodel:vue实例化对象vm（->数据绑定    <-dom监听）-------- view视图模板（dom对象）
+        Vue.config.productionTip = false;
+        // viewmodel：new vue实例对象：vm桥梁
+        const vm=new Vue({
+            // 这里面是配置对象，可以称为options
+            el:'#root',
+            data:{
+                // model模型-----为什么出现在了变量vm上-----数据代理
+                // 一旦console中的data中的数据发生改变，页面中用到该数据的地方的显示也会随之刷新
+                // vm中的属性_data（包含name，address）=== 此处的data
+                name:'first',
+                address:'beijing.'
+            }
+        })
+        console.log(vm);//vue
+
+        // -------------------------------------------------------------------------------------------------------------------------------------
+        // 通过defineproperty让number和person产生关系
+        let number=100;
+        let person={
+            name:'张三',
+            sex:'男',
+            // age:18
+        }
+        // 1、给对象添加属性和属性值object.defineProperty(对象，属性名，属性值)
+        // number和person之间通过此方法访问和修改
+        Object.defineProperty(person,'age',{
+            // value:18,
+            // 设置age的属性值是value是18
+            // 为什么三者颜色不同？代表age属性不可枚举==不参加遍历，且age的属性值，不可修改
+            // 对追加的属性进行操作
+            // 可列举的.控制属性可枚举，默认是false，此时的遍历输出是三个
+            // enumerable:true,
+            // // 控制属性可以是否被修改，默认是false
+            // writable:true,
+            // // 控制属性是否可以删除,默认是false
+            // configurable:true,
+            // 上面四个属性和下面的访问器getter不可同时存在
+            // getter访问器=get函数名+function函数体，当age属性被访问时，get函数(getter)就会被调用，返回值就是age的值
+            get:function(){
+                // get age: ƒ ()  有一个为age属性服务的函数get
+                console.log('age property is visited');
+                return number;
+            },
+            // get set还可以简写
+            // set：当有人修改person.age属性时，set函数（setter）就会被调用，且会收到修改的具体值
+            set(vv){
+                console.log('age property is modified','return:'+vv);
+                // 将修改后的值，返回给number
+                number=vv;
+            }
+        })
+        // person['age']=20;
+
+        // 遍历1.object.keys(person);遍历对象的属性，并将属性返回到一个数组
+        // 此时的数组是不包含age属性的，因为他不可枚举
+        // console.log(person);{name: '张三', sex: '男', age: 18}
+        // 此方式是将对象的属性名拿出来成为一个数组，但是age不可枚举，所以数组只有前两个
+        console.log(Object.keys(person));//(2) ['name', 'sex']
+        // 遍历对象2.for in
+        for(key in person){
+            console.log(person[key]);
+        }
+        console.log(person);
+
+        // 2、数据代理：通过一个对象number的代理object.defineproperty()对另一个对象person的属性进行  读写 操作
+
+        let obj={x:100};
+        let obj2={y:200};
+        // 通过obj2的代理 对 obj的属性x进行操作
+        Object.defineProperty(obj2,'x',{
+            get(){
+                return obj.x;
+            },
+            set(value){
+                obj.x=value;
+            }
+        })
+
+    </script>
+    <!-- 
+        vue实例化对象vm下的所有属性和方法，可以直接用
+        数据代理：通过vm对象（name）来代理data对象（_data）中的属性vm._data.name === vm.name(vm把属性name放到了_data里)
+
+        数据代理：data下的属性-----getter setter-----vm对象下的属性
+        且vm下的data发生变化，view也会随之发生变化
+
+        拿到vm之后，拷贝_data(data)中的属性到vm对象中，使得vm._data.name===vm.name,为了编码更方便，更好操作data中的数据
+        vue将对象的data中的数据拷贝一份到了_data属性中，又将_data中的属性提到vue实例中（如name），
+        1、通过（api是defineproperty）defineproperty把data对象中所有的属性添加到vm上，每一个添加到vm上的属性，都指定一个getter  setter内部操作其对应的属性，
+        实现数据代理，
+        这样通过getter setter操作vm.name，进而操作（读和写）_data中的name属性，而_data又对data进行数据劫持形成响应式
+     -->
+</body>
+</html>

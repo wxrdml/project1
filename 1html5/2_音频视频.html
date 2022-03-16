@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        音频audio：
+        1、自动播放autoplay（不是所有浏览器都支持、ios系统不支持，无法自动播放，需要用户手动触发）
+        2、scr
+        3、控件controls：浏览器自带的开始 结束 放大缩小按钮等、画中画
+        4、source加载音频文件资源：scr 资源路径 type资源类型 多写几个source为了兼容不同的六浏览器
+        5、loop循环播放
+        ogg  mp3  waw
+        视频video -->
+    <audio src="" autoplay controls>
+        <source src="test.ogg" type="audio/ogg">
+        <source scr="test.mp3" type="audio/mpeg">
+    </audio>
+    <!-- 
+        flash(安装插件)video（html5）：MP4 ogg 
+        autoplay controls loop width heigth
+     -->
+     <!-- network:xhr页面接口请求资源
+    application本地存储+缓存+背景服务器 -->
+     <video src="" autoplay controls loop></video>
+</body>
+</html>

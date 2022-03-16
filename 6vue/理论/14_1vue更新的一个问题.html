@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue监测数据的原理</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <ul>
+            <li v-for="(p,index) in persons" :keys="p.id">
+                {{p.name}}---{{p.age}}
+            </li>
+        </ul>
+        <button @click="updateMei">更新马冬梅信息</button>
+    </div>
+    <script>
+        // 按钮--更新马冬梅信息
+        Vue.config.productionTip = false;
+        const vm=new Vue({
+            // watch监视--程序员
+            // vue中的默认监视
+            el:'#root',
+            data() {
+                return {
+                    persons:[
+                        {name:"马冬梅",age:19,id:001},
+                        {name:"周冬雨",age:30,id:002},
+                        {name:"周杰伦",age:27,id:003},
+                        {name:"刘兆伦",age:15,id:004},
+                    ],
+                }
+            },
+            computed:{
+
+            },
+            watch:{
+
+            },
+            methods: {
+                updateMei(){
+                    // 每个属性的更新
+                    // this.persons[0].name='马老师',
+                    // this.persons[0].age=90
+                    // vue没有监测到数据改变，页面也没有发生改变，但是vm内存上实际已经发生改变
+                    this.persons[0]={name:"马",age:1,id:001}
+                }
+            },
+        })
+    </script>
+</body>
+</html>

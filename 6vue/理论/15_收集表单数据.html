@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #content{
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+            display: inline-block;
+        }
+    </style>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <!-- 点击提交按钮，执行函数demo，prevent阻止浏览器默认行为，不再刷新 -->
+        <form @submit.prevent="demo">
+            <label for="zhanghao">账号：</label>
+            <!-- 让点击账户也能获取光标，账号为了demo服务 -->
+            <input type="text" id="zhanghao" v-model="userinfo.account"><br/><br/>
+            <label for="mima">密码：</label>
+            <input type="password" id="mima" v-model="userinfo.password"><br/><br/>
+            年龄:<input type="number" v-model.number="userinfo.age">
+            <!-- type控制输入的是数字,v-model保证存入vue中的是数字 -->
+            <!-- radio单选框：name属性，告诉input框他俩是一组，指示value -->
+            性别：男<input type="radio" name="sex" v-model="userinfo.sex" value="男">女<input type="radio" name="sex" v-model="userinfo.sex" value="女"><br/><br/>
+            <!-- 勾选框，默认返回checked==boolean是否被勾选，要写value+绑定元素写成数组形式 -->
+            爱好：抽烟<input type="checkbox" name="抽烟" id="" v-model="userinfo.hobby" value="smoke">
+            喝酒<input type="checkbox" name="喝酒" id="" v-model="userinfo.hobby" value="drink">
+            烫头<input type="checkbox" name="烫头" id=""  v-model="userinfo.hobby" value="tangtou"><br/><br/>
+            所属校区：<select name="" id="" v-model="userinfo.city">
+                <option value="tianjin">天津</option>
+                <option value="hebei">河北</option>
+                <option value="shanghai">上海</option>
+            </select><br/><br/>
+            <!-- 多行输入框 -->
+            <label for="duohang">其他信息：</label>
+            <textarea name="" id="duohang" cols="30" rows="10" v-model="userinfo.other"></textarea><br/><br/>
+           <input type="checkbox" name="gouxuan" id="" v-model="userinfo.agree"> 阅读并接受<a href="###">《用户协议》</a>
+           <!-- 点击提交，进入其他页面，本页面刷新 -->
+           <button>提交</button>
+           <!-- 
+            v-model修饰符: 
+            v-model.number=''
+            v-model.lazy=''延迟收集:失去焦点时,提交
+            v-model.trim=''首位部分不收集空格
+            -->
+        </form>
+    </div>
+    <script>
+
+        Vue.config.productionTip = false;
+        new Vue({
+            el:'#root',
+            data(){
+                return{
+                    userinfo:{
+                        account:'',
+                        password:'',
+                        sex:'女',
+                        // v-model默认收集输入框的输入值，设置value="男"、
+                        hobby:[],
+                        city:'tianjin',
+                        // 给下拉框select双向绑定，而不是option
+                        other:"",
+                        // 默认不勾选
+                        agree:false,
+                        age:''
+                    }
+                }
+            },
+            methods:{
+                demo(){
+                    // alert('99')
+                    // 把表单用json格式表达出来
+                    console.log(JSON.stringify(this.userinfo));
+                }
+            }
+        })
+    </script>
+</body>
+</html>

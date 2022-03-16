@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <script>
+        var a=1;
+        function fn(a){
+            // var a=10;
+            a=2;
+            console.log(a);//2
+        }
+        fn(a);
+        console.log(a);//1
+
+        var tt=2;
+        function test(){
+            var tt=5;//局部变量
+            tt=7;
+            console.log("tt:"+tt);//7
+        }
+        test();
+        console.log(tt);//访问全局tt==2 
+    </script>
+    <!-- 此模板要找vm对象下的属性方法，，再找原型下的属性和方法，而与window下的其他属性alert方法无关 -->
+    <div id="root">
+        <!-- 小毛病：当模板用不上属性data or computed时，再点击切换时，vm的ishot放生改变，而vue调试器-后台model的data和conputed不改变 -->
+        <!-- 三目运算符 -->
+        <h1>今天天气很{{isHot ? 'hot' : 'cool'}}</h1>
+        <h1>今天天气很{{info}}</h1>
+        <button id="btn" @click="change">切换天气</button>
+        <!-- 点击事件：可以写简单语句 -->
+        <!-- <button id="btn" @click="isHot != isHot">切换天气</button> -->
+    </div>
+    <script>
+        // vue管理的函数不能是箭头函数
+        Vue.config.productionTip = false;
+        let vm=new Vue({
+            el:'#root',
+            data:{
+                isHot:true,
+            },
+            methods:{
+                // 先对数据进行监测，再判断，最后修改
+                change(){
+                    // 判断语句
+                    if(this.isHot){
+                        this.isHot=false;
+                        // console.log('today is'+this.isHot+'yesterday is'+this.isHot);
+                    }else{                       
+                        this.isHot=true;
+                    }
+                }
+            },
+            computed:{
+                // 三目运算符
+                info(){
+                    return this.isHot ? 'hot' : 'cool'
+                }
+            },
+            // 监视isHot属性，必须存在,两种方法
+            watch:{
+                isHot:{
+                    deep:true,
+                    immediate:true,
+                    // 1、当ishot被调用、被修改时（发生改变）调用回调函数handler
+                    handler(newValue,oldValue){
+                        // immediate默认为false，初始化时，让handler调用一下
+                        console.log('isHot被修改了',newValue,oldValue);
+                    }
+                    // handler简写：
+                    // handler(newValue,oldValue){
+                    //     // 初始化时，让handler调用一下
+                    //     console.log('isHot被修改了',newValue,oldValue);
+                    // }
+                },
+                // 监视简写
+                // isHot(newValue,oldValue){
+                //     console.log('info被修改了',newValue,oldValue);
+                //  }
+            //     info:{
+            //         handler(newValue,oldValue){
+            //             console.log('info被修改了',newValue,oldValue);
+            //         }
+            //     }
+            }
+        })
+        // 2、正常写法
+        vm.$watch('info',{
+            deep:true,
+            immediate:true,
+            handler(newValue,oldValue){
+                console.log('info被修改了',newValue,oldValue);
+            }
+        })
+        // 简写
+        vm.$watch('info',function(newValue,oldValue){
+            console.log('info被修改了',newValue,oldValue);
+        })
+    </script>
+    <script>
+        // 1
+        // console.log([1,2,3,4,5].splice(1,2,3,4,5));
+        // console.log([1,2,3,4,5].slice(1,2,3,4,5));
+        // // 2
+        // function Setcount(count){
+
+        //     this.count=count
+
+        // }
+
+        // Setcount.prototype.printCount=function(){
+
+        //     console.log(this.count)
+
+        // }
+
+        // let a = new Setcount(100)
+
+        // a.count =200
+
+        // a.__proto__.count=300
+
+        // a.__proto__.printCount()
+
+        // a.printCount();
+
+        // // 3
+        // Object.prototype.foo = 'Object';
+        // Function.prototype.foo = 'Function';
+        // function Animal () {};
+        // var cat = new Animal();
+        // console.log(cat.foo);
+        // console.log(Animal.foo);
+
+
+        
+        // //删除重复元素 
+        // function del(astr){
+        //     var new_arr=[];
+        //     new_arr[0]=astr[0];
+        //     for(var i=0;i<astr.length;){
+        //         if(new_arr[new_arr.length-1]===astr[i]){
+        //             while(new_arr[new_arr.length-1]===astr[i]){
+        //                 i++
+        //             }
+        //             new_arr.pop();
+        //         }else{
+        //             new_arr.push(astr[i]);
+        //             i++;
+        //         }
+                
+        //     }
+        //     return new_arr.join('');
+        // }
+        // var str='abcdaddadeadfaa';
+        // var astr=str.split('');
+        // console.log(del(astr));
+
+
+        // // 数独   且输入是2^x===n
+        // var n=window.prompt('请输入n：');
+        // console.log(`1 2 3 4 5 6 7 8`);
+        // console.log(`2 1 4 3 6 5 8 7`);
+        // console.log(`3 4 1 2 7 8 5 6`);
+        // console.log(`4 3 2 1 8 7 6 5`);
+        // console.log(`5 6 7 8 1 2 3 4`);
+        // console.log(`6 5 8 7 2 1 4 3`);
+        // console.log(`7 8 5 6 3 4 1 2`);
+        // console.log(`8 7 6 5 4 3 2 1`);
+        
+    </script>
+</body>
+</html>

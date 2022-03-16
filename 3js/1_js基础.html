@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* css注释 */
+    </style>
+</head>
+<body>
+    <!-- html注释 -->
+    <!-- 
+        引入js的方式有两个：
+        第一，在script内引入js
+        第二，直接引入js文件
+     -->
+    <script src="index.js"></script>
+    <script>
+        //js单行注释
+        /*
+        js多行注释
+        */
+        //页面输出信息 
+        // document.write('<h5>hello world</h5>');
+        // 控制台console输出信息
+        // console.log('hello world！');
+        // 写分号，要不然压缩代码容易把好几行整成一行
+        // 弹出对话框，适用于调试代码，用户不可见
+        //alert('hello!')
+    </script>
+
+    <!-- 变量 -->
+    <script>
+        //弱数据类型js php：only 用var定义变量 es6
+        //强数据类型语言c c++ java go用各种定义
+        //五种基本数据类型：number，Boolean，undefined，string，null
+        // 引用数据类型：数组和对象
+        //typeof a或者typeof(a)相同，只能用于基本数据类型var，不可引用
+        var a = 1;
+        console.log( typeof a);
+        console.log( typeof(a));
+        var b = 'hell0';
+        console.log( typeof b);
+        var c = true;
+        console.log( typeof c);
+        a = 'world';
+        console.log( typeof a);
+        // 注意！！
+        var d;
+        console.log( typeof d)
+        // undefined变量定义了，但未赋值
+        // null是空对象
+        var f =document.getElementsByTagName('p');//p标签名字
+        document.write('我是f:'+f);
+        // console里number打印出为蓝色
+        console.log(123,'123');
+        console.log(f);
+        // 变量名定义规则
+        // 变量名(链接 驼峰：小、大）包含：字母 数字 下划线_ ＄；变量名开头：字母 下划线 ＄（数字不能开头）
+
+
+    </script>
+
+    <!-- 运算 -->
+    <script>
+        // number/Boolean+一旦有string==字符串拼接，number转化为string类型输出
+        var a = 1,b=2;
+        console.log(a+b);  
+        var c ='hello',d ='world',e=true,f ='3';
+        // 一旦有boolean=true 1;==false  0,进行Number()数字类型转化，当number和Boolean相运算（相加减）
+        console.log(c+d); //helloworld
+        console.log(c+d+e); //helloworldtrue
+        console.log(a+e); //2----number
+        console.log(c-d); //NaN not a number 串减串
+        console.log(c-a); //NaN not a number 串减数字
+        console.log(a*f); //串*数字
+        //alert(a * c);
+        //减法 乘法，除法：number类型正常计算，非number类型：Boolean/string 转化成number类型，能计算就计算，不能计算返回nan，只有加法才进行拼接
+        console.log(a-f)  //string 转化成number类型，只有加法才进行拼接
+        //关系比较：true false
+        var m =1,n=2;
+        console.log( m > n);//false
+
+        //==判断值是否相等，===判断值和数据类型是否相等
+        var o='3';
+        var p=3;
+        console.log( o==p );
+        console.log( o===p );
+
+        //！取非运算，返回false
+        var x = true;
+        console.log( ! x );
+
+        //var m =window.prompt("请输入数字：","默认值")
+        //console.log(m);//string
+    </script>
+
+    <!-- 条件判断 -->
+    <script>
+        // 分支结构
+        var a = 1;
+        if (a>60){
+            console.log("the aged");
+        }else if(a<18){
+            console.log("child");
+        }
+        else{
+            console.log("adult")
+        }
+
+        //三目运算符
+        var tag=a<12?"child":"no child";
+
+        // switch语句
+        a=20;
+        switch(false)
+        //判断case分支语句哪个满足switch括号内的条件true，就执行哪个语句
+        {
+            case a>60:
+                console.log("the aged");
+                break;
+            case a<18:
+                console.log("child");
+                break
+            case a>=18&&a<=60:
+                console.log("adult");
+                break
+            default://默认
+                console.log("false");
+        }
+
+        
+    </script>
+
+    <!-- 循环 -->
+    <script>
+        var i = 1;
+        for(i;i<10;i++){
+            console.log(i);//循环输出1-9
+        }
+        while(i<20){
+            console.log(i);
+            i++;
+        }
+        //二者接续循环1-19
+        do{
+            console.log(i);
+            i--;//当i》-30时；执行do；当i《=-30，执行while
+        }while(i>-30){
+            console.log("i<=-30");
+        }
+    </script>
+
+    <!-- 函数 -->
+    <script>
+        // 函数式编程  弱语言类型var统称
+        //基本数据类型：string Boolean number undefined null
+        //引用数据类型：数组和对象
+
+        //函数声明：函数可以提升
+        aa();
+        //先调用在声明，先声明在调用
+        //第一，只有用function定义的函数，在函数体前调用还是函数体后调用，都没错
+        function aa(){
+            console.log("这是函数aa。");
+        }
+
+        //函数调用1，只有用function定义的函数，在函数体前调用还是函数体后调用，都没错
+        aa();
+        //函数调用2,设置一个变量，用变量调用函数，此时的函数没有函数名，
+        //此时，var关键字定义的函数，只能在其后调用。
+        //函数表达式：将函数作为一种赋值给变量，仅赋值
+        var f = function(){
+            console.log("123456");
+        }
+        f();
+
+        //函数式编程以下：
+        //1、将函数作为一种赋值给变量
+        //2、将函数作为参数传递给另一个函数，慎用
+        //3、将函数作为函数的返回值返回
+
+        //2、将函数作为参数传递给另一个函数
+        function test(a){
+            console.log(a);
+        }
+        test(function(){
+            // ????
+        })
+
+        //3、返回值：什么时候用（模块化module）
+        function test01(){
+            return function(){
+                console.log('third');
+            }
+        }
+        //diaoyong
+        var val=test01();  //val是函数名，接下来调用函数使用函数名即可
+        //二者等同
+        // var val=function(){
+        //         console.log('third');
+        // }
+        val();
+
+        test01()();//val=test01()=test01()()   二者等同
+
+
+        //模块化module：模块与模块之间相互调用
+        //js/index.js+js/module.js
+
+
+        //实参 形参问题
+        function sub(a,b){//形参
+            return a-b;
+            //return  后面的语句不会执行
+            console.log(a-b);
+        }
+        sub(4,3);//实参
+
+        //ff();//ff is not a function，此时还是一个变量
+        var ff=function(){
+            console.log(73920402);
+        }
+        ff();
+
+    </script>
+    <!-- 函数作用域查找，先访问当前函数范围内的局部变量，向上一级访问，以此类推，找到全局作用域，如果还没有，直接not define -->
+    <script>
+
+        var tt=2;
+        function test(){
+            var tt=5;//局部变量
+            tt=7;
+            //没加val，此变量为全局,为什么没有修改全局tt=2？，
+            //因为tt在函数体内先定义为局部变量=5，再而将tt=7，相当于改变局部变量ok？
+            //因此不加val，也不一定都是全局变量
+            console.log("tt:"+tt);//7
+        }
+        test();
+        console.log(tt);//访问全局tt==2  
+        //Uncaught ReferenceError: tt is not defined
+        // console.log(name);
+        //在全局window作用域内，有个默认的属性name，所以这种情况下没有全局name，打印仍不出错，完整为window.name
+
+    </script>
+
+    <!-- 变量的提升 -->
+    <script>
+        //只有通过var定义的变量，才会出现变量提升
+        var a = 'hello';//全局变量
+        b=2;//没有通过var定义的变量 是全局变量
+
+        //变量作用域：全局；函数作用域
+        function aa(){
+            //函数作用域，函数外称为全局作用域
+            console.log('全局变量调用b:',b);//2 global
+            b=5;
+            var ii=1;
+            console.log('局部变量调用b:',b);//function
+        }
+        aa();
+        console.log('函数外为什么继承了局部变量b:',b);
+        //5，如果函数的局部变量和全局变量的名字一样，优先使用局部变量
+        //console.log('局部变量调用ii:',ii);错误调用，全局不可调用函数作用域变量
+
+        //只有通过var定义的变量，才会出现变量提升
+        var wxr;
+        console.log(wxr); //undefined
+        wxr='王芯蕊';
+        console.log(wxr);
+
+        var xx;
+        console.log(xx);
+        xx =10;
+        console.log(xx);
+
+    </script>
+
+
+    <!-- 重点:闭包 -->
+    <button id="btn">闭包按钮</button>
+    <ul id="uul">
+        <li>001</li>
+        <li>002</li>
+        <li>003</li>
+    </ul>
+    <script>
+        // 外部函数outer 在内部声明 内部函数inner,内部函数引用了外部函数中的局部变量z
+        //当外部函数outer调用完毕后,该局部变量z不会被释放
+        //闭包的作用:按照定义,不想让局部变量释放。
+        //window是浏览器默认的全局对象,尽量不使用全局变量,污染全局变量window
+        //实际工作中,绝大多数情况下,是自然而然的用到闭包,而非特意使用闭包
+        //是必要条件,而非满足条件就是闭包
+        function outer(){
+            var z=5;//因为,局部变量,使用完垃圾回收器就回收,所以在外面访问不到
+            var inner=function(){
+                var x=z+6;
+                return x;
+            }
+            return inner;
+        }
+        var val=outer();
+        console.log(val());//val就是函数cc(){
+        //         var x=z+6;
+        //         return x;
+        //     }
+        //var val=function(){//=bb()=cc=
+        //     var x=z+6;
+        //     return x;
+        // }
+        //闭包实例1
+        var btn=document.getElementById('btn');
+        btn.onclick=function(){//外部
+            var a=5;
+            setTimeout(function() {//内部引用外部局部变量a,闭包
+                console.log(a);
+            }, 2000);//2s之后,打印a
+        }
+        //闭包实例2
+        for(var i=0;i<arr.length;i++){ //点击一次,才生成一个函数,点击完成时i=3
+            //console.log(arr[i]);
+            arr[i].onclick=function(){//点击事件
+                console.log(i);//print suoyin  都是3,why,点击事件不对?
+            }
+        }
+        //闭包解决一
+        var uul=document.getElementById('uul');
+        var arr=uul.getElementsByTagName('li');
+        for(var i=0;i<arr.length;i++){
+            var fn=function(index){//外部函数,局部变量index
+                arr[i].onclick=function(){//dianji shijian//内部函数
+                console.log(index);//调用外部函数的局部变量,调用完不释放
+            }
+            };
+            fn(i);//循环一次i,生成一个函数,在函数内将局部变量保存
+        }
+        //es6 let  闭包解决二
+        for(let i=0;i<arr.length;i++){ 
+            //console.log(arr[i]);
+            arr[i].onclick=function(){//dianji shijian
+                //console.log(Math.random());//print suoyin
+                console.log(i);
+            }
+        }
+
+        //块级作用域:let(块级)和var(全局)
+        //for循环里,//此处a为全局变量
+        for(var a=0;a<5;a++){//此处a为全局变量
+            console.log(a);//01234
+        }
+        console.log(a);//5
+
+        for(let aaa=0;aaa<5;aaa++){//此处a处于块级作用域内,所以作用于外报错
+            //每循环一次,形成一个块,相互之间并不干扰
+            console.log(aaa);//01234
+        }
+        console.log(aaa);//aaa is not defined
+
+    </script>
+    <!-- 数组方法：push，pop，shift，unshift，slice，splice，concat，tostring，join，sort，reverse， -->
+    <script>
+        //数组定义var,new
+        var arr=[1,2,3];  //0 1 2数组下标==索引值
+        console.log(arr);
+
+        var arr1=new Array(4,5,6,'hello');
+        console.log(arr1);
+        for(var i = 0;i<arr1.length;i++){
+            console.log(arr1[i]);//循环输出数组元素值
+        }
+        
+        console.log(arr[3]);//数组声明了，但是没有给这一项赋值
+        
+        var arr2=new Array(4)//定义的是长度为4 的空数组
+        console.log(arr2);
+        //那么只定义一个值的数组要用第一种方法定义，
+        //且数组的每一项数据类型可以不同
+        //对象下才会有一些方法。
+        //concat连接数组,返回一个新的数组;push()向数组的末尾插入元素，并返回新的长度(number)
+        var arr3=arr.concat(arr1);
+        console.log('arr3:',arr3);
+        var arr4=arr3.push('wrong');
+        console.log("push_arr4:",arr4);//arr4  number
+        console.log('arr3:',arr3);//change原数组数据元素
+
+        //pop()删除数组的最后一个元素，返回删除的元素(数组最后一个元素)，原数组元素发生改变
+        var arr5=arr3.pop();
+        console.log("pop_arr5:",arr5);
+        console.log("srr3",arr3);
+
+        //unshift()插入元素到数组前面,返回数组的长度，原数组会改变
+        var arr6=arr3.unshift('nihaoma?','lalala');
+        console.log("unshift_arr6:",arr6);
+        console.log("arr3",arr3);
+        
+        //shift（）删除数组首元素，返回删除元素
+        var arr7=arr3.shift();
+        console.log("shift_arr7:",arr7);
+        console.log("arr3:",arr3);
+
+        //slice(开始下标，结束下标)，开始下标必须要写，结束下标不包含end，返回指定位置的数据元素
+        var arr8=arr3.slice(0);
+        console.log("arr8",arr8);
+        console.log("arr3",arr3);
+
+        //splice(index,howmany,x)，产生一个新数组arr9，会改变原数组arr3
+        //向数组添加删除元素
+        var arr9=arr3.splice(3,5);
+        console.log("arr9",arr9);
+        console.log("arr3",arr3);
+        // 添加
+        //从数组中0开始的2个元素删除，在原位置增加“后面元素”：apple banana
+        var arr10=arr3.splice(1,2,'apple','banana');
+        console.log("arr10",arr10);
+        console.log("arr3",arr3);
+        //返回数组，原数组颠倒改变，不会产生新数组
+        var arr11=arr3.reverse();
+        console.log("arr11:",arr11);
+        console.log("arr3:",arr3);
+
+        //sort（st）排序,返回数组，提供比较函数st（）原数组升序/降序排列
+        function st(a,b){
+            //return a-b;//升序排列
+            return b-a;//降序排列
+        }
+        var arr12=[10,7,88,66,100];
+        var arr13=arr12.sort();//sort()字典序排列[10, 100, 66, 7, 88]
+        console.log("arr12:",arr12);
+        console.log("arr13:",arr13);
+
+        //tostring，把数组转为字符串，不改变原数组
+        var arr14=arr8.toString();
+        console.log("arr14:",arr14,typeof arr14);//返回结果lalala,1,2,3,4,5,6,hello  带有逗号//string
+        console.log("arr8:",arr8);//['lalala', 1, 2, 3, 4, 5, 6, 'hello']
+
+        var arr15=arr8.join('');
+        //相较于tostring，join首先将数组变为字符串，并将 串间 元素用指定的分隔符进行分隔
+        console.log("arr15:",arr15);
+    </script>
+
+    <!-- 对象:一堆属性的集合 -->
+    <script>
+        //数组和对象都是引用数据类型oject
+        var obj={};//对象的两种定义方式
+        var obj1=new Object();
+        var arr=[];
+        var arr2=new Array();
+        console.log(typeof obj,"---obj");
+        console.log(typeof arr,"---arr");
+        console.log(obj1);
+        console.log(arr2);
+
+        //两种添加对象的属性；和一些方法
+        //第一定义一个变量，里面的设置一些属性、给属性赋值，并且设置函数
+        var person={
+            name:"wxr",//属性：属性值
+            age:18,
+            arm:'两个臂膀',
+            //对象的方法定义
+            eat : function(){
+                console.log("apple,banana");
+            }
+        }
+        console.log(person.name);//获取对象调用属性
+        console.log(person.age);
+        person.eat();//调用对象方法
+        alert(person); //模糊提示 oject对象
+        alert(person.name);  //输出name的属性值
+
+        //第二，添加属性：对象名【】=‘’
+        obj1['name']='zs';//对象添加属性名和值
+        obj1['age']=12;
+        console.log(obj1);
+        console.log(person);
+        //第三种，添加属性
+        obj1.age=30;//对象属性单个赋值
+        console.log(obj.age);
+        //循环
+        for(name in person){  //person是对象，name在这里是变量
+            console.log(person.name);
+            //输出name的属性值person.name!=person[name]
+            //person.name输出person的属性name的属性值wxr，person[name]输出person的每个属性的属性值
+
+            //console.log(person[name]);//输出person的每个属性的属性值
+            //console.log(name);//person对象的每个属性的属性名
+            console.log(name,':',person[name]);
+            //每个name变量都代表了'name' 'age'。。；person[‘name’]对象person有个name属性名
+        }
+
+        var list=[
+            {
+                name:'wxr',
+                age:20,
+            },
+            {
+                name:'jjf',
+                age:40,
+            },{
+                name:'wsj',
+                age:50,
+            }
+        ]
+        for(var i=0;i<list.length;i++){
+            document.write('age:'+list[i].age+';');
+            document.write('name:'+list[i].name+'</br>');
+            console.log('age:',list[i].age);
+            console.log('name:',list[i].name);
+        }
+
+
+
+
+
+    </script>
+</body>
+</html>

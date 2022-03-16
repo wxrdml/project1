@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>key的原理</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <!-- 向li列表动态添加元素， -->
+        <h3>人员列表：数组</h3>
+        <button @click.v-once="add">点我添加人员</button>
+        <ul>
+            <li v-for="(p,index) in persons" :key="index">
+                <!-- 
+                    p是形参，key是每个节点（虚拟dom）的唯一标识，p.id==index前面加冒号，动态绑定（key原理）
+                    ------------------------------------------------------------------------------------
+                    index是遍历索引值作为key--生成虚拟dom（vnodes）--真实dom--根据新数据004生成虚拟dom
+                    两个虚拟dom对比diff：key相同的节点对比里面的内容，内容不同（老刘），不能复用，内容相同（input），就要复用
+                    key不同，新生成dom，
+                    以上打乱顺序添加删除，虚拟dom和diff造成错位
+                    -------------------------------------------------------------------------------------
+                    p.id作为key，key不同，新生成dom，内容相同，就要复用
+                    虚拟dom的diff算法
+                    -------------------------------------------------------------------------------------
+                    不写key，vue自动将index补充为key
+                    -----------------------------------
+                    开发时：数据中要有唯一标识，而不用index
+                 -->
+                {{ p.id }}--{{ p.name }}
+            </li>
+        </ul>
+    </div>
+    <script>
+        Vue.config.productionTip = false;
+        new Vue({
+            el: "#root",
+            data: {
+                persons: [
+                    {
+                        id: '001',
+                        name: 'wxr'
+                    },
+                    {
+                        id: '002',
+                        name: 'wxr'
+                    },
+                    {
+                        id: '003',
+                        name: 'wxr'
+                    }
+                ]
+            },
+            methods: {
+                add(){
+                    let a={id:'004',name:'老刘'}
+                    // 添加到头unshift，尾push
+                    this.persons.push(a);
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dom</title>
+    <style>
+        .aa{
+            /* class选择器 */
+            width: 100px;
+            height: 200px;
+            background-color: red;
+        }
+        .ee{
+            width: 200px;
+            height: 300px;
+            background-color: yellow;
+        }
+        #div2{
+            width: 200px;
+            height: 200px;
+        }
+        
+    </style>
+    <style>
+        body{
+            width: 5000px;
+            height: 2000px;
+        }
+        #btnn{
+            width: 50px;
+            height: 20px;
+            color: orange;
+            background-color: blanchedalmond;
+            font-size: 12px;
+            border: 1px solid grey;
+            position: fixed;
+            /* 固定定位 */
+            bottom: 50px;
+            right: 50px;
+        }
+        .open{
+            width: 110px;
+            height: 22px;
+            color: aqua;
+            font-size: 14px;
+            text-align: center;
+            background-color: black;
+           
+        }
+    </style>
+</head>
+<body>
+    <!-- BOM browser object model浏览器对象模型：核心对象是window---document、history、location、navigator
+    他最强大的地方是提供类一个可以访问html页面的入口--document对象-->
+    <!-- js中var全局变量 全局方法都是window对象 -->
+    <script>
+        // var aa=1;
+        // var afn=function(){
+        //     console.log('ffff');
+        // }
+        // afn();
+    </script>
+    <script>
+        // window.alert('alert');//浏览器弹出alert
+        // window.confirm('confirm');//浏览器弹出confirm 包含确定（返回true）和取消（返回false）
+        // // alert();二者相同
+        // window.prompt('prompt');//浏览器提示，prompt，带有文本框输入的弹窗
+    </script>
+    <!-- stroll回到页面的哪哪哪 -->
+    <h1>hello world</h1>
+    <div id="btnn">回到顶部</div>
+    <script>
+        var btn=document.getElementById('btnn');
+        btn.onclick=function(){
+            window.scrollTo(0,0);
+            // 滚动到x，y
+            // window.scrollBy(0,0);
+            // 滚动了x，y
+        }
+    </script>
+    <!-- open 打开指定页面-->
+    <div class="open" id="open">打开新页面百度</div>
+    <script>
+        var Open_cl=document.getElementById("open")
+        Open_cl.onclick=function(){
+            window.open('https://www.baidu.com');
+            // pageURL 为子窗口路径 
+            // name 为子窗口句柄 
+            // parameters 为窗口参数
+        }
+    </script>
+
+    <!-- 时间 -->
+    <script>
+        // n毫秒之后执行方法
+        // var ti=
+        // setTimeout(function()  {
+        //     console.log('2s后');
+        // }, 2000);
+        // clearTimeout（ti）取消定时器
+
+        // 每间隔n毫秒之后执行方法，方法，时间间隔ms
+        // var i=0;
+        // var timer=setInterval(function(){
+        //     console.log(i++);
+        //     if(i>=50)
+        //     {
+        //         clearInterval(timer);
+        //         // 清除定时器
+        //     }
+        // },1000)
+        // timer没有特别的含义，是number类型的数
+
+        setTimeout(function() {
+            console.log(1);
+        }, 3000);
+        console.log(2);
+        console.log(3);
+        // 231
+        // 单线程 多线程  js是单线程，所有任务需要排队，前面完事了，后面才能干
+        // 同步 异步（做事情的先后顺序不同）
+        // settimeout是异步方法，先执行主线程23，再看任务队列里面的settimeout
+        // 主线程 任务队列
+        // 代码顺序执行,遇到异步方法 ,会把该方法放到任务队列里
+        // 当主线程的的任务执行完毕后,会将任务队列中的方法取出,并且在等待时间间隔后,调用异步方法
+        // 函数去抖:用户输入--前端---后端---将输入信息返回一个查询相关列表---用户
+        // 但不是每时每秒的返回,而是有一定的时间间隔(帮助服务器减小查询,帮助后端减小压力)
+        // setInterval执行轮询任务
+    </script>
+    <!-- 以上是window对象，以下是history对象 -->
+    <h1>页面二</h1>
+    <button id="bttn">back返回上一页面</button>
+    <button id="btnnn">go上一页面</button>
+    <script>
+        var bttn=document.getElementById('bttn');
+        bttn.onclick=function(){
+            history.back();
+            // back返回上一页面 forward进入下一页面 go返回或者进入下一页面
+        }
+        var btnn=document.getElementById('btnnn');
+        btnn.onclick=function(){
+            history.go(-1);
+            // go(num)前进为正数，后退为负数
+        }
+    </script>
+    <!-- 此处的button div就是对象 -->
+    <button id="btn">按钮</button>
+    <div  id="div" >div</div>
+    <div id="div2">div2</div>
+    <div id="div3" class="ee">i am div3.</div>
+
+    <!-- <div id="div3"class='ee'>div3</div> -->
+    <!-- dom:document  object  model 文档对象模型 -->
+    <script>
+        var btn=document.getElementById('btn');
+        btn.onclick=function(){
+            // 当点击时，发生的函数方法---事件
+            console.log('在点击按钮');
+            var div=document.getElementById('div');
+            // 内联外联外部 是css语法，现在样式写在script下，是js语法
+            // 1.直接操作style属性，添加样式
+            // div.style.width='200px';//字符串，，加px，，加引号
+            // div.style.height='200px';
+            // div.style.backgroundColor='red';
+            // background-color-----backgroundColor（css去掉-  ， 字母大写js）
+            // 2.标签内部：动态添加class='选择器'，，常用
+            div.className='aa';
+
+        }
+        console.log(btn);
+        // 返回<button id="btn">按钮</button>
+        console.log(btn.id);
+        // 访问id的属性值
+        // 根据id找到它所指向的对象
+
+
+        // document window是dom的语法
+        // 对象：内置对象  dom对象 自定义对象
+
+        var div2=document.getElementById('div2');
+        div2.onmouseover=function(){
+            // 鼠标划入
+            div2.style.backgroundColor='blue';
+        }
+        div2.onmouseout=function(){
+            // 鼠标划出
+            div2.style.backgroundColor='brown';
+        }
+
+        var div3=document.getElementById('div3');
+        div3.onmousedown=function(){
+            div3.style.fontSize='30px';
+            div3.style.backgroundColor='green';
+        }
+    </script>
+</body>
+</html>

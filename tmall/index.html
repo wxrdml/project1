@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- index.html是服务器的默认主入口 -->
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/font_3372293_7a908y9v76g/iconfont.css">
+</head>
+<body>
+    <!-- 设置一个最大宽度，主内容区域居中展示，主内容以外的区域用背景色填充 -->
+    <!-- 主内容区域：wrapper -->
+    <!-- <div id="nav">
+        <div id="header">
+            <img src="./imgs/tianmao.png" alt="tmall">
+            <span id="header-search">
+                请输入商家名、品类、商圈......
+            </span>
+            <span id="search"></span>
+        </div>
+    </div> -->
+
+
+    <div id="nav">
+        <div class="wrapper">
+            <div class="nav_slogo">
+                <span>嗨，欢迎来到天猫</span>
+                <!-- 点击跳转当前页面；点击进入一个空函数 -->
+                <a href="#" class="wrapper-list">请登录</a>
+                <a href="javascript:void(0)">免费注册</a>
+            </div>
+            <ul id="nav_menu">
+                <li class="nav-menu-list nav-menu-list-link">
+                    <a href="#" class="wrapper-list">
+                        我的淘宝
+                        <span id="san"></span>
+                    </a>
+                    <ul class="nav-menu-list-inner">
+                        <li>
+                            <a href="#">已买到的宝贝</a>
+                        </li>
+                        <li>
+                            <a href="#">已卖出的宝贝</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-menu-list">
+                    <a href="#">
+                        <!-- i标签：斜体 -->
+                        <i class="iconfont icon-gouwucheman"></i>
+                        购物车
+                    </a>
+                </li>
+                <li class="nav-menu-list nav-menu-list-link">
+                    <a href="#">
+                        收藏夹
+                        <span id="san"></span>
+                    </a>
+                    <ul class="nav-menu-list-inner">
+                        <li>
+                            <a href="#">收藏的宝贝</a>
+                        </li>
+                        <li>
+                            <a href="#">收藏的店铺</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-menu-list nav-menu-list-shu">|</li>
+                <li class="nav-menu-list nav-menu-list-lin">
+                    <span id="nav-menu-list-arrow"></span>
+                    <a href="#">
+                        <i class="iconfont icon-yepian"></i>
+                        手机版
+                    </a>
+                    <div id="nav-menu-list-phone">
+                        <!-- 两种插入图片方法div img -->
+                        <div id="nav-menu-list-phone-er">
+                        </div>
+                        <img src="./imgs/下半截.jpg" alt="tianmao">
+                    </div>
+                </li>
+                <li class="nav-menu-list">
+                    <a href="#">淘宝网</a>
+                </li>
+                <li class="nav-menu-list nav-menu-list-link">
+                    <a href="#">
+                        商家支持
+                        <span id="san"></span>
+                    </a>
+                    <ul class="nav-menu-list-inner">
+                        <a href="#">商家：</a>
+                        <a href="#">商家中心</a>
+                        <a href="#">天猫规则</a>
+                        <a href="#">商家入驻</a>
+                        <a href="#">运营服务</a>
+                        <a href="#">商家品控</a>
+                        <a href="#">商家工具</a>
+                        <a href="#">天猫智库</a>
+                        <a href="#">喵言喵语</a>
+                        <!-- <span>..................</span> -->
+                        <a href="#">帮助：</a>
+                        <a href="#">商家服务大厅</a>
+                        <a href="#">问商友</a>
+                        <!-- <span>..................</span> -->
+                    </ul>
+                </li>
+                <li class="nav-menu-list">
+                    <a href="#">
+                        <i class="iconfont icon-wangzhandaohang"></i>
+                        网站导航
+                    </a>
+                    <ul class="nav-menu-list-inner">
+                        <li>
+                            <a href="#">收藏的宝贝</a>
+                        </li>
+                        <li>
+                            <a href="#">收藏的店铺</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="search">
+        <div class="wrapper search-wrapper">
+            <img src="./imgs/tianmao.png" alt="tiaomaodongtu">
+            <div id="search-content">
+                <div id="search-content-si" class="clearfix">
+                    <!-- placehoder提示文案 -->
+                    <input type="text" placeholder="搜索 天猫、商品、品牌、店铺" id="search-content-input">
+                    <input type="button" value="搜索" id="search-content-button">
+                </div>
+                <div id="search-content-list">
+                    <a href="#" class="search-content-red search-content-camera">摄像头</a>
+                    <a href="#">针织衫</a>
+                    <a href="#">运动鞋</a>
+                    <a href="#">四件套</a>
+                    <a href="#">口红</a>
+                    <a href="#">洗发水</a>
+                    <a href="#">仿真花</a>
+                    <a href="#" class="search-content-red">牛奶</a>
+                    <a href="#" class="search-content-red search-content-dress">连衣裙</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="type">
+        <div class="wrapper clearfix">
+            <a href="#">
+                <img src="./imgs/天猫超市.png" alt="天猫超市">
+            </a>
+            <a href="#">
+                <img src="./imgs/天猫国际.png" alt="天猫国际">
+            </a>
+            <a href="#" class="wrapper-list">天猫会员</a>
+            <a href="#" class="wrapper-list">电器城</a>
+            <a href="#" class="wrapper-list">喵鲜生</a>
+            <a href="#" class="wrapper-list">医药馆</a>
+            <a href="#" class="wrapper-list">营业厅</a>
+            <a href="#" class="wrapper-list">魅力惠</a>
+            <a href="#" class="wrapper-list">飞猪旅行</a>
+            <a href="#" class="wrapper-list">苏宁易购</a>
+        </div>
+    </div>
+    <!-- <input type="text">
+    <button>百度一下</button> -->
+    <!-- 
+        百度输入框:input button img是inline-block行级块元素：回车换行会导致元素之间有空隙
+        解决方案：
+        1、写到一行
+        2、给行级块元素设置浮动
+        3、设置为块元素
+     -->
+     <!-- 
+         行级元素||行级块元素 在父元素中设置水平居中展示 text-align：center
+         块级元素 在父元素中设置水平居中展示 margin：0 auto;
+         块级元素水平垂直居中：position+transform;     position+margin-top margin-left;   position+margin:auto
+      -->
+</body>
+</html>

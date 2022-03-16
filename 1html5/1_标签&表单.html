@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- 页面配置信息 -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        canvas video audio 
+        语义化标签:页面样式丢失或浏览器禁止了css加载，页面能清晰看出页面的所要表达的样式
+        header（定义section或page的页眉<div class="header"></div>） 
+        nav(页面导航）
+        article（定义文章） 
+        section（一个段落） 
+        aside（主内容之外的区域） 
+        footer （定义section或page的页眉<div class="footer"></div>）
+        表单控件:calendar date time email url search 
+    -->
+
+    <!-- 
+
+
+    -->
+    <form action="">
+        <!-- input框：行级块元素 -->
+        <!-- input框，校验email格式 -->
+        email:<input type="email" name="" id="">
+        <!-- 
+        校验url格式:
+        http://www.baidu.com
+        因为运行此文档，默认的url是file，不能访问百度网址，所以要加上http://
+        -->
+        url:<input type="url">
+        <!-- 数字类型 可以通过上下来控制数字，输入非数字类型不生效
+        可以限制max min和step -->
+        number:<input type="number" name="" id="" max="3" min="-2" step="2"></br>
+        <!-- 小滑块range:年龄范围，工资范围，人数范围 -->
+        range:<input type="range" name="" id="" max="10" min="0" step="1"></br>
+        <!-- 输入框 一键删除 -->
+        search:<input type="search"></br>
+        <!-- 日期：date month datetime  -->
+        date:<input type="date" name="" id=""></br>
+        <!-- 返回颜色的十六进制表示 -->
+        color:<input type="color" name="" id=""></br>
+        <!-- 显示手机播放键盘，只有在手机上才会生效 maxlength限制内容长度 placeholder默认提示信息-->
+        tel:<input type="tel" name="" id="" maxlength="11" placeholder="1111111111111"></br>
+        <!-- 上传文件 accept接受文件类型是image，并且只能上传png格式-->
+        file:<input type="file" name="" id="" accept="image/png"></br>
+        <input type="submit" value="submit"></br>
+        <!-- 数据列表：datalist input option结合使用；有option四个提示；两个下拉列表重名了，需要label加以区分 -->
+        <input type="text" list="name">
+        <datalist id="name">
+            <option value="xiaoming" label="17">xiaoming</option>
+            <option value="xiaoming" label="18">xiaoming</option>
+            <option value="xiaoli">xiaoli</option>
+            <option value="xiaowang">xiaowang</option>
+        </datalist>
+        <select name="" id="">
+            <option value="xiaoming">xiaoming</option>
+            <option value="xiaoli">xiaoli</option>
+            <option value="xiaowang">xiaowang</option>
+        </select>
+    </form>
+</body>
+</html>
+<!-- xml: <html xmlns="http://www.w3.org/1999/xhtml"></html> -->

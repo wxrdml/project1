@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自定义指令--指令背后的逻辑</title>
+    <script src="./vue.js"></script>
+    <!-- 
+        v-big指令,类似v-text,数值放大十倍
+        v-fbind，类似v-bind可以让其所绑定的input自动获取焦点
+     -->
+     <!-- 
+        总结：
+        指令名字：不可以小驼峰bigNumber,这样写v-big-number，写函数的时候，'big-number'(){}
+        指令回调函数的this：window
+        自定义指令为局部指令，其他容器不可以使用---变成全局指令Vue.directive('函数名',{函数体})，都可以用了
+      -->
+</head>
+<body>
+    <div id="root">
+        <h2>当前的n值是:</h2>
+        <span v-text="n"></span>
+        <h2>放大的n值是:</h2>
+        <span v-big="n"></span><br/>
+        <button @click="n++">点我n++</button><br/>
+        -------------------------------------------------------
+        <input type="text" v-fbind:value="n">
+    </div>
+    <script>
+        Vue.config.productionTip = false;
+        new Vue({
+            // 一个组件
+            el:'#root',
+            data(){
+                return{
+                    n:1,
+                    str:'请输入文字'
+                }
+            },
+            // 自定义指令
+            directives:{
+                // 什么时候会被调用----1、指令和元素成功绑定span和big（并没有说加载入页面，只是二者绑定），2、指令所在的 模板 被重新解析时
+                // 1
+                // big:{
+                //     k:v
+                // }
+                // 2
+                big(a,b){
+                    // 不靠返回值,靠参数
+                    // 验证真实dom
+                    // console.dir(a)-------------element
+                    // console.log( a instanceof HTMLElement);
+                    console.log('big');
+                    // b是对象，内含value------------bingding
+                    a.innerText=b.value*10
+                },
+                // fbind(element,bingding){
+                    // 简写
+                //     console.log('fbind');
+                //     element.value=bingding.value;---bind update
+                //     element.focus();----inserted，但是简写不包含inserted
+                //     // focus parentElemnt.style.background需要在input框加载入页面后才能写入这些
+                // }
+                fbind:{
+                    // 二者成功绑定bind() 指令在所在元素被插入页面inserted() 指令所在模板重新解析update()
+                    // 钩子
+                    bind(element,bingding){
+                        element.value=bingding.value
+                        console.log('bind');
+                    },
+                    inserted(element,bingding){
+                        element.focus();
+                        console.log('inserted');
+                    },
+                    update(element,bingding){
+                        element.value=bingding.value;
+                        console.log('update');
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

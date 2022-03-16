@@ -1,0 +1,7 @@
+jQuery.com
+jquery是js类库 ；cabtal
+vue react是js框架
+点击事件的e，考虑到ie浏览器的兼容性e=e||window.event----jquery已经考虑到此兼容性的问题
+***.min.js文件：是原本文件压缩后的文件，压缩后的文件更小---上线后使用
+
+引入js

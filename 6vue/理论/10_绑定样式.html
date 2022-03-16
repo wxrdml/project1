@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>style</title>
+    <style>
+        .basic{
+            width: 200px;
+            height: 100px;
+            border: 1px solid black;
+            text-align: center;
+        }
+        .normal{
+            background-color: aquamarine;
+        }
+        .happy{
+            background-color: pink;
+            font-weight: 600;
+        }
+        .sad1{
+            font-weight: lighter;
+        }
+        .sad2{
+            border-radius: 10px;
+        }
+    </style>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <!-- 样式写成绑定class的形式：字符串写法，适用于样式类名不确定，需要动态指定，：表达式--解析，，最后样式汇总 -->
+        <div class="basic" :class="mood" @click="change">{{name}}</div>
+        <!-- 样式不确定:动态的向div添加已存在的样式happy normal，数组写法（个数不确定，名字也不确定），这样一来是vue管理保存此样式 -->
+        <div class="basic" :class="orr">{{name}}</div>
+        <!-- 个数 名字确定，但是不确定到底用不用:对象写法 -->
+        <div class="basic" :class="obj">{{name}}</div>
+
+        <!-- 内联样式的动态添加（对象、数组）:style前加冒号，font-size中s大写，内部写成对象key：value形式，px加引号成字符串： -->
+        <div class="basic" :style="{fontSize:fsize+'px'}">{{name}}</div>
+        <div class="basic" :style="fz">{{name}}</div>
+    </div>
+    <script>
+        
+        Vue.config.productionTip = false;
+
+        new Vue({
+            el:'#root',
+            data(){
+                return{
+                    name:'wxr',
+                    mood:"normal",
+                    orr:[
+                    'normal','happy'
+                    ],
+                    obj:{
+                        'sad1':true,
+                        'sad2':true
+                    },
+                    fsize:40,
+                    fz:{
+                        fontSize:"20px"
+                    }
+                }
+            },
+            computed:{
+
+            },
+            watch:{
+
+            },
+            methods: {
+                change(){
+                    // 修改样式，把绑定的样式进行修改，而不使用dom
+                    // this.mood='happy'
+
+                    // 随机样式
+                    let arr=['happy','normal']
+                    this.mood = arr[Math.floor(Math.random()*2)]
+                }
+            },
+        })
+    </script>
+</body>
+</html>

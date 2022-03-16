@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拖拽</title>
+    <style>
+        
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            position: relative;
+        }
+        #div{
+            width: 150px;
+            height: 150px;
+            background-color: peru;
+            cursor:move;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="div"></div>
+    <script>
+        var ad=document.getElementsByTagName('div')[0];
+        // var ad=document.getElementById('div');
+        // ad.onmousedown=function(event){
+        //     // console.log(event.clientX);
+        //     var x =event.clientX;
+        //     var y =event.clientY;
+        //     ad.onmousemove=function(e){
+        //         console.log(e.clientX);
+        //         console.log(e.clientY);
+        //         // var ll=-(ad.offsetLeft-event.clientX);
+        //         // var tt=-(ad.offsetTop-event.clientY);
+        //         // console.log(ad.offsetLeft);0
+        //         // console.log(ad.offsetTop);0
+        //         ad.style.left=e.clientX-x+'px';
+        //         ad.style.top=e.clientY-y+'px'
+        //         console.log(ad.style.left+' , '+ad.style.top);
+        //     }
+        // }
+        // ad.onmouseup=function(){
+        //     ad.onmousemove=null;
+        //     // 把空对象给移动,代表不让移动
+        // }
+
+        // 此时如果光标移动过快的话,会使div飞出去
+        // 表示移动过程中就算不小心使得光标飞出了div,但是他的移动事件绑定的document
+        ad.onmousedown=function(event){
+            // console.log(event.clientX);
+            // 我自己写对了!!!!!!!!!!!!
+            var x =event.clientX-ad.offsetLeft;
+            var y =event.clientY-ad.offsetTop;
+            document.onmousemove=function(e){
+                console.log(e.clientX);
+                console.log(e.clientY);
+                // var ll=-(ad.offsetLeft-event.clientX);
+                // var tt=-(ad.offsetTop-event.clientY);
+                // console.log(ad.offsetLeft);0
+                // console.log(ad.offsetTop);0
+                ad.style.left=e.clientX-x+'px';
+                ad.style.top=e.clientY-y+'px'
+                console.log(ad.style.left+' , '+ad.style.top);
+            }
+        }
+        ad.onmouseup=function(){
+            document.onmousemove=null;
+            // 把空对象给移动,代表不让移动
+        }
+    </script>
+</body>
+</html>

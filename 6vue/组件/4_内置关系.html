@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>内置关系</title>
+    <script src="../vue.js"></script>
+    <!-- vue的原型对象 vuecomponnet的原型对象 -->
+    <!-- vuecomponnet.prototype.__proto—__==vue.prototype -->
+    <!-- vue引入后，有了vue的原型prototype---vm实例对象，有了vm.__prtotype -->
+    <!-- 组建的构造函数vuecomponnet,有了prototype---vc实例对象，有了vc.__proto__ -->
+    <!-- 让组件的实例对象vc也能访问到vue原型上的属性和方法 -->
+</head>
+<body>
+    <div id="root">
+        <school></school>
+    </div>
+    <script>
+        Vue.config.productionTip = false;
+        Vue.prototype.x=99;
+        const school = Vue.extend({
+           data(){
+               return{
+                   schoolName:'XXX',
+                   address:'BBBB',
+               }
+           },
+           template:`
+           <div>
+               <div>学校名称{{schoolName}}</div>
+               <div>学校地址{{address}}</div>
+               <button @click="showX">点击显示x</button>
+           </div>
+           `,
+           name:'hahah',
+           methods: {
+            showX(){
+                console.log(this.x)
+            }
+           },
+       });
+       console.log();
+       let vm=new Vue({
+           el:'#root',
+           components:{
+               // kv形式
+               school
+           }
+       })
+       console.log(school);
+    </script>
+</body>
+</html>

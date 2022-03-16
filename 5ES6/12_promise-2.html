@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 之前是一个请求tag
+        // 多个请求promise有三种状态不可逆：进行中、成功、失败
+        let p1=new Promise((resolve,reject)=>{
+            console.log('发送请求1');
+            setTimeout(() => {
+                let tag=false;
+                if(tag){
+                    resolve();
+                }
+                else{
+                    reject()
+                }
+            }, 1000);
+        }).then(function(){
+            console.log('请求1发送成功');
+            // return p2
+            return new Promise((resolve,reject)=>{
+                console.log('发送请求2');
+                setTimeout(() => {
+                    let t=true;
+                    if(t){
+                        resolve();
+                    }else{
+                        reject();
+                    }
+                }, 1000);
+            })
+            // p1.then===p2（return）
+            // p2.then(参数1，参数2)----true or false
+        },()=>{
+            console.log('请求1发送失败');
+            return new Promise((resolve,reject)=>{
+                console.log('发送请求2');
+                setTimeout(() => {
+                    let t=true;
+                    if(t){
+                        resolve();
+                    }else{
+                        reject();
+                    }
+                }, 1000);
+            })
+        }).then(function(){
+            console.log('请求2发送成功');
+        },()=>{
+            console.log('请求2发送失败');
+        });
+        Promise.all([p1,p2,p3]).then(()=>{
+            console.log('okokok');
+            // 执行完前面是p1 p2 p3立即执行all方法 then方法
+        })
+        Promise.race([p1,p2,p3]).then(()=>{
+            console.log('1111');
+            // 在最快的定时器执行完之后，就执行race方法 then方法
+        })
+    </script>
+</body>
+</html>

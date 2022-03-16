@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>computed和watch</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <!-- 
+        1、v-if  v-else 控制dom元素的有无来控制显示谁，会造成性能浪费、
+        2、v-show控制display属性是不是none
+     -->
+    <!-- <div id="root">
+        <h1 v-show="tag===0">请登录</h1>
+        <h1 v-show="tag===1">{{name}}，登陆成功！</h1>
+    </div>
+    <script>
+        Vue.config.productionTip = false;
+        let vm=new Vue({
+            el:'#root',
+            data:{
+                tag:0,
+                name:'wxr',
+            },
+        });
+    </script> -->
+    <div id="root">
+        姓：<input type="text" v-model="firstName">
+        名：<input type="text" v-model="lastName">
+        姓名：<span>{{fullname}}</span>
+    </div>
+    <script>
+        Vue.config.productionTip = false;
+        const vm=new Vue({
+            el:'#root',
+            data:{
+                firstName:'ww',
+                lastName:'xxrr',
+                fullname:'ww-xxrr'
+            },
+            // 、例如姓名发生改变后，延迟一秒显示fullname
+            // 定时器回调函数、Ajax回调函数、promise回调函数是不被vue管理的函数，最好写成箭头函数，这样的this指向才是vm或者组件实例对象
+            // 与计算属性相对比，异步任务（settimeout--箭头函数）更偏向watch属性
+            watch:{
+                firstName(newValue){
+                    // console.log(this);vm or 组件实例对象
+                    this.fullname=newValue+'-'+this.lastName
+                },
+                lastName(newValue){
+                    this.fullname=this.firstName+'-'+newValue
+                }
+            }
+        })
+    </script>
+</body>
+</html>

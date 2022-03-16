@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <!-- 
+        生命周期：生命周期回调函数、生命周期钩子、生命周期函数
+        this指向vm或组件实例对象
+        重要：mounted开始 beforedestroyed结束
+     -->
+</head>
+<body>
+    <!-- 整个div都是模板 -->
+    <div id="root">
+        <!-- 对象名：对象值，当二者相同时，可以应用简写形式{opacity} -->
+        <h2 :style="{ opacity:opacity }">欢迎你来到{{name}}的家</h2><br/><br/>
+        <h2>当前的n值是:</h2><span v-text="n"></span><br/>
+        <!-- <h2>放大的n值是:</h2><br/> -->
+        <!-- <span v-big="n"></span><br/> -->
+        <button @click="n++">点我n++</button><br/>
+        <button @click="stop">停止定时器</button>
+    </div>
+    <script>
+        Vue.config.productionTip = false;
+        let vm=new Vue({
+            el:'#root',
+            data(){
+                return{
+                    name:"wxr",
+                    opacity:1,
+                    // 数据发生改变时，页面的模板会重新解析
+                    n:1
+                }
+            },
+            methods: {
+                stop(){
+                    this.$destroy();
+                }
+            },
+            beforeCreate() {
+                // 初始化：无法通过vm访问data中的数据和methods中的方法
+                // 在数据监测和数据代理之前
+                // console.log(this)
+                console.log("beforeCreate");
+                // debugger
+            },
+            created() {
+                // 初始化在数据监测和数据代理之后
+                console.log('created');
+                // console.log(this);
+                // debugger
+            },
+            beforeMount() {
+                // 页面呈现的时未经vue编译的dom结构，此钩子函数内对dom的操作最终都不奏效
+                // vue解析模板。生成虚拟dom存在内存中，页面还不能显示解析好的内容
+                console.log('beforemount');
+                // console.log(this);
+                // debugger
+            },
+            mounted() {
+                // 虚拟el----转化为----真实$el
+                // 挂载完毕，调用：页面呈现的时经过vue编译的dom结构，模板解析完毕--虚拟dom--初始的真实dom放入页面
+                // 此阶段对dom操作有效，订阅消息，打开定时器，绑定自定义事件
+                // 以后在改变就是更新，而不是挂载
+                this.Timer=setInterval(() => {
+                    this.opacity-=0.1
+                    if(vm.opacity<=0){
+                        vm.opacity=1;
+                    }
+                }, 100);
+            },
+            // 四个阶段，初始化完毕
+            // 更新
+            beforeUpdate() {
+                // console.log(this)
+                console.log('beforeupdate')
+                // console.log(this.n);
+                // vm的数据更新完了，但是页面还未更新，页面和数据不同步
+                // debugger
+            },
+            // render渲染--rerender重新渲染
+            updated() {
+                // console.log(this)
+                console.log('updated')
+                // console.log(this.n);
+                // 根据新生成的虚拟dom与旧的虚拟dom进行比较
+                // 最终完成页面更新，model--view
+                // 此时数据和页面都是新的
+            },
+
+            // 销毁vm,清理与其他实例的连接，能够访问数据，调用方法、指令，不会触发更新
+            // 解绑（不是删除） 全部指令和自定义事件监听器（而不是原生的dom事件click  v-on：事件名=‘’ @事件名）    
+            // vm.$destroy()一般不用
+            beforeDestroy() {
+                // 不要在这操作数据，因为不会再次更新
+                clearInterval(this.Timer)
+                // vm销毁了，要清除定时器，善后流程
+            },
+            destroyed() {
+                // watch 子组件 自定义事件监听器都销毁
+                // 销毁后自定义事件会失效，但是原生dom事件依然有效
+            },
+        });
+        // 通过外部的定时器实现
+        // setInterval(() => {
+        //     vm.opacity-=0.1
+        //     if(vm.opacity<=0){
+        //         vm.opacity=1;
+        //     }
+        // }, 100);
+    </script>
+</body>
+</html>

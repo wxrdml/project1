@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>深度监视</title>
+</head>
+<body>
+    <div id="root">
+        <h3>a的值是：{{numbers.a}}</h3>
+        <button @click="numbers.a++">点我a加一</button>
+        <h3>b的值是：{{numbers.b}}</h3>
+        <button @click="numbers.b++">点我b加一</button>
+    </div>
+</body>
+<script src="./vue.js"></script>
+<script>
+    Vue.config.productionTip = false;
+    const vm=new Vue({
+        el:'#root',
+        data:{
+            ishot:true,
+            numbers:{
+                a:1,
+                b:1
+            }
+        },
+        computed:{
+
+        },
+        methods: {
+            
+        },
+        watch:{
+            // 监视多级结构中的属性a
+            'numbers.a':{
+                handler(newValue,oldValue){
+                    // console.log(a,newValue,oldValue);
+                    console.log('newValue:'+newValue,'oldValue:'+oldValue);
+                }
+            },
+            numbers:{
+                // a改变==numbers改变；b改变==numbers改变
+                // 监视多级结构中的所有属性，任意属性改变，numbers改变
+                // deep默认为false
+                // 且data属性改变，vue可以检测到，但是vue提供的watch不可以
+                deep:true,
+                handler(){
+                    console.log('numbers改变了');
+                }
+            }
+        }
+    });
+</script>
+</html>

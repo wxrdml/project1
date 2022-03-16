@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VueComponents</title>
+    <script src="../vue.js"></script>
+    <!-- 
+        VueComponent：构造函数，vue组件，school本质是一个名为VueComponent的构造函数，是由vue.extend生成的
+        
+        school标签：vue解析会帮我们创建school组件的实例对象：new VueComponent(options配置对象{})---使用
+        
+        每次调用Vue.extend(创建) 返回的都是一个 全新的VueComponent构造函数
+
+        this指向
+        new vue配置：vue实例vm
+        组件配置：VueComponent实例对象vc（组件实例对象）
+
+        vm:el指定容器(vc vc vc vc)
+     -->
+</head>
+<body>
+    <div id="root">
+        <school></school>
+    </div>
+    <script>
+         const school = Vue.extend({
+            data(){
+                return{
+                    schoolName:'XXX',
+                    address:'BBBB',
+                }
+            },
+            template:`
+            <div>
+                <div>学校名称{{schoolName}}</div>
+                <div>学校地址{{address}}</div>
+            </div>
+            `,
+            name:'hahah',
+        });
+        let vm=new Vue({
+            el:'#root',
+            components:{
+                // kv形式
+                school
+            }
+        })
+        console.log(school);
+        // ƒ VueComponent打印出了函数，
+    </script>
+</body>
+</html>

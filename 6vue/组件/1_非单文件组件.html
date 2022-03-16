@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+    <!-- 
+        组件名：
+        一个单词--小写或者大写首字母
+        多个单词：小写加分隔符-，注册组件用引号包起来，或者html中首字母不能MySchool（在脚手架环境可以）
+
+        name配置项，在创建时开发者工具提示的一直是这个组件名
+
+        标签：
+        <school/>-----脚手架环境
+        <school></school>
+
+        简写const school = Vue.extend({})    const school ={}
+     -->
+</head>
+<body>
+    <!-- 创建 注册 使用组件步骤 -->
+    <div id="root">
+        <!-- <div>学校名称{{schoolName}}</div>
+        <div>学校地址{{address}}</div>
+        <div>学生名字{{studentName}}</div>
+        <div>学生年龄{{age}}</div> -->
+        <school></school>
+        <student></student>
+    </div>
+    <script>
+        const school = Vue.extend({
+            // 创建组件
+            // data写成函数形式，不写成对象形式，引用关系，一个引用变化，引用全部变化
+            data(){
+                return{
+                    schoolName:'XXX',
+                    address:'BBBB',
+                }
+            },
+            template:`
+            <div>
+                <div>学校名称{{schoolName}}</div>
+                <div>学校地址{{address}}</div>
+                <student></student>
+            </div>
+            `,
+            name:'hahah'
+        });
+        const student = Vue.extend({
+            data(){
+                return{
+                    studentName:"www", 
+                    age:30
+                }
+            },
+            template:`
+            <div>
+                <div>学生名字{{studentName}}</div>
+                <div>学生年龄{{age}}</div>
+            </div>
+            `,
+        });
+        // 在局部组件上面，创建组件下面（组件名称，{组件内容}）--小写加分隔符-形式
+        Vue.component('student',student)
+        // 局部注册,创建vm
+        new Vue({
+            el:'#root',
+            components:{
+                // kv形式
+                school
+            }
+        })
+        // 全局注册, 不能写的靠下
+        // Vue.component('student',student)
+    </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>methods</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <!-- 容器模板：view -->
+    <div id="root">
+        姓：<input type="text" v-model="firstname"></br>
+        名：<input type="text" v-model="lastname"></br>
+        <!-- 用插值语法调用方法： {{fullname()}}将函数的返回值作为插值；{{fullname}}将函数插入 -->
+        全名：<span>{{fullname()}}</span>
+    </div>
+    <script>
+        Vue.config.productionTip = false;
+        let vm=new Vue({
+            el:'#root',
+            data:{
+                firstname:'wang',
+                lastname:'xinrui',
+            },
+            methods:{
+                fullname(){
+                    // 只要view中发生变化，model会随之改变，且页面会重新解析
+                    // 此处的this指向vm变量
+                    return this.firstname+this.lastname;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

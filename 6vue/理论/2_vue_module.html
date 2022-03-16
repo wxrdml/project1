@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模板语法：插值、指令</title>
+    <!-- 1.引入vue.js文件 -->
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <!-- 2、阻止vue在启动时生成 生产模式 -->
+    <script>Vue.config.productionTip=false;</script>
+    <button class="btn">
+        <h5>本标签体内容: 插值语法，用法单一</h5>
+        你好，{{name}}
+    </button>
+    <!-- 两个容器一一对应 -->
+    <div id="aa">
+        <h5>标签属性：指令语法</h5>
+        <!-- 作用：解析标签：（标签属性、标签体内容、绑定事件）..v-bind 或者冒号 -->
+        <a v-bind:href="school.url" name="wxr" target="blank">点我去{{school.name}}</a>
+        <a :href="school.url.toUpperCase()">点我也去百度</a>
+        <!-- 绑定指令 v-bind:--简写--- : ,将href链接'XXX'作为 'js表达式' 执行
+            toUpCase()将字母大写 -->
+    </div>
+    <script>
+        // 1、引入vue 2、创建vue对象 3、绑定dom对象
+        const app=new Vue({
+            el:'#aa',
+            data:{
+                name:'王芯蕊',
+                school:{
+                    url:'http://www.baidu.com',
+                    name:'百度',
+                    // 当两个name重名时，设置成多级结构
+                    // 指令语法调用时：属性.属性
+                }
+            },
+            methods:{
+
+            },
+        })
+
+    </script>
+</body>
+</html>

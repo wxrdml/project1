@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件委托</title>
+    <style>
+        ul{
+            background-color: black;
+        }
+        li{
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+        事件委托：---原理----事件冒泡false：子--父执行
+        如果需要给动态生成的元素绑定事件需要绑定一个已经存在的父元素：
+        动态生成的元素li，不能直接在页面加载时绑定事件
+        可以将其父元素ul绑定事件
+     -->
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+    <button>button</button>
+    <script>
+        var ali=document.getElementsByTagName('li');
+        // 类数组只有length属性，没有数组下的其他方法
+        // for循环：一进入程序，就进行for循环，给元素绑定了事件，此时的length==3，
+        // 而btn事件只有在按钮按下才会受到触发，因此动态添加的元素li不会有点击事件
+        // 那么怎么能将点击按钮事件触发所增加的子元素个数也增加到length里呢，让其触发点击事件呢
+        // for(var i=0;i<ali.length;i++){
+        //     ali[i].onclick=function(){
+        //         console.log(this.innerHTML);
+        //     }
+        // }
+        var btn=document.getElementsByTagName('button')[0];
+        var ul=document.getElementsByTagName('ul')[0];
+        btn.onclick=function(){
+            // 按下按钮，在ul尾部添加子元素li
+            var oli=document.createElement('li');
+            oli.innerHTML=Math.random();
+            ul.appendChild(oli);
+        }
+
+        ul.onclick=function(e){
+            // 事件源e.target
+            // 事件源的标签名、节点名
+            if(e.target.nodeName == 'LI'){
+                console.log(e.target.innerHTML);
+            }
+            // console.log(e.target.tagName);==innnerHTML
+        }
+    </script>
+</body>
+</html>

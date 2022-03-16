@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>插值</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        姓：
+        <!-- 设置初始值用value属性，v-bind==：  v-model:value==v-model-->
+        <input type="text" v-model="xing">
+        名：
+        <input type="text" v-model="ming"></br>
+        全名：
+        <!-- 切割截取slice本来引用于数组，但是此处引用与属性xing的属性值----对象 -->
+        <span>{{xing.slice(0,3)}}{{ming}}</span>
+    </div>
+    <script>
+        Vue.config.productionTip = false;
+        let vm= new Vue({
+            el:'#root',
+            data:{
+                xing:'王',
+                ming:'芯蕊',
+            },
+            methods:{
+                
+            }
+        })
+    </script>
+</body>
+</html>

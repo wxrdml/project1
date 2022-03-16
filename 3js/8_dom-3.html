@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 页面跳转 a标签、history对象的方法back forward go、location.href='' 、location.replace('')-->
+    <h1>页面三</h1>
+    <button id="btn">返回go上1页</button>
+    <script>
+        var btn=document.getElementById('btn');
+        btn.onclick=function(){
+            history.go(-1);
+            // back
+            // go(1)==forward()
+        }
+    </script>
+    <!-- navigator属性useragent -->
+    <script>
+        console.log(  navigator.userAgent  );
+        // useragent是navigator对象下的属性，用于浏览器检测，Mozilla火狐使用率最广，其他浏览器也加这个字符串，用这个方法
+        // chrome是webkit内核
+        // chorme: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36
+        // Firefox：Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0
+        // iphonexr:Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_1 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.0 Mobile/14E304 Safari/602.1
+        // a instanceof b：判断a是否为b的实例，可以用于继承关系中
+        // indexOf() 是数组中查找给定元素的第一个索引如果存在返回索引号，如果不存在返回-1
+        // var str=navigator.userAgent;
+        // console.log(str.indexOf('iPhone'));//13
+        // if(str.indexOf('iPhone')===-1){
+        //     // 设置时间延迟
+        //     setTimeout(function() {
+        //         location.href='https://www.baidu.com';
+        //     }, 2000);
+        //     // zai 当前页面打开链接
+        // }else{
+        //     setTimeout(function(){
+        //         location.href='https://maps.google.com/';
+        //     },1000)
+        // }
+    </script>
+    <!-- https---no fangwen ----http
+    http---fangwen -----https -->
+
+    <!-- location对象的属性：hash #***  search ？*****
+        用户通过哪个渠道下载我们的资源，进行用户行为的分析
+        scheme：//host.domain:port/path/filename -->
+    <!-- scheme 因特网服务的类型：https安全、http不安全、file、 -->
+    <!-- host定义域主机www -->
+    <!-- domain因特网域名baidu.com -->
+    <!-- port端口号http默认80 -->
+    <!-- path路径 shop、html -->
+    <!-- filename 文件资源名 -->
+    <script>
+        // location search  ?lang=
+        var zh={
+            a1:'名字',
+            a2:'年龄',
+        }
+        var en={
+            a1:'name',
+            a2:'age',
+        }
+    </script>
+    <!-- location 方法  -->
+    <button id="on">anniu</button>
+    <script>
+        var on=document.getElementById('on')
+        on.onclick=function(){
+            // 重新加载当前页面
+            location.reload();
+            // 跳转至新页面
+            // location.href='https://www.baidu.com';
+            // replace和href的区别，href有前进和后退记录history，而replace没有记录history,直接在原窗口打开新页面
+            location.replace('https://www.baidu.com');
+
+
+        }
+    </script>
+</body>
+</html>

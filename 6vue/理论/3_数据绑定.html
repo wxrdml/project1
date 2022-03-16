@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>单项、双向</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <script>Vue.config.productionTip = false;;//阻止vue在启动时生成上产模式</script>
+    <!-- 
+        有两种数据绑定：
+        1、单向数据绑定：v-bind:，只能用后台data流向页面,页面的输入框改变，后台的data不变
+        2、双向数据绑定：v—model，数据可以从data流向页面，页面流向data
+            note：双向绑定 应用于’表单元素‘（输入类元素input，select。。。）；‘v-model：value’可以简写为‘v-model’,v-model默认收集的就是value值
+     -->
+    <!-- <h2 v-model:x="name">h2</h2> -->
+    <div>
+        单项数据绑定：<input type="text" :value="name"></br>
+        <!-- value默认值 -->
+        双向数据绑定：<input type="text" v-model:value="age"></br>
+        双向数据绑定：<input type="text" v-model="age">
+    </div>
+    <script>
+        let con=new Vue({
+            el:'div',
+            data:{
+                name:'lisi',
+                age:20,
+            }
+        });
+    </script>
+</body>
+</html>

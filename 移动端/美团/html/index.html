@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 引入css和js:reset.css设置页面的默认  rem.js是根据父元素的fontsize，来设置子元素宽度的大小 -->
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/index.css">
+    <script src="../js/rem.js"></script>
+</head>
+<body>
+    <!-- header:vue-router input(search)（自适应）登录（固定）  -->
+    <!-- spa单页面：多个div---一个html：控制不同div显示和隐藏----更多使用
+        多页面：多个html跳转 -->
+    <div id="contanier">
+        <header id="header">
+            <span id="header-city">
+                harbin
+            </span>
+            <span id="header-search">
+                请输入商家名、品类、商圈......
+            </span>
+            <span id="header-login">
+                <img src="../../../imgs/cat.png" alt="cat">
+            </span>
+        </header>
+    </div>
+</body>
+</html>

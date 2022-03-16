@@ -1,0 +1,47 @@
+#container{
+    /* 最大宽度+居中展示 */
+    max-width: 500px;
+    margin: 0 auto;
+}
+#header{
+    /* 弹性盒模型flex  101px--1.01rem */
+    display: flex;
+    height: 1.01rem;
+    line-height: 1.01rem;
+    font-size: .28rem;
+    /* 0.28===.28 */
+    /* header颜色渐变 ,有的浏览器不支持background-image渐变效果，所以写个默认的背景色*/
+    background-image: linear-gradient(135deg,#ffd000 0%,#ffbd00 100%);
+    background-color: #ffd000;
+}
+#header-city{
+    padding-left: .37rem;
+
+}
+#header-search{
+    /* 占剩余空间的一份 */
+    flex: 1;
+    background-color: #fff;
+    border-radius: .18rem;
+    opacity: .9;
+    height: .64rem;
+    line-height: .64rem;
+    font-size: .28rem;
+    color: #999;
+    /* 上外边距：父元素-子元素高度  再除以二 */
+    margin-top: .185rem;
+}
+#header-login{
+    display: inline-block;
+    width: .94rem;
+    height: 100%;
+    position: relative;
+}
+#header-login>img{
+    width: .48rem;
+    height: .48rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}

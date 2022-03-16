@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <!-- 
+        vue会监测data所有数据
+
+        如何监测对象中的数据：通过newvue时，就传入要检测的数据
+        1、对象中后追加的属性，vue默认不会做响应式处理、
+        2、如果想要给后添加的属性做响应式，使用以下api
+        vue.set(目标，属性名orindex，属性值)
+        this.$set(目标，属性名orindex，属性值)
+
+        如何监测数组中的数据？
+        通过包裹数组更新元素的方法实现：
+        1、首先调用原生的对应方法对数组进行更新
+        2、其次重新解析模板，进而更新页面
+
+        在vue修改数组的某一元素：
+        push pop unshift shift splice sort reserve Vue.set() vm.$set()
+
+        Vue.set() vm.$set()不能给vm 或者vm根数据元素vm._data添加属性
+        由vue管理的函数用普通函数，不是由vue管理的函数要用箭头函数
+     -->
+</head>
+<body>
+    <div id="root">
+        <button @click="student.age++">年龄加一</button>
+        <button @click="addSex">添加性别属性，默认值为男性</button>
+        <button @click="student.sex='未知'">修改性别</button>
+        <button @click="addFriend">在列表首位添加一个朋友</button>
+        <button @click="updateFirstFriendName">修改第一朋友的名字为张三</button>
+        <button @click="addHobby">添加一个爱好</button>
+        <button @click="updateHobby">修改一个爱好为开车</button>
+        <h3>学生信息</h3>
+        <h3>姓名：{{student.name}}</h3>
+        <h3>年龄：{{student.age}}</h3>
+        <h3 v-show="student.sex">性别：{{student.sex}}</h3>
+        <h3>爱好：</h3>
+        <ul>
+            <li v-for="(h, index) in student.hobby" :key="index">{{h}}</li>
+        </ul>
+        <h3>朋友们</h3>
+        <ul>
+            <li v-for="(f, index) in student.friends" :key="index">{{f.name}}--{{f.age}}</li>
+        </ul>
+    </div>
+    <script>
+        Vue.config.productionTip = false;
+        new Vue({
+            el:'#root',
+            data(){
+                // data配置项--存入_data里-getter setter-放到vm下//
+                return{
+                    student:{
+                        name:'wxr',
+                        age:18,
+                        hobby:['篮球','足球','羽毛球','乒乓球'],
+                        friends:[{
+                            name:'wwxxrr',
+                            age:20
+                        },{
+                            name:'asd',
+                            age:20
+                        }
+                    ]
+                    }
+                }
+            },
+            methods: {
+                addSex(){
+                    Vue.set(this.student,'sex','nan')
+                    // this.$set()
+                },
+                addFriend(){
+                    this.student.friends.unshift({
+                        // 添加的对象是响应式的
+                        name:"j.j",
+                        age:30
+                    })
+                },
+                updateFirstFriendName(){
+                    this.student.friends[0].name='张三';
+                    this.student.friends[0].age=10
+                },
+                addHobby(){
+                    this.student.hobby.push('擦地')
+                },
+                updateHobby(){
+                    this.student.hobby[0]='!!'
+                    console.log('hahah');
+                    // 不能dui数组第一个元素进行赋值修改
+                    // 一下三种方法可以对数组进行修改
+                    this.student.hobby.splice(0,1,'lal')
+                    // this.$set()
+                    // Vue.set(this.student,'sex','nan')
+                }
+            },
+        
+        })
+    </script>
+</body>
+</html>

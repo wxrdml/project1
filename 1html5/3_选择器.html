@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="odiv">123</div>
+    <script>
+        var odiv=document.getElementById('odiv')
+        odiv.index=1;
+    </script>
+    <!-- 给元素设置自定义属性:
+        四者区别：第一种在html元素中无法看见,但是可以获取到,后三者都可以在html元素中直接看见
+        1\对象.属性= 1    
+        2\对象.setAttribute('index',1)
+        3\对象.dataset.属性= 1  
+        4\<div data-name='lisi'></div>(css)------dataName(js)
+    -->
+    <!-- 
+        获取属性值:
+        1\对象.属性
+        2\对象.getattribute('index')
+        3 4\对象.dataset.属性
+     -->
+     <!-- 
+         图片懒加载:
+         页面展示时才会加载图片资源
+      -->
+      
+</body>
+</html>
