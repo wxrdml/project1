@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>let const</title>
+</head>
+<body>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+    <!-- <es6 class="ruanyideng.com"></es6> -->
+
+    <!-- 二者区别 -->
+    <!-- es5里用关键字var定义变量，有变量提升 -->
+    <!-- es6中用关键字let const ,4个let：1.不可重复声明，可以修改 2.没有变量提升， -->
+    <!-- 3.es6作用域：全局 函数  块级
+        let声明的变量（形成块级作用域{}） 
+        在块级作用域内，在定义作用域外部获取不到对应的变量
+        var定义的变量不存在块级作用域：全局or函数
+        for循环 不是函数，，for里面的var变量是全局
+            let定义{}形成块级作用域，for的外部不能获取let变量
+    4.暂时性死区（当前作用域内不允许同名的变量进来）：在块级作用域内let声明的变量会形成一个封闭性的死区，只能在声明后再调用，否则报错
+    -->
+    <script>
+        function fn(){
+            let d=9;
+            console.log(d);
+        }
+        fn();
+        // console.log(d);//d is not defined
+
+        var oli=document.getElementsByTagName('li');
+        for(var i=0;i<oli.length;i++){
+            console.log(oli[i]);
+            // console.log(i);
+        }
+        console.log(i);//3
+
+        for(let j=0;j<oli.length;j++){
+            console.log(oli[j]);
+            // console.log(j);
+            // 使得j作用域块级作用域内，不会对全局进行污
+            // 深拷贝 浅拷贝：只针对Object和Array这样的引用数据类型的。
+            // 浅拷贝只复制指向某个对象的指针，而不复制对象本身，新旧对象还是共享同一块内存。
+            // 但深拷贝会另外创造一个一模一样的对象，新对象跟原对象不共享内存，修改新对象不会改到原对象。
+        }
+        // console.log(j);//j is not defined,块级作用域
+        let y=0;
+        let x=6;
+        function next(){
+            // {暂时性死区（当前作用域内不允许同名的变量进来，不同名的可以进来）：先定义再调用}
+            // console.log(y);//没有声明，没有变量提升，不允许同名变量进来
+            let y=999;
+            console.log(x);
+            console.log(y);
+        }
+        next();
+    </script>
+    <!-- const
+    1.常量，基本数据类型只读不可修改（引用数据类型的值可以修改，但是存储在栈内存中的所指向的地址不可变，否则报错）可以理解为：对于引用数据类型来说，地址没变，那么就不算修改
+    2.不存在变量提升 , 在声明时初始化
+    3.const定义的常量形成块级作用域{}，在块级作用域内，在定义作用域外部获取不到对应的变量
+    4.暂时性死区，在块级作用域内let声明的变量会形成一个封闭性的死区，只能在声明后再调用，否则报错-->
+    <script>
+        const num=10;
+        console.log(num);
+        // num=20;//基本数据类型不可以修改值
+        // console.log(num);
+        // const nn;
+        // console.log(str);//没有初始化
+        const arr=[1,2,3];
+        const arr1=arr;//将数组地址给arr1
+        console.log(arr1);//[1,2,3]
+
+        arr1[1]=333;//修改一个数组的值，地址没变
+        console.log(arr);//[1,333,3]
+        console.log(arr1);//[1,333,3]
+
+        // arr1=['wxr',12,4];//对常量arr1的地址进行了修改，报错
+        // console.log(arr);
+        // console.log(arr1);
+
+
+        const obj1={
+            name:'wxr',
+            age:19,
+        }
+        const obj2=obj1;
+        console.log(obj1,obj2);//{name: 'wxr', age: 19}
+        obj2['name']='lisi';//两种修改
+        Object.freeze(obj2);//冻结，内容修改不会报错，但是不会生效------------对象合并---对象修改---对象冻结
+        // jieguo:只修改name属性，不改变age属性，因为freeze
+        
+        console.log(obj1,obj2);//{name: 'lisi', age: 19}
+        obj1.age=89;
+        console.log(obj1,obj2);//{name: 'lisi', age: 19}
+        // obj2={
+        //     // 报错，修改了地址
+        //     name:'yu',
+        //     grade:9,
+        // }
+        // console.log(obj1,obj2);
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+    // 接口
+    "errno":101,
+    // 接口   登陆网站    用户名密码---服务器响应readystate==4，status==200
+    "errmsg":"SUCCESS",
+    // 1.成功 2.密码错误 3.账号错误
+    "data":{
+        // 返回信息 数组或者对象类型
+        "name":"lisi",
+        "age":18,
+        "height":"180cm",
+        "weight":"70kg"
+    }
+}

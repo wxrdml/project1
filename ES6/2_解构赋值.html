@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>解构赋值</title>
+</head>
+<body>
+    <script>
+        // 解构的好处：拿到数组 字符串 对象的值，修改三种值，，输出值
+        // 获取数组每一项：for，解构赋值[]（从左向右依次对应，有先后顺序）
+        let [a, ,c,d]=[1,2,3];
+        console.log(a,c,d);//1,3,用空格占位,undefined(声明但没有赋值)
+
+        // 获取对象的每一项：for in，解构赋值{}（按照属性名解构，无先后顺序）
+        let obj={
+            name:'pp',
+            age:22,
+        };
+        // let {name,age}=obj;//对象解构要写属性名，不能随意写，否则undefined
+        // console.log(name,age);//pp 22
+        // console.log(age,name);//22 'pp'
+        
+        let {name}=obj;//拿到值
+        name='oo';//修改值
+        console.log('my name is '+name);//输出字符串拼接
+
+        let {age:m ,name:n}=obj;//起别名
+        console.log(m,n);//22 'pp'
+
+        // 字符串的解构[],同数组
+        let str='hello';
+        let [a1,a2,a3,a4,a5,a6]=str;
+        console.log(a1,a2,a3,a4,a5,a6);//h e l l o undefined(a6没赋值)
+
+        // x=3 y=4 应用解构进行变量交换
+        let x=3;
+        let y=4;
+        // 方法一
+        // let tmp=y;
+        // y=x;
+        // x=tmp;
+        // console.log(x,y);//4,3
+
+        // 方法二
+        [x,y]=[y,x];
+        console.log(x,y);//4,3
+
+
+        function fn([a,b,c=10]){
+            // 只有当未定义undefined时，才会取默认值
+            console.log(a,b,c);//1,4,6
+
+        }
+        fn([1,4,6]);
+        function fun(){
+            // argments 可以获取调用方法时，传进来的实参
+            console.log(arguments);//Arguments [Array(2),
+            console.log( Array.from(arguments) );//Array[Array(2),
+        }
+        fun(['cc',8]);
+
+    </script>
+</body>
+</html>
